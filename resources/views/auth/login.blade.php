@@ -191,8 +191,8 @@
                                 style="color:#8B5C2D;">Identifiant</label>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-white border-end-0"><i class="bi bi-person"></i></span>
-                                <input type="text" id="email" name="email" class="form-control border-start-0"
-                                    placeholder="Identifiant" required>
+                                <input type="text" id="email" name="email" value="{{ old('email') }}"
+                                    class="form-control border-start-0" placeholder="Identifiant" required>
                             </div>
                         </div>
                         <div class="mb-3">
