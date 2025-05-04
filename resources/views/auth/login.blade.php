@@ -176,17 +176,29 @@
                 <div class="right-block d-flex flex-column justify-content-center"
                     style="padding:48px 40px;min-width:350px;max-width:400px;background:#fff;">
                     <h4 class="fw-bold mb-4 text-center" style="color:#8B5C2D;font-size:1.4rem;">Connexion</h4>
-                    <form method="GET" action="{{ url('/redirect') }}">
+                    <form method="POST" action="{{ url('/connexion') }}">
+                        @csrf
+                        @if (session('api_error'))
+                            <div class="alert alert-danger">
+                                {{ session('api_error') }}
+                            </div>
+                        @endif
                         <div class="mb-3">
-                            <label for="username" class="form-label fw-semibold"
+                            @if ($errors->has('email'))
+                                <div class="text-danger mt-1">{{ $errors->first('email') }}</div>
+                            @endif
+                            <label for="email" class="form-label fw-semibold"
                                 style="color:#8B5C2D;">Identifiant</label>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-white border-end-0"><i class="bi bi-person"></i></span>
-                                <input type="text" id="username" name="username" class="form-control border-start-0"
+                                <input type="text" id="email" name="email" class="form-control border-start-0"
                                     placeholder="Identifiant">
                             </div>
                         </div>
                         <div class="mb-3">
+                            @if ($errors->has('password'))
+                                <div class="text-danger mt-1">{{ $errors->first('password') }}</div>
+                            @endif
                             <label for="password" class="form-label fw-semibold" style="color:#8B5C2D;">Mot de
                                 passe</label>
                             <div class="input-group input-group-lg">

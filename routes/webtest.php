@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', function () {
@@ -18,9 +17,9 @@ Route::post('/connexion', [App\Http\Controllers\Api\UserController::class, 'logi
 // SECTION PRESTATAIRES
 // =======================
 // PRESTATAIRE
-
-Route::prefix('prestataire')->name('prestataire.')->group(function () {
+Route::prefix('prestataire')->name('prestataire.')->middleware('check.prestataire')->group(function () {
     Route::view('/dashboard', 'prestataires.dashboard')->name('dashboard');
+    Route::view('/verification', 'prestataires.verification.index')->name('verification');
     Route::view('/garanties', 'prestataires.garanties.index')->name('garanties');
     Route::view('/prises-en-charge', 'prestataires.prises-en-charge.index')->name('prises');
     Route::view('/factures', 'prestataires.factures.index')->name('factures');
@@ -32,13 +31,9 @@ Route::prefix('prestataire')->name('prestataire.')->group(function () {
     Route::view('/parametres', 'prestataires.parametres.profil')->name('parametres');
     Route::view('/support', 'prestataires.support.aide')->name('support');
 });
-Route::get('/verification', [App\Http\Controllers\VerifCarteController::class, 'index'])->name('verification');
-Route::post('/identifiant', [App\Http\Controllers\VerifCarteController::class, 'identifiant'])->name('identifiantBeneficiaire');
 
-// =======================
-// SECTION ASSUREURS
-// =======================
-Route::prefix('assureur')->name('assureur.')->group(function () {
+// ASSUREUR
+Route::prefix('assureur')->name('assureur.')->middleware('check.assureur')->group(function () {
     Route::view('/dashboard', 'assureurs.dashboard')->name('dashboard');
     Route::view('/contrats', 'assureurs.contrats.index')->name('contrats');
     Route::view('/assures', 'assureurs.assures.index')->name('assures');
@@ -54,10 +49,8 @@ Route::prefix('assureur')->name('assureur.')->group(function () {
     Route::view('/integration', 'assureurs.integration.api')->name('integration');
 });
 
-// =======================
-// SECTION CLIENTS
-// =======================
-Route::prefix('client')->name('client.')->group(function () {
+// CLIENT
+Route::prefix('client')->name('client.')->middleware('check.client')->group(function () {
     Route::view('/dashboard', 'clients.dashboard')->name('dashboard');
     Route::view('/contrats', 'clients.contrats.index')->name('contrats');
     Route::view('/beneficiaires', 'clients.beneficiaires.index')->name('beneficiaires');
@@ -74,7 +67,6 @@ Route::prefix('client')->name('client.')->group(function () {
     Route::view('/analyse', 'clients.analyse.tableau-de-bord')->name('analyse');
     Route::view('/mobile', 'clients.mobile.version-mobile')->name('mobile');
 });
-Route::post('/logout', [UserController::class, 'destroy'])->name('logout');
 
 
 

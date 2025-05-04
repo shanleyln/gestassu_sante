@@ -137,8 +137,9 @@
 <body class="bg-light">
 
     <!-- Header -->
-    <nav class="navbar navbar-dark navbar-brown px-3">
+    <nav class="navbar navbar-dark navbar-brown px-3 flex justify-content-between">
         <a class="navbar-brand" href="#">Espace Prestataire</a>
+        <a class="navbar-brand" href="#">{{ $user_nom }}</a>
     </nav>
 
     <div class="container-fluid">
@@ -152,10 +153,12 @@
                                 class="nav-link{{ request()->routeIs('prestataire.dashboard') ? ' active' : '' }}"
                                 href="{{ route('prestataire.dashboard') }}"><i
                                     class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
-                        <li class="nav-item"><a
-                                class="nav-link{{ request()->routeIs('prestataire.verification') ? ' active' : '' }}"
-                                href="{{ route('prestataire.verification') }}"><i
-                                    class="bi bi-card-checklist me-2"></i>Vérification Carte</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link{{ request()->routeIs('verification') ? ' active' : '' }}"
+                                href="{{ route('verification') }}">
+                                <i class="bi bi-card-checklist me-2"></i>Vérification Carte
+                            </a>
+                        </li>
                         <li class="nav-item"><a
                                 class="nav-link{{ request()->routeIs('prestataire.garanties') ? ' active' : '' }}"
                                 href="{{ route('prestataire.garanties') }}"><i
@@ -198,9 +201,14 @@
                                     class="bi bi-question-circle me-2"></i>Support</a></li>
                         <li class="nav-item mt-4">
                             <a class="nav-link text-danger fw-bold d-flex align-items-center"
-                                href="{{ route('login') }}">
+                                href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
                             </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                            </form>
                         </li>
                     </ul>
                 </div>
