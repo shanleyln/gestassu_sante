@@ -192,7 +192,7 @@
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-white border-end-0"><i class="bi bi-person"></i></span>
                                 <input type="text" id="email" name="email" class="form-control border-start-0"
-                                    placeholder="Identifiant">
+                                    placeholder="Identifiant" required>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -204,7 +204,7 @@
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-white border-end-0"><i class="bi bi-lock"></i></span>
                                 <input type="password" id="password" name="password"
-                                    class="form-control border-start-0" placeholder="Mot de passe">
+                                    class="form-control border-start-0" placeholder="Mot de passe" required>
                                 <span class="input-group-text bg-white" style="cursor:pointer"
                                     onclick="togglePassword()"><i class="bi bi-eye" id="togglePwd"></i></span>
                             </div>
