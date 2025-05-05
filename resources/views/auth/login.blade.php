@@ -143,7 +143,7 @@
 </head>
 
 <body  style="background: linear-gradient(#8b5c2d7c, #54422f),
-url('{{ asset('/imgs/login.png') }}') no-repeat center center;
+url('{{ asset('/imgs/login1.png') }}') no-repeat center center;
 background-size: cover;
 background-attachment: fixed;
 color: #fff;">
