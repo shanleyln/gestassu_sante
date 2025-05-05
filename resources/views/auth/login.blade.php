@@ -142,14 +142,11 @@
     </style>
 </head>
 
-<body>
-    <!-- Video Background -->
-    <video class="bg-video" autoplay muted loop poster="#">
-        <source src="/videos/bg-login.mp4" type="video/mp4">
-        <!-- Remplace /videos/bg-login.mp4 par le chemin réel de ta vidéo -->
-        Votre navigateur ne supporte pas la vidéo HTML5.
-    </video>
-    <div class="overlay"></div>
+<body  style="background: linear-gradient(#8b5c2d7c, #8B5C2D),
+url('{{ asset('/imgs/login.png') }}') no-repeat center center;
+background-size: cover;
+background-attachment: fixed;
+color: #fff;">
 
     <div class="login-container">
         <div class="transparent-block">
