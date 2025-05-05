@@ -128,19 +128,22 @@
             <nav class="col-md-3 col-lg-2 d-md-block bg-white sidebar border-end py-4" style="padding-right:0;padding-left:0;">
                 <div class="position-sticky">
                     <ul class="nav flex-column">
-                        <li class="nav-item"><a class="nav-link{{ request()->routeIs('assureur.dashboard') ? ' active' : '' }}" href="{{ route('assureur.dashboard') }}"><i class="bi bi-speedometer2 me-2"></i>Tableau de bord</a></li>
-                        <li class="nav-item"><a class="nav-link{{ request()->routeIs('assureur.contrats') ? ' active' : '' }}" href="{{ route('assureur.contrats') }}"><i class="bi bi-file-earmark-text me-2"></i>Contrats</a></li>
-                        <li class="nav-item"><a class="nav-link{{ request()->routeIs('assureur.assures') ? ' active' : '' }}" href="{{ route('assureur.assures') }}"><i class="bi bi-people me-2"></i>Assurés</a></li>
-                        <li class="nav-item"><a class="nav-link{{ request()->routeIs('assureur.primes') ? ' active' : '' }}" href="{{ route('assureur.primes') }}"><i class="bi bi-wallet2 me-2"></i>Primes & Cotisations</a></li>
-                        <li class="nav-item"><a class="nav-link{{ request()->routeIs('assureur.sinistres') ? ' active' : '' }}" href="{{ route('assureur.sinistres') }}"><i class="bi bi-exclamation-triangle me-2"></i>Sinistres</a></li>
-                        <li class="nav-item"><a class="nav-link{{ request()->routeIs('assureur.prestataires') ? ' active' : '' }}" href="{{ route('assureur.prestataires') }}"><i class="bi bi-hospital me-2"></i>Prestataires</a></li>
-                        <li class="nav-item"><a class="nav-link{{ request()->routeIs('assureur.prises') ? ' active' : '' }}" href="{{ route('assureur.prises') }}"><i class="bi bi-envelope-open me-2"></i>Prises en charge</a></li>
-                        <li class="nav-item"><a class="nav-link{{ request()->routeIs('assureur.reporting') ? ' active' : '' }}" href="{{ route('assureur.reporting') }}"><i class="bi bi-bar-chart-line me-2"></i>Reporting</a></li>
-                        <li class="nav-item"><a class="nav-link{{ request()->routeIs('assureur.documents') ? ' active' : '' }}" href="{{ route('assureur.documents') }}"><i class="bi bi-folder2-open me-2"></i>Documents</a></li>
-                        <li class="nav-item"><a class="nav-link{{ request()->routeIs('assureur.communication') ? ' active' : '' }}" href="{{ route('assureur.communication') }}"><i class="bi bi-chat-dots me-2"></i>Communication</a></li>
-                        <li class="nav-item"><a class="nav-link{{ request()->routeIs('assureur.conformite') ? ' active' : '' }}" href="{{ route('assureur.conformite') }}"><i class="bi bi-patch-check me-2"></i>Conformité</a></li>
-                        <li class="nav-item"><a class="nav-link{{ request()->routeIs('assureur.administration') ? ' active' : '' }}" href="{{ route('assureur.administration') }}"><i class="bi bi-gear me-2"></i>Administration</a></li>
-                        <li class="nav-item"><a class="nav-link{{ request()->routeIs('assureur.integration') ? ' active' : '' }}" href="{{ route('assureur.integration') }}"><i class="bi bi-plug me-2"></i>Intégration</a></li>
+                        <li class="nav-item"><a
+                            class="nav-link{{ request()->routeIs('assureur.dashboard') ? ' active' : '' }}"
+                            href="{{ route('assureur.dashboard') }}"><i
+                                class="bi bi-speedometer2 me-2"></i>Tableau de bord</a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-file-earmark-text me-2"></i>Contrats<span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-people me-2"></i>Assurés<span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-wallet2 me-2"></i>Primes & Cotisations<span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-exclamation-triangle me-2"></i>Sinistres<span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-hospital me-2"></i>Prestataires<span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-envelope-open me-2"></i>Prises en charge<span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-bar-chart-line me-2"></i>Reporting<span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-folder2-open me-2"></i>Documents<span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-chat-dots me-2"></i>Communication<span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-patch-check me-2"></i>Conformité<span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-gear me-2"></i>Administration<span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="#"><i class="bi bi-plug me-2"></i>Intégration<span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
                         <li class="nav-item mt-4">
                             <a class="nav-link text-danger fw-bold d-flex align-items-center" href="{{ route('login') }}">
                                 <i class="bi bi-box-arrow-right me-2"></i>Déconnexion

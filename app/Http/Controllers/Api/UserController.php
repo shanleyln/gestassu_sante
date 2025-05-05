@@ -37,7 +37,7 @@ class UserController extends Controller
                     ->withInput()
                     ->with('api_error', $userData['message'] ?? 'Erreur de connexion à l’API.');
             }
-            
+            session()->forget('userData');
             // Stocker les informations utilisateur dans la session
             session()->put('user_id', $userData['data']['id'] ?? null);
             session()->put('user_nom', $userData['data']['nom'] ?? null);

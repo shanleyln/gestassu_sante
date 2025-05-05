@@ -93,7 +93,7 @@
                 <div class="d-flex flex-column flex-md-row gap-4 align-items-start">
                     <!-- Photo à gauche -->
                     <div class="text-center">
-                        <img src="https://img.freepik.com/vecteurs-premium/illustration-vectorielle-plate-echelle-gris-avatar-profil-utilisateur-icone-personne-image-profil-silhouette-neutre-genre-convient-pour-profils-medias-sociaux-icones-economiseurs-ecran-comme-modelex9xa_719432-2210.jpg?ga=GA1.1.336133476.1744805944&semt=ais_hybrid&w=740"
+                        <img src="{{ $userData['beneficiaire']['image'] ?? 'https://img.freepik.com/vecteurs-premium/illustration-vectorielle-plate-echelle-gris-avatar-profil-utilisateur-icone-personne-image-profil-silhouette-neutre-genre-convient-pour-profils-medias-sociaux-icones-economiseurs-ecran-comme-modelex9xa_719432-2210.jpg?ga=GA1.1.336133476.1744805944&semt=ais_hybrid&w=740' }}"
                             alt="Photo" class="img-thumbnail rounded-circle mb-3"
                             style="width: 200px; height: 200px; object-fit: cover;">
                     </div>
@@ -104,26 +104,28 @@
                             <div class="col-md-6">
                                 <p><strong>Matricule :</strong>
                                     {{ $userData['beneficiaire']['matricule'] ?? '--/--/----/--/----/----/-' }}</p>
-                                <p><strong>Nom et prénoms:</strong> -------- ---------</p>
-                                <p><strong>Type Bénéficiaire:</strong> <span
+                                <p><strong>Nom et prénoms :</strong> {{ $userData['beneficiaire']['nom'] ?? '----------' }} {{ $userData['beneficiaire']['prenom'] ?? '----------' }}</p>
+                                <p><strong>Type Bénéficiaire :</strong> <span
                                         class="badge bg-dark">{{ $userData['beneficiaire']['lien'] ?? '----------' }}</span>
                                 </p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Numéro Sécurité Sociale :</strong> ----------</p>
-                                <p><strong>Date de naissance :</strong> --/--/----</p>
-                                <p><strong>Genre :</strong> ---------</p>
+                                <p><strong>Numéro Sécurité Sociale :</strong> {{ $userData['beneficiaire']['numero_securite_sociale'] ?? '----------' }}</p>
+                                <p><strong>Date de naissance :</strong>
+                                    {{ isset($userData['beneficiaire']['date_naissance']) ? \App\Helpers\Formatage::convertirDateEnTexte(\Carbon\Carbon::createFromFormat('Ymd', $userData['beneficiaire']['date_naissance'])->format('d/m/Y')) : '---------' }}
+                                     </p>
+                                <p><strong>Genre :</strong> {{ $userData['beneficiaire']['genre'] ?? '------' }}</p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Pays :</strong> ------</p>
-                                <p><strong>Ville :</strong> ------</p>
-                                <p><strong>Code Postal :</strong> ------</p>
-                                <p><strong>Adresse :</strong> -----------</p>
+                                <p><strong>Pays :</strong> {{ $userData['beneficiaire']['nom_pays'] ?? '------' }}</p>
+                                <p><strong>Ville :</strong> {{ $userData['beneficiaire']['nom_ville'] ?? '------' }}</p>
+                                <p><strong>Code Postal :</strong> {{ $userData['beneficiaire']['code_postal'] ?? '------' }}</p>
+                                <p><strong>Adresse :</strong> {{ $userData['beneficiaire']['nom_rue'] ?? '------' }}</p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Profession :</strong> ---------</p>
-                                <p><strong>Email :</strong> ---------@gmail.com</p>
-                                <p><strong>Téléphone:</strong> +-- --- -- -- --</p>
+                                <p><strong>Profession :</strong> {{ $userData['beneficiaire']['profession'] ?? '------' }}</p>
+                                <p><strong>Email :</strong> {{ $userData['beneficiaire']['email'] ?? '---------@gmail.com' }}</p>
+                                <p><strong>Téléphone :</strong> {{ $userData['beneficiaire']['telephone'] ?? '+-- --- -- -- --' }}</p>
                             </div>
                         </div>
                     </div>
@@ -196,12 +198,13 @@
                                 <i class="bi bi-file-text me-1"></i>Contrat
                             </span>
                         </h5>
-                        <p><strong>Numéro:</strong> {{ $contrat['numero'] ?? '---------' }}</p>
-                        <p><strong>Date effet:</strong>
-                            {{ isset($contrat['date_souscription']) ? \Carbon\Carbon::createFromFormat('Ymd', $contrat['date_souscription'])->format('d/m/Y') : '---------' }}
+                        <p><strong>Numéro :</strong> {{ $contrat['numero'] ?? '---------' }}</p>
+                        <p><strong>Type :</strong> {{ $contrat['type'] ?? '---------' }}</p>
+                        <p><strong>Date effet :</strong>
+                            {{ isset($contrat['date_souscription']) ? \App\Helpers\Formatage::convertirDateEnTexte(\Carbon\Carbon::createFromFormat('Ymd', $contrat['date_souscription'])->format('d/m/Y')) : '---------' }}
                         </p>
-                        <p><strong>Date échéance:</strong>
-                            {{ isset($contrat['date_echeance']) ? \Carbon\Carbon::createFromFormat('Ymd', $contrat['date_echeance'])->format('d/m/Y') : '---------' }}
+                        <p><strong>Date échéance :</strong>
+                            {{ isset($contrat['date_echeance']) ? \App\Helpers\Formatage::convertirDateEnTexte(\Carbon\Carbon::createFromFormat('Ymd', $contrat['date_echeance'])->format('d/m/Y')) : '---------' }}
                         </p>
                     </div>
 
@@ -212,9 +215,16 @@
                                 <i class="bi bi-shield me-1"></i>Police
                             </span>
                         </h5>
-                        <p><strong>Numéro:</strong> {{ $police['numero'] ?? '---------' }}</p>
-
-                        <p><strong>Garanties:</strong>
+                        <p><strong>Nom :</strong> {{ $police['nom'] ?? '---------' }}</p>
+                        <p><strong>Numéro :</strong> {{ $police['numero'] ?? '---------' }}</p>
+                        <p><strong>Type :</strong> {{ $police['type'] ?? '---------' }}</p>
+                        <p><strong>Date début :</strong>
+                            {{ isset($police['date_debut']) ? \App\Helpers\Formatage::convertirDateEnTexte(\Carbon\Carbon::createFromFormat('Ymd', $police['date_debut'])->format('d/m/Y')) : '---------' }}
+                        </p>
+                        <p><strong>Date échéance :</strong>
+                            {{ isset($police['date_fin']) ? \App\Helpers\Formatage::convertirDateEnTexte(\Carbon\Carbon::createFromFormat('Ymd', $police['date_fin'])->format('d/m/Y')) : '---------' }}
+                        </p>
+                        <p><strong>Garanties :</strong>
                             @if (!empty($garanties))
                                 {{ implode(', ', array_column($garanties, 'nom')) }}
                             @else
@@ -243,12 +253,14 @@
                                         <strong>{{ $g['nom'] ?? 'Garantie' }} :</strong>
                                         {{ isset($g['taux_remboursement']) ? round($g['taux_remboursement'] * 100) . ' %' : '---' }}
                                     </li>
+                                    <li><strong>Plafond annuel :</strong> 
+                                        {{ isset($g['plafond_annuel']) ? number_format($g['plafond_annuel'], 0, ',', ' ') : '--------' }}
+                                    </li>
                                 @endforeach
                             @else
                                 <li>Remboursement : ---------</li>
+                                <li><strong>Plafond annuel :</strong> --------</li>
                             @endif
-                            <li>Franchise : 10%</li>
-                            <li>Délai d'attente : 30 jours</li>
                         </ul>
                     </div>
                 </div>

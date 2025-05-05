@@ -159,48 +159,48 @@
                                 <i class="bi bi-card-checklist me-2"></i>Vérification Carte
                             </a>
                         </li>
-                        <li class="nav-item"><a
+                        {{-- <li class="nav-item"><a
                                 class="nav-link{{ request()->routeIs('prestataire.garanties') ? ' active' : '' }}"
                                 href="{{ route('prestataire.garanties') }}"><i
-                                    class="bi bi-shield-check me-2"></i>Garanties</a></li>
+                                    class="bi bi-shield-check me-2"></i>Garanties</a></li> --}}
                         <li class="nav-item"><a
-                                class="nav-link{{ request()->routeIs('prestataire.prises') ? ' active' : '' }}"
-                                href="{{ route('prestataire.prises') }}"><i class="bi bi-clipboard-plus me-2"></i>Prises
-                                en charge</a></li>
+                                class="nav-link disabled text-muted d-flex "
+                                href="#"><i class="bi bi-clipboard-plus me-2"></i>Prises en charge
+                                <span class="badge bg-secondary" style="margin-left: 5px" style="margin-left: 5px">Indispo...</span></a></li>
                         <li class="nav-item"><a
-                                class="nav-link{{ request()->routeIs('prestataire.factures') ? ' active' : '' }}"
-                                href="{{ route('prestataire.factures') }}"><i
-                                    class="bi bi-receipt me-2"></i>Factures</a></li>
+                                class="nav-link disabled text-muted d-flex "
+                                href="#"><i class="bi bi-receipt me-2"></i>Factures
+                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
                         <li class="nav-item"><a
-                                class="nav-link{{ request()->routeIs('prestataire.paiements') ? ' active' : '' }}"
-                                href="{{ route('prestataire.paiements') }}"><i
-                                    class="bi bi-cash-stack me-2"></i>Paiements</a></li>
+                                class="nav-link disabled text-muted d-flex "
+                                href="#"><i class="bi bi-cash-stack me-2"></i>Paiements
+                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
                         <li class="nav-item"><a
-                                class="nav-link{{ request()->routeIs('prestataire.patients') ? ' active' : '' }}"
-                                href="{{ route('prestataire.patients') }}"><i
-                                    class="bi bi-people me-2"></i>Patients</a></li>
+                                class="nav-link disabled text-muted d-flex "
+                                href="#"><i class="bi bi-people me-2"></i>Patients
+                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
                         <li class="nav-item"><a
-                                class="nav-link{{ request()->routeIs('prestataire.documents') ? ' active' : '' }}"
-                                href="{{ route('prestataire.documents') }}"><i
-                                    class="bi bi-folder2-open me-2"></i>Documents</a></li>
+                                class="nav-link disabled text-muted d-flex "
+                                href="#"><i class="bi bi-folder2-open me-2"></i>Documents
+                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
                         <li class="nav-item"><a
-                                class="nav-link{{ request()->routeIs('prestataire.communication') ? ' active' : '' }}"
-                                href="{{ route('prestataire.communication') }}"><i
-                                    class="bi bi-chat-dots me-2"></i>Communication</a></li>
+                                class="nav-link disabled text-muted d-flex "
+                                href="#"><i class="bi bi-chat-dots me-2"></i>Communication
+                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
                         <li class="nav-item"><a
-                                class="nav-link{{ request()->routeIs('prestataire.statistiques') ? ' active' : '' }}"
-                                href="{{ route('prestataire.statistiques') }}"><i
-                                    class="bi bi-bar-chart-line me-2"></i>Statistiques</a></li>
+                                class="nav-link disabled text-muted d-flex "
+                                href="#"><i class="bi bi-bar-chart-line me-2"></i>Statistiques
+                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
                         <li class="nav-item"><a
-                                class="nav-link{{ request()->routeIs('prestataire.parametres') ? ' active' : '' }}"
-                                href="{{ route('prestataire.parametres') }}"><i
-                                    class="bi bi-gear me-2"></i>Paramètres</a></li>
+                                class="nav-link disabled text-muted d-flex "
+                                href="#"><i class="bi bi-gear me-2"></i>Paramètres
+                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
                         <li class="nav-item"><a
-                                class="nav-link{{ request()->routeIs('prestataire.support') ? ' active' : '' }}"
-                                href="{{ route('prestataire.support') }}"><i
-                                    class="bi bi-question-circle me-2"></i>Support</a></li>
+                                class="nav-link disabled text-muted d-flex "
+                                href="#"><i class="bi bi-question-circle me-2"></i>Support
+                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
                         <li class="nav-item mt-4">
-                            <a class="nav-link text-danger fw-bold d-flex align-items-center"
+                            <a class="nav-link text-danger fw-bold d-flex "
                                 href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="bi bi-box-arrow-right me-2"></i>Déconnexion

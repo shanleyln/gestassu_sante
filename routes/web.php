@@ -33,6 +33,7 @@ Route::prefix('prestataire')->name('prestataire.')->group(function () {
     Route::view('/support', 'prestataires.support.aide')->name('support');
 });
 Route::get('/verification', [App\Http\Controllers\VerifCarteController::class, 'index'])->name('verification');
+Route::get('/verification_affiche', [App\Http\Controllers\VerifCarteController::class, 'index_affiche'])->name('verification_affiche');
 Route::post('/identifiant', [App\Http\Controllers\VerifCarteController::class, 'identifiant'])->name('identifiantBeneficiaire');
 
 // =======================

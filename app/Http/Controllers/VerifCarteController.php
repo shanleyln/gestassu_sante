@@ -12,6 +12,11 @@ class VerifCarteController extends Controller
      */
     public function index(Request $request)
     {
+        session()->forget('userData');
+        return view('prestataires.verification.index');
+    }
+    public function index_affiche(Request $request)
+    {
         $userData = session('userData');
         return view('prestataires.verification.index', compact('userData'));
     }
@@ -41,7 +46,7 @@ class VerifCarteController extends Controller
         if ($response->successful()) {
             $userData = $response->json();
             // Écraser la session si elle existe déjà
-           
+        //    dd($userData);
             // Vérifier si l'utilisateur existe
             if (isset($userData['status']) && $userData['status'] === 'error') {
                 return redirect()->back()
@@ -51,7 +56,7 @@ class VerifCarteController extends Controller
             // Stocker les informations utilisateur dans la session
             session(['userData' => $userData]);
 
-            return redirect()->route('verification');
+            return redirect()->route('verification_affiche');
         }
     }
 
