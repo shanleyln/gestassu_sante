@@ -184,8 +184,6 @@ color: #fff;">
                             @if ($errors->has('email'))
                                 <div class="text-danger mt-1">{{ $errors->first('email') }}</div>
                             @endif
-                            <label for="email" class="form-label fw-semibold"
-                                style="color:#8B5C2D;">Identifiant</label>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-white border-end-0"><i class="bi bi-person"></i></span>
                                 <input type="text" id="email" name="email" value="{{ old('email') }}"
@@ -196,8 +194,6 @@ color: #fff;">
                             @if ($errors->has('password'))
                                 <div class="text-danger mt-1">{{ $errors->first('password') }}</div>
                             @endif
-                            <label for="password" class="form-label fw-semibold" style="color:#8B5C2D;">Mot de
-                                passe</label>
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-white border-end-0"><i class="bi bi-lock"></i></span>
                                 <input type="password" id="password" name="password"

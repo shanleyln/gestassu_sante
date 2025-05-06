@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Response;
+use App\Auth\ApiUser;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -39,9 +41,18 @@ class UserController extends Controller
             }
             session()->forget('userData');
             // Stocker les informations utilisateur dans la session
-            session()->put('user_id', $userData['data']['id'] ?? null);
-            session()->put('user_nom', $userData['data']['nom'] ?? null);
-            session()->put('user_email', $userData['data']['email'] ?? null);
+            // Stocker dans la session pour le provider personnalisé
+
+            $user = new ApiUser($userData['user']);
+
+            // Stocke l'utilisateur dans la session
+            session()->put('api_user_' . $user->getAuthIdentifier(), $userData['user']);
+
+            // Login
+            Auth::guard('api_user')->login($user);
+            // dd(); 
+            // Auth::guard('api_user')->check(); // doit retourner true
+            // Auth::guard('api_user')->user(); // doit retourner un ApiUser
             return redirect()->intended(route('prestataire.dashboard', [], false));
         }
 
@@ -96,11 +107,16 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
-        //
+        // Déconnexion via le guard personnalisé
+        Auth::guard('api_user')->logout();
+
+        // Invalider la session actuelle
         $request->session()->invalidate();
 
+        // Regénérer un nouveau token CSRF
         $request->session()->regenerateToken();
 
+        // Rediriger vers la page de connexion
         return redirect('/login');
     }
 }

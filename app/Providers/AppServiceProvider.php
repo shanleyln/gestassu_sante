@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Auth\ApiUserProvider;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
@@ -23,10 +25,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-        View::composer('*', function ($view) {
-            $view->with('user_id', Session::get('user_id'));
-            $view->with('user_nom', Session::get('user_nom'));
-            $view->with('user_email', Session::get('user_email'));
+        $this->app['auth']->provider('api-user', function ($app, array $config) {
+            return new ApiUserProvider();
         });
     }
 }

@@ -139,7 +139,7 @@
     <!-- Header -->
     <nav class="navbar navbar-dark navbar-brown px-3 flex justify-content-between">
         <a class="navbar-brand" href="#">Espace Prestataire</a>
-        <a class="navbar-brand" href="#">{{ $user_nom }}</a>
+        <a class="navbar-brand" href="#">{{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->nom }} {{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->prenom }}</a>
     </nav>
 
     <div class="container-fluid">

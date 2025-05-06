@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\VerifCarteController;
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
@@ -32,9 +33,11 @@ Route::prefix('prestataire')->name('prestataire.')->group(function () {
     Route::view('/parametres', 'prestataires.parametres.profil')->name('parametres');
     Route::view('/support', 'prestataires.support.aide')->name('support');
 });
-Route::get('/verification', [App\Http\Controllers\VerifCarteController::class, 'index'])->name('verification');
-Route::get('/verification_affiche', [App\Http\Controllers\VerifCarteController::class, 'index_affiche'])->name('verification_affiche');
-Route::post('/identifiant', [App\Http\Controllers\VerifCarteController::class, 'identifiant'])->name('identifiantBeneficiaire');
+Route::middleware('auth:api_user')->group(function () {
+    Route::get('/verification', [App\Http\Controllers\VerifCarteController::class, 'index'])->name('verification');
+    Route::get('/verification_affiche', [App\Http\Controllers\VerifCarteController::class, 'index_affiche'])->name('verification_affiche');
+    Route::post('/identifiant', [App\Http\Controllers\VerifCarteController::class, 'identifiant'])->name('identifiantBeneficiaire');
+});
 
 // =======================
 // SECTION ASSUREURS
