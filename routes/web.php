@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VerifCarteController;
+
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
@@ -19,6 +20,9 @@ Route::post('/connexion', [App\Http\Controllers\Api\UserController::class, 'logi
 // SECTION PRESTATAIRES
 // =======================
 // PRESTATAIRE
+Route::get('/check', function () {
+    dd(Auth::guard('api_user')->check(), Auth::guard('api_user')->user());
+});
 
 Route::prefix('prestataire')->name('prestataire.')->group(function () {
     Route::view('/dashboard', 'prestataires.dashboard')->name('dashboard');

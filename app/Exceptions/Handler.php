@@ -33,7 +33,7 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function (NotFoundHttpException $exception, $request) {
             // Redirige vers une page 404 personnalisée si tu veux
-            return response()->view('errors.404', [], 404);
+            return response()->view('auth.login', [], 404);
         });
     }
 
