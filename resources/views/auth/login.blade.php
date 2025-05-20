@@ -181,6 +181,16 @@ color: #fff;">
                             </div>
                         @endif
                         <div class="mb-3">
+                            @if ($errors->has('code'))
+                                <div class="text-danger mt-1">{{ $errors->first('code') }}</div>
+                            @endif
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-white border-end-0">X</span>
+                                <input type="text" id="code" name="code" value="{{ old('code') }}"
+                                    class="form-control border-start-0" placeholder="Code structure" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
                             @if ($errors->has('email'))
                                 <div class="text-danger mt-1">{{ $errors->first('email') }}</div>
                             @endif
