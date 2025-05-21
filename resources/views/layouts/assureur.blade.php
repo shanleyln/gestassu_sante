@@ -129,8 +129,9 @@
             background: #f5f5f5;
             border-radius: 9px;
         }
-        .textPrimary{
-            color:#5e2d17;
+
+        .textPrimary {
+            color: #5e2d17;
         }
     </style>
 </head>
@@ -143,11 +144,11 @@ background-attachment: fixed;
 color: #fff;">
 
     <!-- Header -->
-    <nav class="navbar navbar-dark navbar-brown px-3">
-        <a class="navbar-brand" href="#" style="color:#fff; font-weight:normal; letter-spacing:0.5px;">Espace
-            Assureur</a>
+    <nav class="navbar navbar-dark navbar-brown px-3 flex justify-content-between">
+        <a class="navbar-brand" href="#">Espace Assureur : <strong>{{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->nomassureure }}</strong></a>
+        <a class="navbar-brand" href="#">{{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->nom }}
+            {{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->prenom }}</a>
     </nav>
-
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
@@ -160,7 +161,7 @@ color: #fff;">
                                 href="{{ route('assureur.dashboard') }}"><i class="bi bi-speedometer2 me-2"></i>Tableau
                                 de bord</a></li>
                         <li class="nav-item"><a
-                                class="nav-link{{ request()->routeIs('assureur.contrats','assureur.contratsDetails') ? ' active' : '' }}"
+                                class="nav-link{{ request()->routeIs('assureur.contrats', 'assureur.contratsDetails') ? ' active' : '' }}"
                                 href="{{ route('assureur.contrats') }}"><i
                                     class="bi bi-file-earmark-text me-2"></i>Contrats</a></li>
                         <li class="nav-item"><a class="nav-link disabled" href="#"><i
