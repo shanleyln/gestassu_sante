@@ -54,13 +54,13 @@
                     <table class="table table-bordered text-center align-middle">
                         <thead style="background-color: #5e2d17; color: white;">
                             <tr>
-                                <th>N° Police</th>
-                                <th>Nom police</th>
-                                <th>Type personnel</th>
-                                <th>Description</th>
-                                <th>Date début</th>
-                                <th>Date fin</th>
-                                <th>Tarif</th>
+                                <th style="background-color: #5e2d17; color: white;">N° Police</th>
+                                <th style="background-color: #5e2d17; color: white;">Nom police</th>
+                                <th style="background-color: #5e2d17; color: white;">Type personnel</th>
+                                <th style="background-color: #5e2d17; color: white;">Description</th>
+                                <th style="background-color: #5e2d17; color: white;">Date début</th>
+                                <th style="background-color: #5e2d17; color: white;">Date fin</th>
+                                <th style="background-color: #5e2d17; color: white;">Tarif</th>
                             </tr>
                         </thead>
                         <tbody>

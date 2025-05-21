@@ -30,18 +30,18 @@
 
     <!-- Tableau -->
     <div class="table-responsive">
-        <table class="table table-bordered text-center align-middle">
-            <thead style="background-color: #5e2d17; color: white;">
+        <table class="table table-bordered text-center align-middle" >
+            <thead>
                 <tr>
-                    <th>Statut <i class="bi bi-funnel"></i></th>
-                    <th>Code Système</th>
-                    <th>Numéro contrat</th>
-                    <th>Type contrat</th>
-                    <th>Souscripteur</th>
-                    <th>Date souscription</th>
-                    <th>Date échéance</th>
-                    <th>Description</th>
-                    <th>Action</th>
+                    <th style="background-color: #5e2d17; color: white;">Statut</th>
+                    <th style="background-color: #5e2d17; color: white;">Code Système</th>
+                    <th style="background-color: #5e2d17; color: white;">Numéro contrat</th>
+                    <th style="background-color: #5e2d17; color: white;">Type contrat</th>
+                    <th style="background-color: #5e2d17; color: white;">Souscripteur</th>
+                    <th style="background-color: #5e2d17; color: white;">Date souscription</th>
+                    <th style="background-color: #5e2d17; color: white;">Date échéance</th>
+                    <th style="background-color: #5e2d17; color: white;">Description</th>
+                    <th style="background-color: #5e2d17; color: white;">Action</th>
                 </tr>
             </thead>
             <tbody>
