@@ -19,7 +19,7 @@ class UserController extends Controller
         // ✅ 1. Validation sécurisée
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:5',
         ], [
             'email.required' => 'L\'adresse e-mail est obligatoire.',
             'email.email' => 'L\'adresse e-mail doit être valide.',
@@ -44,7 +44,6 @@ class UserController extends Controller
             // Stocker dans la session pour le provider personnalisé
 
             $user = new ApiUser($userData['user']);
-
             // Stocke l'utilisateur dans la session
             session()->put('api_user_' . $user->getAuthIdentifier(), $userData['user']);
 
@@ -53,7 +52,12 @@ class UserController extends Controller
             // dd(); 
             // Auth::guard('api_user')->check(); // doit retourner true
             // Auth::guard('api_user')->user(); // doit retourner un ApiUser
-            return redirect()->intended(route('prestataire.dashboard', [], false));
+
+            if ($user->categorie == "ASSUREUR") {
+                return redirect()->route('assureur.dashboard');
+            } else {
+                return redirect()->route('prestataire.dashboard');
+            }
         }
 
         // ✅ 4. Gestion de l’erreur
@@ -67,9 +71,10 @@ class UserController extends Controller
         return Http::withHeaders([
             'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
             'Content-Type' => 'application/json'
-        ])->post('http://45.155.249.99/gestassusante/api/user/logininterne', [
+        ])->post('http://45.155.249.99/gestassusante/api/user/login_espace_partenaire', [
             'login' => $request->input('email'),
-            'mdp' => $request->input('password')
+            'mdp' => $request->input('password'),
+            'code_structure' => $request->input('code_structure')
         ]);
     }
 

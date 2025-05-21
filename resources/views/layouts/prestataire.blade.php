@@ -14,7 +14,7 @@
 
     <style>
         .navbar-brown {
-            background-color: #8B5C2D !important;
+            background-color: #5e2d17 !important;
             position: fixed;
             top: 0;
             left: 0;
@@ -68,7 +68,7 @@
         .sidebar .nav-link:focus,
         .sidebar .nav-link:hover {
             color: #fff !important;
-            background: #8B5C2D !important;
+            background: #5e2d17 !important;
             font-weight: bold;
             margin-left: 7px;
             margin-right: 7px;
@@ -107,7 +107,7 @@
         /* Scrollbar design for sidebar */
         .sidebar {
             scrollbar-width: thin;
-            scrollbar-color: #8B5C2D #f5f5f5;
+            scrollbar-color: #5e2d17 #f5f5f5;
         }
 
         .sidebar::-webkit-scrollbar {
@@ -117,7 +117,7 @@
         }
 
         .sidebar::-webkit-scrollbar-thumb {
-            background: #8B5C2D;
+            background: #5e2d17;
             border-radius: 9px;
             min-height: 40px;
             transition: background 0.2s;
@@ -134,12 +134,18 @@
     </style>
 </head>
 
-<body class="bg-light">
+<body
+    style="background: linear-gradient(#5e2d177c, #54422f),
+url('{{ asset('/imgs/login1.png') }}') no-repeat center center;
+background-size: cover;
+background-attachment: fixed;
+color: #fff;">
 
     <!-- Header -->
     <nav class="navbar navbar-dark navbar-brown px-3 flex justify-content-between">
         <a class="navbar-brand" href="#">Espace Prestataire</a>
-        <a class="navbar-brand" href="#">{{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->nom }} {{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->prenom }}</a>
+        <a class="navbar-brand" href="#">{{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->nom }}
+            {{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->prenom }}</a>
     </nav>
 
     <div class="container-fluid">
@@ -163,50 +169,40 @@
                                 class="nav-link{{ request()->routeIs('prestataire.garanties') ? ' active' : '' }}"
                                 href="{{ route('prestataire.garanties') }}"><i
                                     class="bi bi-shield-check me-2"></i>Garanties</a></li> --}}
-                        <li class="nav-item"><a
-                                class="nav-link disabled text-muted d-flex "
-                                href="#"><i class="bi bi-clipboard-plus me-2"></i>Prises en charge
-                                <span class="badge bg-secondary" style="margin-left: 5px" style="margin-left: 5px">Indispo...</span></a></li>
-                        <li class="nav-item"><a
-                                class="nav-link disabled text-muted d-flex "
-                                href="#"><i class="bi bi-receipt me-2"></i>Factures
+                        <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
+                                    class="bi bi-clipboard-plus me-2"></i>Prises en charge
+                                <span class="badge bg-secondary" style="margin-left: 5px"
+                                    style="margin-left: 5px">Indispo...</span></a></li>
+                        <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
+                                    class="bi bi-receipt me-2"></i>Factures
                                 <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
-                        <li class="nav-item"><a
-                                class="nav-link disabled text-muted d-flex "
-                                href="#"><i class="bi bi-cash-stack me-2"></i>Paiements
+                        <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
+                                    class="bi bi-cash-stack me-2"></i>Paiements
                                 <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
-                        <li class="nav-item"><a
-                                class="nav-link disabled text-muted d-flex "
-                                href="#"><i class="bi bi-people me-2"></i>Patients
+                        <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
+                                    class="bi bi-people me-2"></i>Patients
                                 <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
-                        <li class="nav-item"><a
-                                class="nav-link disabled text-muted d-flex "
-                                href="#"><i class="bi bi-folder2-open me-2"></i>Documents
+                        <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
+                                    class="bi bi-folder2-open me-2"></i>Documents
                                 <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
-                        <li class="nav-item"><a
-                                class="nav-link disabled text-muted d-flex "
-                                href="#"><i class="bi bi-chat-dots me-2"></i>Communication
+                        <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
+                                    class="bi bi-chat-dots me-2"></i>Communication
                                 <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
-                        <li class="nav-item"><a
-                                class="nav-link disabled text-muted d-flex "
-                                href="#"><i class="bi bi-bar-chart-line me-2"></i>Statistiques
+                        <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
+                                    class="bi bi-bar-chart-line me-2"></i>Statistiques
                                 <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
-                        <li class="nav-item"><a
-                                class="nav-link disabled text-muted d-flex "
-                                href="#"><i class="bi bi-gear me-2"></i>Paramètres
+                        <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
+                                    class="bi bi-gear me-2"></i>Paramètres
                                 <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
-                        <li class="nav-item"><a
-                                class="nav-link disabled text-muted d-flex "
-                                href="#"><i class="bi bi-question-circle me-2"></i>Support
+                        <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
+                                    class="bi bi-question-circle me-2"></i>Support
                                 <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
                         <li class="nav-item mt-4">
-                            <a class="nav-link text-danger fw-bold d-flex "
-                                href="{{ route('logout') }}"
+                            <a class="nav-link text-danger fw-bold d-flex " href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                style="display: none;">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
                         </li>

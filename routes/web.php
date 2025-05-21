@@ -41,6 +41,8 @@ Route::middleware('auth:api_user')->group(function () {
     Route::get('/verification', [App\Http\Controllers\VerifCarteController::class, 'index'])->name('verification');
     Route::get('/verification_affiche', [App\Http\Controllers\VerifCarteController::class, 'index_affiche'])->name('verification_affiche');
     Route::post('/identifiant', [App\Http\Controllers\VerifCarteController::class, 'identifiant'])->name('identifiantBeneficiaire');
+    Route::get('/assureur.contrats', [App\Http\Controllers\ContratsController::class, 'contrat_assureur'])->name('assureur.contrats');
+    Route::get('/assureur.contratsDetails/{contrat}', [App\Http\Controllers\ContratsController::class, 'contrat_assureurDetails'])->name('assureur.contratsDetails');
 });
 
 // =======================
@@ -48,7 +50,6 @@ Route::middleware('auth:api_user')->group(function () {
 // =======================
 Route::prefix('assureur')->name('assureur.')->group(function () {
     Route::view('/dashboard', 'assureurs.dashboard')->name('dashboard');
-    Route::view('/contrats', 'assureurs.contrats.index')->name('contrats');
     Route::view('/assures', 'assureurs.assures.index')->name('assures');
     Route::view('/primes', 'assureurs.primes.index')->name('primes');
     Route::view('/sinistres', 'assureurs.sinistres.index')->name('sinistres');

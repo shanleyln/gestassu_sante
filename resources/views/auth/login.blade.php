@@ -66,7 +66,7 @@
 
         .icon-circle {
             background: #fff;
-            color: #8B5C2D;
+            color: #5e2d17;
             border-radius: 50%;
             width: 64px;
             height: 64px;
@@ -78,7 +78,7 @@
         }
 
         .btn-brown {
-            background: #8B5C2D;
+            background: #5e2d17;
             color: #fff;
             border: none;
             border-radius: 7px;
@@ -142,7 +142,8 @@
     </style>
 </head>
 
-<body  style="background: linear-gradient(#8b5c2d7c, #54422f),
+<body
+    style="background: linear-gradient(#5e2d177c, #54422f),
 url('{{ asset('/imgs/login1.png') }}') no-repeat center center;
 background-size: cover;
 background-attachment: fixed;
@@ -155,12 +156,12 @@ color: #fff;">
                 <div class=" d-flex flex-column justify-content-center align-items-center"
                     style="min-width:340px;max-width:380px;padding:48px 32px;">
                     <div class="icon-circle mb-3"
-                        style="background:#fff;color:#8B5C2D;width:64px;height:64px;font-size:2.5rem;">
+                        style="background:#fff;color:#5e2d17;width:64px;height:64px;font-size:2.5rem;">
                         <i class="bi bi-person-circle"></i>
                     </div>
                     <div class="px-4 py-2 rounded shadow-sm mb-3"
                         style="display:inline-block;background:rgb(255, 255, 255);">
-                        <span class="fw-bold" style="font-size:2rem;color:#8B5C2D;letter-spacing:1px;">Espace
+                        <span class="fw-bold" style="font-size:2rem;color:#5e2d17;letter-spacing:1px;">Espace
                             sécurisé</span>
                     </div>
                     <div class="fw-semibold text-white text-center mb-2" style="font-size:1.05rem;">Bienvenue sur votre
@@ -172,7 +173,7 @@ color: #fff;">
                 <!-- Bloc droit (connexion) -->
                 <div class="right-block d-flex flex-column justify-content-center"
                     style="padding:48px 40px;min-width:350px;max-width:400px;background:#fff;">
-                    <h4 class="fw-bold mb-4 text-center" style="color:#8B5C2D;font-size:1.4rem;">Connexion</h4>
+                    <h4 class="fw-bold mb-4 text-center" style="color:#5e2d17;font-size:1.4rem;">Connexion</h4>
                     <form method="POST" action="{{ url('/connexion') }}">
                         @csrf
                         @if (session('api_error'))
@@ -181,13 +182,14 @@ color: #fff;">
                             </div>
                         @endif
                         <div class="mb-3">
-                            @if ($errors->has('code'))
-                                <div class="text-danger mt-1">{{ $errors->first('code') }}</div>
+                            @if ($errors->has('code_structure'))
+                                <div class="text-danger mt-1">{{ $errors->first('code_structure') }}</div>
                             @endif
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-white border-end-0">X</span>
-                                <input type="text" id="code" name="code" value="{{ old('code') }}"
-                                    class="form-control border-start-0" placeholder="Code structure" required>
+                                <input type="text" id="code_structure" name="code_structure"
+                                    value="{{ old('code_structure') }}" class="form-control border-start-0"
+                                    placeholder="Code structure" required>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -217,7 +219,7 @@ color: #fff;">
                                     class="bi bi-box-arrow-in-right me-2"></i>Se connecter</button>
                         </div>
                         <div class="text-center mt-4">
-                            <a href="#" class="text-decoration-none" style="color:#8B5C2D;font-size:0.98rem;">Mot
+                            <a href="#" class="text-decoration-none" style="color:#5e2d17;font-size:0.98rem;">Mot
                                 de
                                 passe oublié ?</a>
                         </div>

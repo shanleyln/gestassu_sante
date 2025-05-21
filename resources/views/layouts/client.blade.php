@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         .navbar-brown {
-            background-color: #8B5C2D !important;
+            background-color: #5e2d17 !important;
             position: fixed;
             top: 0;
             left: 0;
@@ -63,7 +63,7 @@
         .sidebar .nav-link:focus,
         .sidebar .nav-link:hover {
             color: #fff !important;
-            background: #8B5C2D !important;
+            background: #5e2d17 !important;
             font-weight: bold;
             margin-left: 7px;
             margin-right: 7px;
@@ -100,7 +100,7 @@
         /* Scrollbar design for sidebar */
         .sidebar {
             scrollbar-width: thin;
-            scrollbar-color: #8B5C2D #f5f5f5;
+            scrollbar-color: #5e2d17 #f5f5f5;
         }
 
         .sidebar::-webkit-scrollbar {
@@ -110,7 +110,7 @@
         }
 
         .sidebar::-webkit-scrollbar-thumb {
-            background: #8B5C2D;
+            background: #5e2d17;
             border-radius: 9px;
             min-height: 40px;
             transition: background 0.2s;
