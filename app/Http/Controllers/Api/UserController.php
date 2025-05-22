@@ -54,7 +54,7 @@ class UserController extends Controller
             // Auth::guard('api_user')->user(); // doit retourner un ApiUser
 
             if ($user->categorie == "ASSUREUR") {
-                return redirect()->route('assureur.dashboard');
+                return redirect()->route('assureur.actualite');
             } else {
                 return redirect()->route('prestataire.dashboard');
             }

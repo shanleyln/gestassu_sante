@@ -11,7 +11,7 @@
 
     <!-- Optionnel : icônes Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         .navbar-brown {
             background-color: #5e2d17 !important;
@@ -24,7 +24,7 @@
 
         body {
             padding-top: 60px;
-
+            font-family: 'Inter', sans-serif;
         }
 
         .sidebar {
@@ -113,7 +113,7 @@
         .sidebar::-webkit-scrollbar {
             width: 7px;
             background: #f5f5f5;
-            border-radius: 9px;
+            border-radius: 8px;
         }
 
         .sidebar::-webkit-scrollbar-thumb {

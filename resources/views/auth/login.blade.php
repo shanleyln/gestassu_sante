@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body,
         html {
@@ -16,26 +17,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-        }
-
-        .bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            z-index: 0;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(30, 30, 30, 0.089);
-            z-index: 1;
+            font-family: 'Inter', sans-serif;
         }
 
         .glass-card {
@@ -92,12 +74,15 @@
         .input-group-lg>.form-control,
         .input-group-lg>.input-group-text {
             font-size: 1.14rem;
-            padding: 0.85rem 1.1rem;
+            border: 1px solid #5e2d17;
+            border-radius: 0.5px;
         }
 
         .form-label {
             margin-bottom: 0.45rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
 
         .transparent-block {
             background: rgba(255, 255, 255, 0.075);
@@ -139,6 +124,18 @@
                 padding: 24px 10px !important;
             }
         }
+
+        .shadowInput {
+            box-shadow: none !important;
+            /* Couleur neutre */
+            outline: none;
+            transition: none;
+        }
+
+        .shadowInput:focus {
+            box-shadow: none !important;
+            outline: none !important;
+        }
     </style>
 </head>
 
@@ -154,7 +151,7 @@ color: #fff;">
             <div class="d-flex flex-row  p-4" style="overflow: hidden;">
                 <!-- Bloc gauche (identité) -->
                 <div class=" d-flex flex-column justify-content-center align-items-center"
-                    style="min-width:340px;max-width:380px;padding:48px 32px;">
+                    style="min-width:440px;max-width:480px;padding:48px 32px;">
                     <div class="icon-circle mb-3"
                         style="background:#fff;color:#5e2d17;width:64px;height:64px;font-size:2.5rem;">
                         <i class="bi bi-person-circle"></i>
@@ -173,8 +170,9 @@ color: #fff;">
                 <!-- Bloc droit (connexion) -->
                 <div class="right-block d-flex flex-column justify-content-center"
                     style="padding:48px 40px;min-width:350px;max-width:400px;background:#fff;">
-                    <h4 class="fw-bold mb-4 text-center" style="color:#5e2d17;font-size:1.4rem;">Connexion</h4>
-                    <form method="POST" action="{{ url('/connexion') }}">
+                    <h4 class="fw-bold mb-4 text-center" style="color:#5e2d17;font-size:3rem;">Connexion</h4>
+                    <form method="POST" action="{{ url('/connexion') }}" class="needs-validation" novalidate
+                        onsubmit="return validateForm(event)">
                         @csrf
                         @if (session('api_error'))
                             <div class="alert alert-danger">
@@ -188,8 +186,11 @@ color: #fff;">
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-white border-end-0">X</span>
                                 <input type="text" id="code_structure" name="code_structure"
-                                    value="{{ old('code_structure') }}" class="form-control border-start-0"
+                                    value="{{ old('code_structure') }}" class="form-control shadowInput"
                                     placeholder="Code structure" required>
+                                <div class="invalid-feedback">
+                                    Ce champ est requis.
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -199,7 +200,10 @@ color: #fff;">
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-white border-end-0"><i class="bi bi-person"></i></span>
                                 <input type="text" id="email" name="email" value="{{ old('email') }}"
-                                    class="form-control border-start-0" placeholder="Identifiant" required>
+                                    class="form-control shadowInput" placeholder="Identifiant" required>
+                                <div class="invalid-feedback">
+                                    Ce champ est requis.
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -208,16 +212,31 @@ color: #fff;">
                             @endif
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bg-white border-end-0"><i class="bi bi-lock"></i></span>
-                                <input type="password" id="password" name="password"
-                                    class="form-control border-start-0" placeholder="Mot de passe" required>
+                                <input type="password" id="password" name="password" class="form-control shadowInput"
+                                    placeholder="Mot de passe" required>
                                 <span class="input-group-text bg-white" style="cursor:pointer"
                                     onclick="togglePassword()"><i class="bi bi-eye" id="togglePwd"></i></span>
+                                <div class="invalid-feedback">
+                                    Veuillez saisir votre identifiant.
+                                </div>
                             </div>
                         </div>
                         <div class="d-grid mb-2 mt-4">
-                            <button type="submit" class="btn btn-brown btn-lg fw-bold"><i
-                                    class="bi bi-box-arrow-in-right me-2"></i>Se connecter</button>
+                            <!-- Bouton principal -->
+                            <button type="submit" id="btnSubmit" class="btn btn-brown btn-lg fw-bold"
+                                onclick="handleSubmit(event)">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter
+                            </button>
+
+                            <!-- Bouton de chargement (masqué au début) -->
+                            <button type="button" id="btnLoading" class="btn btn-secondary btn-lg fw-bold d-none"
+                                disabled>
+                                <span class="spinner-border spinner-border-sm me-2" role="status"
+                                    aria-hidden="true"></span>
+                                Connexion en cours...
+                            </button>
                         </div>
+
                         <div class="text-center mt-4">
                             <a href="#" class="text-decoration-none" style="color:#5e2d17;font-size:0.98rem;">Mot
                                 de
@@ -228,6 +247,32 @@ color: #fff;">
             </div>
         </div>
     </div>
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            const form = event.target.closest('form');
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return false;
+            }
+
+            const btnSubmit = document.getElementById('btnSubmit');
+            const btnLoading = document.getElementById('btnLoading');
+
+            // Masquer le bouton principal, afficher le bouton loading
+            btnSubmit.classList.add('d-none');
+            btnLoading.classList.remove('d-none');
+
+            // Soumettre après une courte pause
+            setTimeout(() => {
+                form.submit();
+            }, 500);
+
+            return true;
+        }
+    </script>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

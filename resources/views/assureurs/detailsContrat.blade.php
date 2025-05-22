@@ -1,9 +1,17 @@
 @extends('layouts.assureur')
-
-@section('title', 'Détails du contrat')
-
 @section('content')
+    <div class="breadcrumb-custom mb-3">
+        <h4 class="pt-2">
+            <i class="bi bi-chevron-right breadcrumb-chevron"></i>
+            <a href="{{ route('assureur.contrats') }}" class="breadcrumb-link">Gestion des contrats</a>
+        </h4>
+        <h4 class="pt-2">
+            <i class="bi bi-chevron-right breadcrumb-chevron"></i>
+            <a href="#" class="breadcrumb-link1">Détails du contrat</a>
+        </h4>
+    </div>
     <div class="container-fluid px-4 py-3">
+
         <div class="row">
             <!-- Informations du contrat -->
             <div class="col-md-3">
@@ -50,9 +58,23 @@
 
             <!-- Tableau des polices -->
             <div class="col-md-9">
+                <form class="row g-3 align-items-end mb-4">
+                    <div class="col-md-3">
+                        <label class="form-label">Date debut :</label>
+                        <input type="date" class="form-control shadowInput" name="" id="">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Date fin :</label>
+                        <input type="date" class="form-control shadowInput" name="" id="">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Recherche...</label>
+                        <input type="text" class="form-control shadowInput" placeholder="Rechercher...">
+                    </div>
+                </form>
                 <div class="table-responsive">
                     <table class="table table-bordered text-center align-middle">
-                        <thead style="background-color: #5e2d17; color: white;">
+                        <thead>
                             <tr>
                                 <th style="background-color: #5e2d17; color: white;">N° Police</th>
                                 <th style="background-color: #5e2d17; color: white;">Nom police</th>
@@ -61,6 +83,7 @@
                                 <th style="background-color: #5e2d17; color: white;">Date début</th>
                                 <th style="background-color: #5e2d17; color: white;">Date fin</th>
                                 <th style="background-color: #5e2d17; color: white;">Tarif</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,6 +95,10 @@
                                 <td>02/04/2025</td>
                                 <td>31/12/2025</td>
                                 <td>0</td>
+                                <td>
+                                    <a href="{{ route('assureur.policeDetails', ['police', null]) }}" class="btn"
+                                        style="background-color: #5e2d17;color: white;">Bénéficaire</a>
+                                </td>
                             </tr>
                             <tr>
                                 <td>265/2025-01</td>
@@ -81,6 +108,10 @@
                                 <td>01/01/2025</td>
                                 <td>31/12/2025</td>
                                 <td>0</td>
+                                <td>
+                                    <a href="{{ route('assureur.policeDetails', ['police', null]) }}" class="btn"
+                                        style="background-color: #5e2d17;color: white;">Bénéficaire</a>
+                                </td>
                             </tr>
                             <tr>
                                 <td>-</td>
@@ -90,6 +121,10 @@
                                 <td>02/04/2025</td>
                                 <td>31/12/2025</td>
                                 <td>0</td>
+                                <td>
+                                    <a href="{{ route('assureur.policeDetails', ['police', null]) }}" class="btn"
+                                        style="background-color: #5e2d17;color: white;">Bénéficaire</a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -97,5 +132,4 @@
             </div>
         </div>
     </div>
-
 @endsection
