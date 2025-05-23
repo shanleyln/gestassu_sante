@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VerifCarteController;
 
+Route::get('/Guide-ingenium-sante', function () {
+    return view('guide');
+})->name('guide');
+
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');

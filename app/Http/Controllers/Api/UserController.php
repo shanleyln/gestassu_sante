@@ -49,6 +49,7 @@ class UserController extends Controller
 
             // Login
             Auth::guard('api_user')->login($user);
+            
             // dd(); 
             // Auth::guard('api_user')->check(); // doit retourner true
             // Auth::guard('api_user')->user(); // doit retourner un ApiUser
