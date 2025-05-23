@@ -54,7 +54,7 @@ Route::middleware('auth:api_user')->group(function () {
     Route::get('/assureur.contrats', [App\Http\Controllers\ContratsController::class, 'contrat_assureur'])->name('assureur.contrats');
     Route::get('/assureur.contratsDetails/{contrat}', [App\Http\Controllers\ContratsController::class, 'contrat_assureurDetails'])->name('assureur.contratsDetails');
     Route::get('/assureur.policeDetails/{police}', [App\Http\Controllers\ContratsController::class, 'police_assureurDetails'])->name('assureur.policeDetails');
-Route::get('/Guide-ingenium-sante', function () {
+Route::get('/Guide-ingenium', function () {
     return view('guide_connexion');
 })->name('guide_connexion');
 });

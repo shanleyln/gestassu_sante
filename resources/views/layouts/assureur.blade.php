@@ -285,7 +285,7 @@
             <div class="modal-dialog modal-fullscreen" style="padding: 30px">
                 <div class="modal-content">
                     <div class="modal-header bgPrimary text-white">
-                        <h5 class="modal-title" id="beneficiaireModalLabel">Liste des assureurs</h5>
+                        <h5 class="modal-title" id="beneficiaireModalLabel">Liste des assurés</h5>
                         <button type="button" class="btn-close btn-close-white bg-light rounded p-3"
                             data-bs-dismiss="modal" aria-label="Fermer"></button>
                     </div>
