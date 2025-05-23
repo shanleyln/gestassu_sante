@@ -18,10 +18,12 @@
                 <div class="bg-light border rounded shadow-sm p-3 mb-3">
                     <h6 class="text-white px-3 py-2 mb-3 rounded" style="background-color: #5e2d17;">Informations du contrat
                     </h6>
-                    <p class="textPrimary"><strong>N° Contrat :</strong></p>
-                    <p class="textPrimary"><strong>Souscripteur :</strong></p>
-                    <p class="textPrimary"><strong>Assureur :</strong></p>
-                    <p class="textPrimary"><strong>Date échéance :</strong></p>
+                    <p class="textPrimary"><strong>N° Contrat :</strong> {{ $contrat['numero'] ?? '------' }}</p>
+                    <p class="textPrimary"><strong>Souscripteur :</strong> {{ $contrat['nom_souscripteur'] ?? '------' }}
+                    </p>
+                    <p class="textPrimary"><strong>Date échéance :</strong>
+                        {{ !empty($contrat['date_echeance']) ? \Carbon\Carbon::parse($contrat['date_echeance'])->format('d/m/Y') : '------' }}
+                    </p>
                 </div>
 
                 <!-- Statistiques -->
@@ -31,25 +33,25 @@
                         <div class="col-6 col-sm-6 col-md-6 mb-2">
                             <div class="textPrimary border rounded py-2 bg-white">
                                 <small class="">Total police</small><br>
-                                <strong>3</strong>
+                                <strong>{{ $statistiques['total_police'] ?? 0 }}</strong>
                             </div>
                         </div>
                         <div class="col-6 col-sm-6 col-md-6 mb-2">
                             <div class="textPrimary border rounded py-2 bg-white">
                                 <small>Total bénéf.</small><br>
-                                <strong>465</strong>
+                                <strong>{{ $statistiques['total_beneficiaires'] ?? 0 }}</strong>
                             </div>
                         </div>
                         <div class="col-6 col-sm-6 col-md-6 mb-2">
                             <div class="textPrimary border rounded py-2 bg-white">
                                 <small>Principaux</small><br>
-                                <strong>169</strong>
+                                <strong>{{ $statistiques['total_assures_principaux'] ?? 0 }}</strong>
                             </div>
                         </div>
                         <div class="col-6 col-sm-6 col-md-6 mb-2">
                             <div class="textPrimary border rounded py-2 bg-white">
                                 <small>Affiliés</small><br>
-                                <strong>296</strong>
+                                <strong>{{ $statistiques['total_affilies'] ?? 0 }}</strong>
                             </div>
                         </div>
                     </div>
@@ -87,49 +89,79 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>-</td>
-                                <td>ANAC SANTE</td>
-                                <td>Cadre</td>
-                                <td>ANAC SANTE</td>
-                                <td>02/04/2025</td>
-                                <td>31/12/2025</td>
-                                <td>0</td>
-                                <td>
-                                    <a href="{{ route('assureur.policeDetails', ['police', null]) }}" class="btn"
-                                        style="background-color: #5e2d17;color: white;">Bénéficaire</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>265/2025-01</td>
-                                <td>ANAC SANTE</td>
-                                <td>Employé/Ouvrier</td>
-                                <td>Assurance Santé ANAC</td>
-                                <td>01/01/2025</td>
-                                <td>31/12/2025</td>
-                                <td>0</td>
-                                <td>
-                                    <a href="{{ route('assureur.policeDetails', ['police', null]) }}" class="btn"
-                                        style="background-color: #5e2d17;color: white;">Bénéficaire</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>-</td>
-                                <td>ANAC SANTE</td>
-                                <td>Cadre</td>
-                                <td>ANAC SANTE</td>
-                                <td>02/04/2025</td>
-                                <td>31/12/2025</td>
-                                <td>0</td>
-                                <td>
-                                    <a href="{{ route('assureur.policeDetails', ['police', null]) }}" class="btn"
-                                        style="background-color: #5e2d17;color: white;">Bénéficaire</a>
-                                </td>
-                            </tr>
+                            @foreach ($polices as $police)
+                                <tr>
+                                    <td>{{ $police['Numero_Police'] ?? '-' }}</td>
+                                    <td>{{ $police['NomPolice'] ?? '-' }}</td>
+                                    <td>{{ $police['TypePersonnel'] ?? '-' }}</td>
+                                    <td>{{ $police['description'] ?? '-' }}</td>
+                                    <td>
+                                        {{ !empty($police['date_debut']) ? \Carbon\Carbon::parse($police['date_debut'])->format('d/m/Y') : '------' }}
+                                    </td>
+                                    <td>
+                                        {{ !empty($police['date_fin']) ? \Carbon\Carbon::parse($police['date_fin'])->format('d/m/Y') : '------' }}
+                                    </td>
+                                    <td>{{ $police['Tarif'] ?? 0 }}</td>
+                                    <td>
+                                        <a href="{{ route('assureur.policeDetails', ['police' => $police['id']]) }}"
+                                            class="btn" style="background-color: #5e2d17;color: white;">Bénéficiaire</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr id="noResultMessage" class="d-none">
+                                <td colspan="8" class="text-center text-muted">Aucun résultat trouvé.</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.querySelector('input[placeholder="Rechercher..."]');
+        const dateInputs = document.querySelectorAll('input[type="date"]');
+        const rows = document.querySelectorAll("table tbody tr");
+        const noResultRow = document.getElementById("noResultMessage");
+
+        function parseDate(str) {
+            if (!str || str === '------') return null;
+            const [d, m, y] = str.split("/");
+            return new Date(`${y}-${m}-${d}`);
+        }
+
+        function filterTable() {
+            const searchValue = searchInput.value.toLowerCase();
+            const dateDebut = parseDate(dateInputs[0].valueAsDate?.toLocaleDateString('fr-CA'));
+            const dateFin = parseDate(dateInputs[1].valueAsDate?.toLocaleDateString('fr-CA'));
+
+            let visibleCount = 0;
+
+            rows.forEach(row => {
+                const nom = row.cells[1].textContent.toLowerCase();
+                const type = row.cells[2].textContent.toLowerCase();
+                const desc = row.cells[3].textContent.toLowerCase();
+                const debut = parseDate(row.cells[4].textContent);
+                const fin = parseDate(row.cells[5].textContent);
+
+                const matchText = nom.includes(searchValue) || type.includes(searchValue) || desc.includes(searchValue);
+                const matchDate = (!dateDebut || (debut && debut >= dateDebut)) &&
+                                  (!dateFin || (fin && fin <= dateFin));
+
+                const match = matchText && matchDate;
+
+                row.style.display = match ? "" : "none";
+                if (match) visibleCount++;
+            });
+
+            noResultRow.classList.toggle("d-none", visibleCount > 0);
+        }
+
+        searchInput.addEventListener("input", filterTable);
+        dateInputs.forEach(input => input.addEventListener("change", filterTable));
+    });
+</script>
+
 @endsection

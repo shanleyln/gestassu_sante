@@ -140,7 +140,7 @@
             color: white;
         }
 
-       
+
 
         .shadowInput {
             box-shadow: none !important;
@@ -155,7 +155,6 @@
             border-color: #5e2d17 !important;
             outline: none !important;
         }
-
     </style>
     <style>
         .breadcrumb-custom {
@@ -205,10 +204,22 @@
 
     <!-- Header -->
     <nav class="navbar navbar-dark navbar-brown px-3 flex justify-content-between">
-        <a class="navbar-brand" href="#">Espace Assureur :
-            <strong>{{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->nomassureure }}</strong></a>
-        <a class="navbar-brand" href="#">{{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->nom }}
-            {{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->prenom }}</a>
+        <a class="navbar-brand" href="#">
+            Espace Assureur :
+            <strong
+                style="color: #f8f9fa">{{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->nomassureure }}</strong>
+        </a>
+        <div class="">
+            <a class="navbar-brand" href="#" style="margin-right: 20px">
+                <i class="bi bi-person-circle"></i>
+                {{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->nom }}
+                {{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->prenom }}
+            </a>
+            <a href="{{ route('guide_connexion') }}"
+                class="btn {{ request()->routeIs('guide_connexion') ?  'btn-light' : 'btn-outline-light' }}">
+                <i class="bi bi-journal-medical me-2"></i> Guide Santé
+            </a>
+        </div>
     </nav>
     <div class="container-fluid">
         <div class="row">
@@ -219,7 +230,8 @@
                     <ul class="nav flex-column">
                         <li class="nav-item"><a
                                 class="nav-link{{ request()->routeIs('assureur.actualite') ? ' active' : '' }}"
-                                href="{{ route('assureur.actualite') }}"><strong><i class="bi bi-house-door-fill"></i>Acceuil</strong></a></li>
+                                href="{{ route('assureur.actualite') }}"><strong><i
+                                        class="bi bi-house-door-fill"></i>Acceuil</strong></a></li>
                         <li class="nav-item"><a
                                 class="nav-link{{ request()->routeIs('assureur.dashboard') ? ' active' : '' }}"
                                 href="{{ route('assureur.dashboard') }}"><strong><i

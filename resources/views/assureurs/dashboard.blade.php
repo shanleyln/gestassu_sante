@@ -35,8 +35,8 @@
                                 <i class="bi bi-file-earmark-text-fill fs-1"></i>
                             </div>
                             <div class="col"></div>
-                            <div class="col-md-3 textPrimary  text-end">
-                                <p class="h3 fw-bold  mb-0">124</p>
+                            <div class="col-md-3 textPrimary text-end">
+                                <p class="h3 fw-bold mb-0">{{ $contrats }}</p>
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                             </div>
                             <div class="col"></div>
                             <div class="col-md-3 text-end">
-                                <p class="h3 fw-bold textPrimary mb-0 mt-3">124</p>
+                                <p class="h3 fw-bold textPrimary mb-0 mt-3">{{ $souscripteurs }}</p>
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                             </div>
                             <div class="col"></div>
                             <div class="col-md-3 text-end">
-                                <p class="h3 fw-bold textPrimary mb-0 mt-3">4</p>
+                                <p class="h3 fw-bold textPrimary mb-0 mt-3">{{ $contratsActifs }}</p>
                             </div>
                         </div>
                     </div>
@@ -93,109 +93,7 @@
                             </div>
                             <div class="col"></div>
                             <div class="col-md-3 text-end">
-                                <p class="h3 fw-bold textPrimary mb-0 mt-3">124</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-    </div>
-    <div class="row g-4 mt-3">
-        <!-- Bloc Assurés -->
-        <div class="col-md-3 col-sm-6">
-            <div class="dashboard-card card shadow rounded bg-light" style="cursor: pointer;">
-                <a href="#" class="text-decoration-none text-reset d-block">
-                    <div class="card-body">
-                        <h6 class="text-muted">Assurés</h6>
-                        <div class="row align-items-center">
-                            <div class="col-md-3 textPrimary">
-                                <i class="bi bi-people-fill fs-1"></i>
-                            </div>
-                            <div class="col"></div>
-                            <div class="col-md-3 textPrimary  text-end">
-                                <p class="h3 fw-bold  mb-0">14</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <!-- Bloc Primes & Cotisations -->
-        <div class="col-md-3 col-sm-6">
-            <div class="dashboard-card card shadow rounded bg-light" style="cursor: pointer;">
-                <a href="#" class="text-decoration-none text-reset d-block">
-                    <div class="card-body">
-                        <h6 class="text-muted">Primes & Cotisations</h6>
-                        <div class="row align-items-center">
-                            <div class="col-md-3 textPrimary">
-                                <i class="bi bi-folder2-open fs-1"></i>
-                            </div>
-                            <div class="col"></div>
-                            <div class="col-md-3 textPrimary text-end">
-                                <p class="h3 fw-bold  mb-0">124</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <!-- Bloc Sinistres -->
-        <div class="col-md-3 col-sm-6">
-            <div class="dashboard-card card shadow rounded bg-light" style="cursor: pointer;">
-                <a href="#" class="text-decoration-none text-reset d-block">
-                    <div class="card-body">
-                        <h6 class="text-muted">Sinistres</h6>
-                        <div class="row align-items-center">
-                            <div class="col-md-3 textPrimary">
-                                <i class="bi bi-exclamation-triangle-fill fs-1"></i>
-                            </div>
-                            <div class="col"></div>
-                            <div class="col-md-3 textPrimary text-end">
-                                <p class="h3 fw-bold  mb-0">124</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <!-- Bloc Prestataires -->
-        <div class="col-md-3 col-sm-6">
-            <div class="dashboard-card card shadow rounded bg-light" style="cursor: pointer;">
-                <a href="#" class="text-decoration-none text-reset d-block">
-                    <div class="card-body">
-                        <h6 class="text-muted">Prestataires</h6>
-                        <div class="row align-items-center">
-                            <div class="col-md-3 textPrimary">
-                                <i class="bi bi-buildings fs-1"></i>
-                            </div>
-                            <div class="col"></div>
-                            <div class="col-md-3 textPrimary text-end">
-                                <p class="h3 fw-bold  mb-0">124</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <!-- Bloc Prises en charge -->
-        <div class="col-md-3 col-sm-6">
-            <div class="dashboard-card card shadow rounded bg-light" style="cursor: pointer;">
-                <a href="#" class="text-decoration-none text-reset d-block">
-                    <div class="card-body">
-                        <h6 class="text-muted">Prises en charge</h6>
-                        <div class="row align-items-center">
-                            <div class="col-md-3 textPrimary">
-                                <i class="bi bi-envelope-paper-fill fs-1"></i>
-                            </div>
-                            <div class="col"></div>
-                            <div class="col-md-3 textPrimary text-end">
-                                <p class="h3 fw-bold  mb-0">124</p>
+                                <p class="h3 fw-bold textPrimary mb-0 mt-3">{{ $echeances }}</p>
                             </div>
                         </div>
                     </div>
@@ -203,4 +101,102 @@
             </div>
         </div>
     </div>
+
+<div class="row g-4 mt-3">
+    <div class="col-md-3 col-sm-6">
+        <div class="dashboard-card card shadow rounded bg-light" style="cursor: pointer;">
+            <a href="#" class="text-decoration-none text-reset d-block">
+                <div class="card-body">
+                    <h6 class="text-muted">Assurés</h6>
+                    <div class="row align-items-center">
+                        <div class="col-md-3 textPrimary">
+                            <i class="bi bi-people-fill fs-1"></i>
+                        </div>
+                        <div class="col"></div>
+                        <div class="col-md-3 textPrimary  text-end">
+                            <p class="h3 fw-bold  mb-0">{{ $assures }}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="dashboard-card card shadow rounded bg-light" style="cursor: pointer;">
+            <a href="#" class="text-decoration-none text-reset d-block">
+                <div class="card-body">
+                    <h6 class="text-muted">Primes & Cotisations</h6>
+                    <div class="row align-items-center">
+                        <div class="col-md-3 textPrimary">
+                            <i class="bi bi-folder2-open fs-1"></i>
+                        </div>
+                        <div class="col"></div>
+                        <div class="col-md-3 textPrimary text-end">
+                            <p class="h3 fw-bold  mb-0">{{ $primes }}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="dashboard-card card shadow rounded bg-light" style="cursor: pointer;">
+            <a href="#" class="text-decoration-none text-reset d-block">
+                <div class="card-body">
+                    <h6 class="text-muted">Sinistres</h6>
+                    <div class="row align-items-center">
+                        <div class="col-md-3 textPrimary">
+                            <i class="bi bi-exclamation-triangle-fill fs-1"></i>
+                        </div>
+                        <div class="col"></div>
+                        <div class="col-md-3 textPrimary text-end">
+                            <p class="h3 fw-bold  mb-0">{{ $sinistres }}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="dashboard-card card shadow rounded bg-light" style="cursor: pointer;">
+            <a href="#" class="text-decoration-none text-reset d-block">
+                <div class="card-body">
+                    <h6 class="text-muted">Prestataires</h6>
+                    <div class="row align-items-center">
+                        <div class="col-md-3 textPrimary">
+                            <i class="bi bi-buildings fs-1"></i>
+                        </div>
+                        <div class="col"></div>
+                        <div class="col-md-3 textPrimary text-end">
+                            <p class="h3 fw-bold  mb-0">{{ $prestataires }}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="dashboard-card card shadow rounded bg-light" style="cursor: pointer;">
+            <a href="#" class="text-decoration-none text-reset d-block">
+                <div class="card-body">
+                    <h6 class="text-muted">Prises en charge</h6>
+                    <div class="row align-items-center">
+                        <div class="col-md-3 textPrimary">
+                            <i class="bi bi-envelope-paper-fill fs-1"></i>
+                        </div>
+                        <div class="col"></div>
+                        <div class="col-md-3 textPrimary text-end">
+                            <p class="h3 fw-bold  mb-0">{{ $prisesEnCharge }}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
 @endsection

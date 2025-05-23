@@ -22,19 +22,27 @@
                 <!-- Infos contrat -->
                 <div class="bg-light border rounded p-3 mb-3">
                     <h6 class="bgPrimary py-2 px-2 rounded">Informations du contrat</h6>
-                    <p class="textPrimary"><strong>N° Contrat :</strong> 20251231</p>
-                    <p class="textPrimary"><strong>Souscripteur :</strong> ANAC</p>
-                    <p class="textPrimary"><strong>Date échéance :</strong> 31/12/2025</p>
+                    <p class="textPrimary"><strong>N° Contrat :</strong> {{ $contrat['numero_contrat'] ?? '------' }}</p>
+                    <p class="textPrimary"><strong>Souscripteur :</strong> {{ $contrat['nom_souscripteur'] ?? '------' }}
+                    </p>
+                    <p class="textPrimary"><strong>Date échéance :</strong>
+                        {{ !empty($contrat['date_echeance']) ? \Carbon\Carbon::parse($contrat['date_echeance'])->format('d/m/Y') : '------' }}
+                    </p>
+
                 </div>
 
                 <!-- Infos police -->
                 <div class="bg-light border rounded p-3 mb-3">
                     <h6 class="bgPrimary  py-2 px-2 rounded">Informations de la police</h6>
-                    <p class="textPrimary"><strong>Nom Police :</strong> ANAC SANTE</p>
-                    <p class="textPrimary"><strong>Type personnel :</strong> Cadre</p>
-                    <p class="textPrimary"><strong>Date effet :</strong> 02/04/2025</p>
-                    <p class="textPrimary"><strong>Date échéance :</strong> 31/12/2025</p>
-                    <p class="textPrimary"><strong>Tarif :</strong> 0</p>
+                    <p class="textPrimary"><strong>Nom Police :</strong> {{ $police['nom_police'] ?? '------' }}</p>
+                    <p class="textPrimary"><strong>Type personnel :</strong> {{ $police['type_personnel'] ?? '------' }}</p>
+                    <p class="textPrimary"><strong>Date effet :</strong>
+                        {{ !empty($police['date_debut']) ? \Carbon\Carbon::parse($police['date_debut'])->format('d/m/Y') : '------' }}
+                    </p>
+                    <p class="textPrimary"><strong>Date échéance :</strong>
+                        {{ !empty($police['date_fin']) ? \Carbon\Carbon::parse($police['date_fin'])->format('d/m/Y') : '------' }}
+                    </p>
+                    <p class="textPrimary"><strong>Tarif :</strong> {{ $police['tarif'] ?? 0 }}</p>
                 </div>
 
                 <!-- Statistiques -->
@@ -43,17 +51,20 @@
                     <div class="row text-center">
                         <div class="col-4">
                             <div class="border rounded textPrimary py-2">
-                                <small>Total Bénéf.</small><br><strong>2</strong>
+                                <small>Total Bénéf.</small><br>
+                                <strong>{{ $police['total_beneficiaires'] ?? 0 }}</strong>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="border rounded textPrimary py-2">
-                                <small>Principaux</small><br><strong>1</strong>
+                                <small>Principaux</small><br>
+                                <strong>{{ $police['total_assures_principaux'] ?? 0 }}</strong>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="border rounded textPrimary py-2">
-                                <small>Affilié</small><br><strong>1</strong>
+                                <small>Affilié</small><br>
+                                <strong>{{ $police['total_affilies'] ?? 0 }}</strong>
                             </div>
                         </div>
                     </div>
@@ -77,60 +88,92 @@
                     </ul>
                 </div> --}}
                 <form class="row g-3 align-items-end mb-4">
-
                     <div class="col-md-3">
-                        <label class="form-label">Statut Assuré </label>
-                        <select class="form-select shadowInput">
-                            <option selected>Choisir...</option>
+                        <label class="form-label">Statut Assuré</label>
+                        <select class="form-select shadowInput" id="statutSelect">
+                            <option value="">Tous</option>
+                            <option value="1">Assuré principal</option>
+                            <option value="0">Affilié</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
-                    </div>
+                    <div class="col-md-3"></div>
                     <div class="col-md-6">
                         <label class="form-label">Recherche...</label>
-                        <input type="text" class="form-control shadowInput" placeholder="Rechercher...">
+                        <input type="text" class="form-control shadowInput" placeholder="Rechercher..."
+                            id="searchBeneficiaire">
                     </div>
                 </form>
                 <!-- Tableau bénéficiaires -->
                 <div class="table-responsive">
+                    <!-- Tableau des bénéficiaires -->
                     <table class="table table-bordered align-middle text-center">
                         <thead style="background-color: #5e2d17; color: white;">
                             <tr>
-                                <th style="background-color: #5e2d17; color: white;">Matricule</th>
-                                <th style="background-color: #5e2d17; color: white;">Nom</th>
-                                <th style="background-color: #5e2d17; color: white;">Prénom</th>
-                                <th style="background-color: #5e2d17; color: white;">Assuré principal</th>
-                                <th style="background-color: #5e2d17; color: white;">Affilié à</th>
-                                <th style="background-color: #5e2d17; color: white;">Lien</th>
-                                <th style="background-color: #5e2d17; color: white;">Date naissance</th>
-                                <th style="background-color: #5e2d17; color: white;">Genre</th>
+                                <th>Matricule</th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Assuré principal</th>
+                                <th>Affilié à</th>
+                                <th>Lien</th>
+                                <th>Date naissance</th>
+                                <th>Genre</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>GA-A2-A125-02-0002-CI57-8</td>
-                                <td>MOUSSIOU NZA</td>
-                                <td>Jessica</td>
-                                <td><input type="checkbox" disabled></td>
-                                <td></td>
-                                <td>Conjoint(e)</td>
-                                <td>27/02/1994</td>
-                                <td>Femme</td>
-                            </tr>
-                            <tr>
-                                <td>GA-A2-A125-02-0001-817C-0</td>
-                                <td>MOULOUNGUI M1</td>
-                                <td>Hamadou A</td>
-                                <td><input type="checkbox" checked disabled></td>
-                                <td></td>
-                                <td></td>
-                                <td>05/06/1992</td>
-                                <td>Homme</td>
-                            </tr>
+                        <tbody id="beneficiaireTable">
+                            @foreach ($beneficiaires as $benef)
+                                <tr data-statut="{{ $benef['est_assure_principal'] }}">
+                                    <td>{{ $benef['matricule'] ?? '-' }}</td>
+                                    <td>{{ $benef['nom'] ?? '-' }}</td>
+                                    <td>{{ $benef['prenom'] ?? '-' }}</td>
+                                    <td><input type="checkbox" disabled
+                                            {{ $benef['est_assure_principal'] ? 'checked' : '' }}></td>
+                                    <td>{{ $benef['nomprenom_affilie'] ?? '-' }}</td>
+                                    <td>{{ $benef['lien_avec_assure'] ?? '-' }}</td>
+                                    <td>{{ !empty($benef['date_naissance']) ? \Carbon\Carbon::parse($benef['date_naissance'])->format('d/m/Y') : '------' }}
+                                    </td>
+                                    <td>{{ $benef['genre'] ?? '-' }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr id="noResultRow" class="text-muted text-center d-none">
+                                <td colspan="8">Aucun bénéficiaire trouvé.</td>
+                            </tr>
+                        </tfoot>
                     </table>
+
+
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById("searchBeneficiaire");
+            const statutSelect = document.getElementById("statutSelect");
+            const tableRows = document.querySelectorAll("#beneficiaireTable tr");
+            const noResultRow = document.getElementById("noResultRow");
+
+            function filterTable() {
+                const query = searchInput.value.toLowerCase();
+                const selectedStatut = statutSelect.value;
+                let visibleCount = 0;
+
+                tableRows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    const matchText = text.includes(query);
+                    const matchStatut = selectedStatut === "" || row.dataset.statut === selectedStatut;
+                    const match = matchText && matchStatut;
+
+                    row.style.display = match ? "" : "none";
+                    if (match) visibleCount++;
+                });
+
+                noResultRow.classList.toggle("d-none", visibleCount > 0);
+            }
+
+            searchInput.addEventListener("input", filterTable);
+            statutSelect.addEventListener("change", filterTable);
+        });
+    </script>
 @endsection

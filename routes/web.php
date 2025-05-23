@@ -41,33 +41,24 @@ Route::prefix('prestataire')->name('prestataire.')->group(function () {
     Route::view('/parametres', 'prestataires.parametres.profil')->name('parametres');
     Route::view('/support', 'prestataires.support.aide')->name('support');
 });
+// =======================
+// SECTION ASSUREURS
+// =======================
+
 Route::middleware('auth:api_user')->group(function () {
     Route::get('/verification', [App\Http\Controllers\VerifCarteController::class, 'index'])->name('verification');
     Route::get('/verification_affiche', [App\Http\Controllers\VerifCarteController::class, 'index_affiche'])->name('verification_affiche');
     Route::post('/identifiant', [App\Http\Controllers\VerifCarteController::class, 'identifiant'])->name('identifiantBeneficiaire');
-    Route::get('/assureur.dashboard', [App\Http\Controllers\ContratsController::class, 'dashboard'])->name('assureur.dashboard');
+    Route::get('/assureur.dashboard', [App\Http\Controllers\DashboardController::class, 'dashboardAssureur'])->name('assureur.dashboard');
     Route::get('/assureur.actualite', [App\Http\Controllers\ContratsController::class, 'actualite_assureur'])->name('assureur.actualite');
     Route::get('/assureur.contrats', [App\Http\Controllers\ContratsController::class, 'contrat_assureur'])->name('assureur.contrats');
     Route::get('/assureur.contratsDetails/{contrat}', [App\Http\Controllers\ContratsController::class, 'contrat_assureurDetails'])->name('assureur.contratsDetails');
     Route::get('/assureur.policeDetails/{police}', [App\Http\Controllers\ContratsController::class, 'police_assureurDetails'])->name('assureur.policeDetails');
+Route::get('/Guide-ingenium-sante', function () {
+    return view('guide_connexion');
+})->name('guide_connexion');
 });
 
-// =======================
-// SECTION ASSUREURS
-// =======================
-Route::prefix('assureur')->name('assureur.')->group(function () {
-    Route::view('/assures', 'assureurs.assures.index')->name('assures');
-    Route::view('/primes', 'assureurs.primes.index')->name('primes');
-    Route::view('/sinistres', 'assureurs.sinistres.index')->name('sinistres');
-    Route::view('/prestataires', 'assureurs.prestataires.index')->name('prestataires');
-    Route::view('/prises-en-charge', 'assureurs.prises-en-charge.index')->name('prises');
-    Route::view('/reporting', 'assureurs.reporting.index')->name('reporting');
-    Route::view('/documents', 'assureurs.documents.index')->name('documents');
-    Route::view('/communication', 'assureurs.communication.messagerie')->name('communication');
-    Route::view('/conformite', 'assureurs.conformite.controles')->name('conformite');
-    Route::view('/administration', 'assureurs.administration.utilisateurs')->name('administration');
-    Route::view('/integration', 'assureurs.integration.api')->name('integration');
-});
 
 // =======================
 // SECTION CLIENTS
