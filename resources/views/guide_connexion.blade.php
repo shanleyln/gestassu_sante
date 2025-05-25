@@ -23,7 +23,8 @@
 
         .container {
             width: 80%;
-            max-width: 960px;
+            max-width: 1100px;
+            border-radius: 10px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -147,50 +148,49 @@
                 <a href="#" class="breadcrumb-link1">Guide Utilisateur – Plateforme Ingenium Santé</a>
             </h4>
         </div>
-            <style>
-                nav.toc1 {
-                    background-color: var(--ingenium-background-light);
-                    padding: 15px;
-                    margin-bottom: 30px;
-                    border-radius: 5px;
-                    border: 1px solid var(--ingenium-border-color);
-                }
+        <style>
+            nav.toc1 {
+                background-color: var(--ingenium-background-light);
+                padding: 15px;
+                margin-bottom: 30px;
+                border-radius: 5px;
+                border: 1px solid var(--ingenium-border-color);
+            }
 
-                nav.toc1 h2 {
-                    font-family: 'Montserrat', sans-serif;
-                    color: var(--ingenium-primary2-blue);
-                    margin-top: 0;
-                    font-size: 1.5em;
-                }
+            nav.toc1 h2 {
+                font-family: 'Montserrat', sans-serif;
+                color: var(--ingenium-primary2-blue);
+                margin-top: 0;
+                font-size: 1.5em;
+            }
 
-                nav.toc1 ol {
-                    list-style: decimal;
-                    padding-left: 20px;
-                }
+            nav.toc1 ol {
+                list-style: decimal;
+                padding-left: 20px;
+            }
 
-                nav.toc1 ol li {
-                    margin-bottom: 8px;
-                }
+            nav.toc1 ol li {
+                margin-bottom: 8px;
+            }
 
-                nav.toc1 ol li a {
-                    text-decoration: none;
-                    color: var(--ingenium-primary2-blue);
-                    font-weight: 600;
-                }
+            nav.toc1 ol li a {
+                text-decoration: none;
+                color: var(--ingenium-primary2-blue);
+                font-weight: 600;
+            }
 
-                nav.toc1 ol li a:hover {
-                    color: var(--ingenium-hover2-blue);
-                    text-decoration: underline;
-                }
+            nav.toc1 ol li a:hover {
+                color: var(--ingenium-hover2-blue);
+                text-decoration: underline;
+            }
 
-                ul,
-                ol {
-                    margin-bottom: 15px;
-                    padding-left: 30px;
-                    /* Indentation standard pour listes */
-                }
-
-            </style>
+            ul,
+            ol {
+                margin-bottom: 15px;
+                padding-left: 30px;
+                /* Indentation standard pour listes */
+            }
+        </style>
         <nav class="toc1 shadow" style="color: #3e1b0f">
             <h2 style="color: #3e1b0f">Table des Matières</h2>
             <ol>
@@ -335,12 +335,14 @@
                 <h3 style="color: #3e1b0f">5.1 Cas normal : Vérification via la plateforme web</h3>
                 <div class="scenario">
                     <h4>Scénario :</h4>
-                    <p>Un patient, M. Diallo, se présente à la réception de votre clinique avec sa carte santé Ingenium.</p>
+                    <p>Un patient, Mme. ELANIE NDONG Steffy Rochelene, se présente à la réception de votre clinique avec sa
+                        carte santé Ingenium.</p>
                 </div>
                 <ol>
                     <li>L'agent de réception se connecte à la plateforme Ingenium Santé avec ses identifiants.</li>
                     <li>Il accède à la fonction "Vérifier une carte" ou "Consulter droits".</li>
-                    <li>Il saisit le <strong>Numéro d'identification unique</strong> présent sur la carte de M. Diallo.</li>
+                    <li>Il saisit le <strong>Numéro d'identification unique</strong> présent sur la carte de Mme. ELANIE
+                        NDONG Steffy Rochelene .</li>
                     <li>La plateforme affiche en temps réel :
                         <ul>
                             <li>La validité de la carte.</li>
@@ -350,7 +352,8 @@
                             <li>L'état de la police d'assurance (active, suspendue, expirée).</li>
                         </ul>
                     </li>
-                    <li>L'agent peut alors informer M. Diallo de sa prise en charge et procéder aux soins.</li>
+                    <li>L'agent peut alors informer Mme. ELANIE NDONG Steffy Rochelene de sa prise en charge et procéder aux
+                        soins.</li>
                 </ol>
 
                 <h3 style="color: #3e1b0f">5.2 Cas d'exception : Vérification par SMS (sans accès Internet)</h3>
@@ -375,7 +378,18 @@
             <section id="elements-carte">
                 <h2 style="color: #3e1b0f">6. Explication des éléments de la carte santé Ingenium</h2>
                 <p>Basé sur une carte santé type Ingenium, voici les éléments que vous y trouverez :</p>
-                <!-- <div class="image-placeholder">Placez ici une image de la carte santé Ingenium avec des numéros pointant vers chaque élément décrit ci-dessous.</div> -->
+
+                <div class="row py-3">
+                    <div class="col-md-6">
+                        <img src="{{ asset('imgs/4.png') }}" class="rounded" alt="" width="500"
+                            style="box-shadow: 0 4px 20px rgba(94, 45, 23, 0.5);">
+                    </div>
+                    <div class="col-md-6">
+                        <img src="{{ asset('imgs/5.png') }}" class="rounded" alt="" width="500"
+                            style="box-shadow: 0 4px 20px rgba(94, 45, 23, 0.5);">
+                    </div>
+                </div>
+
                 <ol>
                     <li><strong>Logo Ingenium Assurance (Courtier)</strong> : Représente la société de courtage Ingenium
                         Assurance. Souvent visible en plusieurs endroits.</li>
@@ -499,7 +513,8 @@
             <section id="faq">
                 <h2 style="color: #3e1b0f">10. Foire aux questions (FAQ)</h2>
                 <article>
-                    <h3 style="color: #3e1b0f">Q1 : Que faire si le numéro d'identification de la carte n'est pas reconnu par la plateforme ?</h3>
+                    <h3 style="color: #3e1b0f">Q1 : Que faire si le numéro d'identification de la carte n'est pas reconnu
+                        par la plateforme ?</h3>
                     <p>R : Vérifiez la saisie. Si le problème persiste, contactez le support Ingenium Assurance ou demandez
                         au patient de vérifier auprès de son employeur ou d'Ingenium.</p>
                 </article>
@@ -510,7 +525,8 @@
                         le support Ingenium Assurance.</p>
                 </article>
                 <article>
-                    <h3 style="color: #3e1b0f">Q3 : Les informations affichées sur la plateforme semblent incorrectes. Que faire ?</h3>
+                    <h3 style="color: #3e1b0f">Q3 : Les informations affichées sur la plateforme semblent incorrectes. Que
+                        faire ?</h3>
                     <p>R : Contactez immédiatement le support Ingenium Assurance pour signaler l'anomalie avec le plus de
                         détails possible.</p>
                 </article>
@@ -525,7 +541,8 @@
                         (voir section 4).</p>
                 </article>
                 <article>
-                    <h3 style="color: #3e1b0f">Q6 : En tant que bénéficiaire, puis-je consulter mes propres informations via la plateforme ?</h3>
+                    <h3 style="color: #3e1b0f">Q6 : En tant que bénéficiaire, puis-je consulter mes propres informations via
+                        la plateforme ?</h3>
                     <p>R : Ce guide s'adresse principalement aux prestataires. Si une interface dédiée aux bénéficiaires
                         existe, Ingenium Assurance vous en aura informé. Vos informations sont sur votre carte et documents
                         contractuels. Contactez votre RH ou Ingenium Assurance pour des détails.</p>

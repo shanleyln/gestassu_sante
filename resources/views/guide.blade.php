@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guide Utilisateur - Plateforme Ingenium Santé</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Inspiration Charte Ingenium Assurance */
         /* Couleurs (à ajuster si nuances exactes connues) */
         :root {
-            --ingenium-primary-blue: #3e1b0f; /* Un bleu marine profond, souvent vu */
-            --ingenium-secondary-gold: #C68E17; /* Un doré/bronze pour les accents, comme le logo aigle */
+            --ingenium-primary-blue: #3e1b0f;
+            /* Un bleu marine profond, souvent vu */
+            --ingenium-secondary-gold: #C68E17;
+            /* Un doré/bronze pour les accents, comme le logo aigle */
             --ingenium-text-dark: #333333;
             --ingenium-text-light: #f8f9fa;
             --ingenium-background-light: #f8f9fa;
             --ingenium-border-color: #dee2e6;
-            --ingenium-hover-blue: #5e2d17; /* Un bleu plus clair pour les survols */
+            --ingenium-hover-blue: #5e2d17;
+            /* Un bleu plus clair pour les survols */
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap');
@@ -24,14 +29,17 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: var(--ingenium-text-dark);
-            background-color: #ffffff; /* Fond blanc pour le contenu principal */
+            background-color: #ffffff;
+            /* Fond blanc pour le contenu principal */
             margin: 0;
             padding: 0;
         }
 
         .container {
             width: 80%;
-            max-width: 960px;
+            max-width: 1100px;
+            box-shadow: 0 4px 20px rgba(94, 45, 23, 0.5);
+            border-radius: 10px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -91,11 +99,14 @@
             padding-bottom: 20px;
             border-bottom: 1px dashed var(--ingenium-border-color);
         }
+
         section:last-of-type {
             border-bottom: none;
         }
 
-        h2, h3, h4 {
+        h2,
+        h3,
+        h4 {
             font-family: 'Montserrat', sans-serif;
             color: var(--ingenium-primary-blue);
             font-weight: 600;
@@ -103,7 +114,8 @@
 
         h2 {
             font-size: 1.8em;
-            margin-top: 0; /* Pour les H2 en début de section */
+            margin-top: 0;
+            /* Pour les H2 en début de section */
             border-bottom: 2px solid var(--ingenium-secondary-gold);
             padding-bottom: 10px;
             margin-bottom: 20px;
@@ -111,7 +123,8 @@
 
         h3 {
             font-size: 1.4em;
-            color: var(--ingenium-primary-blue); /* Légèrement plus clair ou même couleur */
+            color: var(--ingenium-primary-blue);
+            /* Légèrement plus clair ou même couleur */
             margin-top: 25px;
             margin-bottom: 15px;
         }
@@ -127,9 +140,11 @@
             text-align: justify;
         }
 
-        ul, ol {
+        ul,
+        ol {
             margin-bottom: 15px;
-            padding-left: 30px; /* Indentation standard pour listes */
+            padding-left: 30px;
+            /* Indentation standard pour listes */
         }
 
         li {
@@ -141,27 +156,33 @@
             color: var(--ingenium-primary-blue);
         }
 
-        code, .code-block {
+        code,
+        .code-block {
             background-color: #e9ecef;
             padding: 2px 6px;
             border-radius: 4px;
             font-family: 'Courier New', Courier, monospace;
-            color: #c60000; /* Rouge pour le code */
+            color: #c60000;
+            /* Rouge pour le code */
         }
+
         .code-block {
             display: block;
             padding: 10px;
             margin: 10px 0;
-            white-space: pre-wrap; /* Pour que les longs SMS aillent à la ligne */
+            white-space: pre-wrap;
+            /* Pour que les longs SMS aillent à la ligne */
         }
 
         .scenario {
-            background-color: #eef7ff; /* Un bleu très clair */
+            background-color: #eef7ff;
+            /* Un bleu très clair */
             border-left: 4px solid var(--ingenium-hover-blue);
             padding: 15px;
             margin: 20px 0;
             border-radius: 0 5px 5px 0;
         }
+
         .scenario h4 {
             color: var(--ingenium-hover-blue);
             margin-top: 0;
@@ -181,11 +202,14 @@
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid var(--ingenium-border-color);
             padding: 10px;
             text-align: left;
         }
+
         th {
             background-color: var(--ingenium-primary-blue);
             color: var(--ingenium-text-light);
@@ -199,21 +223,24 @@
             padding: 20px 0;
             margin-top: 40px;
         }
+
         footer p {
             margin: 0;
             font-size: 0.9em;
             text-align: center;
         }
+
         footer a {
             color: var(--ingenium-secondary-gold);
             text-decoration: none;
         }
+
         footer a:hover {
             text-decoration: underline;
         }
-
     </style>
 </head>
+
 <body>
     <header>
         <h1>Guide Utilisateur – Plateforme Ingenium Santé</h1>
@@ -240,30 +267,41 @@
             <section id="introduction">
                 <h2>1. Introduction</h2>
                 <h3>Bienvenue sur Ingenium Santé</h3>
-                <p>Bienvenue dans le guide utilisateur de la plateforme Ingenium Santé, développée par Ingenium Assurance (<a href="http://www.ingenium-assurance.com" target="_blank">www.ingenium-assurance.com</a>). Ce guide a été conçu pour vous accompagner dans la découverte et l'utilisation optimale de notre solution digitale, pensée pour simplifier et sécuriser la gestion des prises en charge santé.</p>
+                <p>Bienvenue dans le guide utilisateur de la plateforme Ingenium Santé, développée par Ingenium
+                    Assurance (<a href="http://www.ingenium-assurance.com"
+                        target="_blank">www.ingenium-assurance.com</a>). Ce guide a été conçu pour vous accompagner dans
+                    la découverte et l'utilisation optimale de notre solution digitale, pensée pour simplifier et
+                    sécuriser la gestion des prises en charge santé.</p>
 
                 <h3>À qui s'adresse ce guide ?</h3>
                 <p>Ce document s'adresse principalement :</p>
                 <ul>
-                    <li>Aux <strong>prestataires de santé</strong> (hôpitaux, cliniques, pharmacies, laboratoires, médecins).</li>
-                    <li>Aux <strong>administrateurs de centres de soins</strong> responsables de la configuration et de la gestion des accès.</li>
-                    <li>Aux <strong>utilisateurs finaux (bénéficiaires)</strong> souhaitant comprendre le fonctionnement de leur carte et les informations qu'elle contient.</li>
+                    <li>Aux <strong>prestataires de santé</strong> (hôpitaux, cliniques, pharmacies, laboratoires,
+                        médecins).</li>
+                    <li>Aux <strong>administrateurs de centres de soins</strong> responsables de la configuration et de
+                        la gestion des accès.</li>
+                    <li>Aux <strong>utilisateurs finaux (bénéficiaires)</strong> souhaitant comprendre le fonctionnement
+                        de leur carte et les informations qu'elle contient.</li>
                 </ul>
 
                 <h3>Objectifs de la plateforme</h3>
                 <p>Ingenium Santé vise à :</p>
                 <ul>
                     <li><strong>Faciliter</strong> la vérification en temps réel de la validité des cartes santé.</li>
-                    <li><strong>Accélérer</strong> l'accès aux informations sur les garanties et l'état des polices d'assurance.</li>
+                    <li><strong>Accélérer</strong> l'accès aux informations sur les garanties et l'état des polices
+                        d'assurance.</li>
                     <li><strong>Réduire</strong> les risques d'erreurs et de fraudes.</li>
-                    <li><strong>Assurer</strong> la continuité du service même en cas de coupure Internet grâce à un canal SMS.</li>
+                    <li><strong>Assurer</strong> la continuité du service même en cas de coupure Internet grâce à un
+                        canal SMS.</li>
                 </ul>
             </section>
 
             <section id="presentation-plateforme">
                 <h2>2. Présentation de la plateforme Ingenium Santé</h2>
                 <h3>Qu'est-ce qu'Ingenium Santé ?</h3>
-                <p>Ingenium Santé est une plateforme digitale innovante qui connecte les assurés, les entreprises clientes, les assureurs et les prestataires de santé. Elle permet une gestion dématérialisée et instantanée des informations relatives aux couvertures santé.</p>
+                <p>Ingenium Santé est une plateforme digitale innovante qui connecte les assurés, les entreprises
+                    clientes, les assureurs et les prestataires de santé. Elle permet une gestion dématérialisée et
+                    instantanée des informations relatives aux couvertures santé.</p>
 
                 <h3>Avantages pour les prestataires de santé</h3>
                 <ul>
@@ -302,13 +340,15 @@
                 <ol>
                     <li>Rendez-vous sur le portail web Ingenium Santé (l'URL vous sera communiquée).</li>
                     <li>Utilisez votre Identifiant Centre et votre Code Administrateur pour vous connecter.</li>
-                    <li>Il vous sera probablement demandé de personnaliser votre mot de passe administrateur dès la première connexion pour des raisons de sécurité.</li>
+                    <li>Il vous sera probablement demandé de personnaliser votre mot de passe administrateur dès la
+                        première connexion pour des raisons de sécurité.</li>
                 </ol>
                 <!-- <div class="image-placeholder">Placez ici un schéma simple du processus de première connexion</div> -->
 
 
                 <h3>Modification du mot de passe administrateur</h3>
-                <p>Il est recommandé de changer régulièrement votre mot de passe administrateur. Cette option est généralement disponible dans les paramètres de votre compte sur la plateforme.</p>
+                <p>Il est recommandé de changer régulièrement votre mot de passe administrateur. Cette option est
+                    généralement disponible dans les paramètres de votre compte sur la plateforme.</p>
             </section>
 
             <section id="gestion-acces">
@@ -316,9 +356,11 @@
                 <h3>Rôle de l'administrateur du centre</h3>
                 <p>L'administrateur désigné pour votre centre de soins est responsable de :</p>
                 <ul>
-                    <li>La création des comptes pour les membres du personnel habilités à utiliser la plateforme (ex: réception, facturation).</li>
+                    <li>La création des comptes pour les membres du personnel habilités à utiliser la plateforme (ex:
+                        réception, facturation).</li>
                     <li>L'attribution des rôles et des permissions spécifiques à chaque utilisateur.</li>
-                    <li>La mise à jour et la suppression des comptes utilisateurs (départ d'un employé, changement de fonction).</li>
+                    <li>La mise à jour et la suppression des comptes utilisateurs (départ d'un employé, changement de
+                        fonction).</li>
                 </ul>
 
                 <h3>Création de comptes utilisateurs pour le personnel</h3>
@@ -331,14 +373,17 @@
                 </ol>
 
                 <h3>Attribution des rôles et permissions</h3>
-                <p>La plateforme peut proposer différents rôles prédéfinis (ex: "Agent de vérification", "Superviseur") avec des niveaux d'accès distincts. Vous pourrez :</p>
+                <p>La plateforme peut proposer différents rôles prédéfinis (ex: "Agent de vérification", "Superviseur")
+                    avec des niveaux d'accès distincts. Vous pourrez :</p>
                 <ul>
                     <li>Assigner un rôle à chaque utilisateur.</li>
-                    <li>Personnaliser les permissions si la plateforme le permet (ex: consultation seule, droit de modification, etc.).</li>
+                    <li>Personnaliser les permissions si la plateforme le permet (ex: consultation seule, droit de
+                        modification, etc.).</li>
                 </ul>
 
                 <h3>Modification et suppression des utilisateurs</h3>
-                <p>Maintenez à jour la liste des utilisateurs pour garantir la sécurité et la pertinence des accès. Supprimez les comptes des employés ne faisant plus partie de votre structure.</p>
+                <p>Maintenez à jour la liste des utilisateurs pour garantir la sécurité et la pertinence des accès.
+                    Supprimez les comptes des employés ne faisant plus partie de votre structure.</p>
                 <!-- <div class="image-placeholder">Placez ici un organigramme simple montrant l'Administrateur Centre et les Utilisateurs avec leurs rôles.</div> -->
             </section>
 
@@ -347,12 +392,16 @@
                 <h3>5.1 Cas normal : Vérification via la plateforme web</h3>
                 <div class="scenario">
                     <h4>Scénario :</h4>
-                    <p>Un patient, M. Diallo, se présente à la réception de votre clinique avec sa carte santé Ingenium.</p>
+                    <p>Un patient, Mme. ELANIE NDONG Steffy Rochelene, se présente à la réception de votre clinique avec
+                        sa carte santé Ingenium.
+                    </p>
                 </div>
                 <ol>
                     <li>L'agent de réception se connecte à la plateforme Ingenium Santé avec ses identifiants.</li>
                     <li>Il accède à la fonction "Vérifier une carte" ou "Consulter droits".</li>
-                    <li>Il saisit le <strong>Numéro d'identification unique</strong> présent sur la carte de M. Diallo.</li>
+                    <li>Il saisit le <strong>Numéro d'identification unique</strong> présent sur la carte de Mme. ELANIE
+                        NDONG Steffy Rochelene.
+                    </li>
                     <li>La plateforme affiche en temps réel :
                         <ul>
                             <li>La validité de la carte.</li>
@@ -362,7 +411,8 @@
                             <li>L'état de la police d'assurance (active, suspendue, expirée).</li>
                         </ul>
                     </li>
-                    <li>L'agent peut alors informer M. Diallo de sa prise en charge et procéder aux soins.</li>
+                    <li>L'agent peut alors informer Mme. ELANIE NDONG Steffy Rochelene de sa prise en charge et procéder
+                        aux soins.</li>
                 </ol>
 
                 <h3>5.2 Cas d'exception : Vérification par SMS (sans accès Internet)</h3>
@@ -372,9 +422,14 @@
                 </div>
                 <ol>
                     <li>L'agent de réception utilise un téléphone mobile.</li>
-                    <li>Il envoie un SMS à un numéro dédié fourni par Ingenium Assurance (ex: <code>+XXX XXXXXXXX</code>).</li>
-                    <li>Le SMS doit contenir des informations clés dans un format précis (voir section 8). Par exemple : <code class="code-block">VERIF [Numéro d'identification unique de la carte] [Votre Identifiant Centre]</code></li>
-                    <li>En quelques secondes, il reçoit un SMS en retour avec les informations essentielles sur la validité et les droits du patient.</li>
+                    <li>Il envoie un SMS à un numéro dédié fourni par Ingenium Assurance (ex: <code>+XXX
+                            XXXXXXXX</code>).</li>
+                    <li>Le SMS doit contenir des informations clés dans un format précis (voir section 8). Par exemple :
+                        <code class="code-block">VERIF [Numéro d'identification unique de la carte] [Votre Identifiant
+                            Centre]</code>
+                    </li>
+                    <li>En quelques secondes, il reçoit un SMS en retour avec les informations essentielles sur la
+                        validité et les droits du patient.</li>
                     <li>Mme. Traoré peut être prise en charge.</li>
                 </ol>
             </section>
@@ -382,16 +437,33 @@
             <section id="elements-carte">
                 <h2>6. Explication des éléments de la carte santé Ingenium</h2>
                 <p>Basé sur une carte santé type Ingenium, voici les éléments que vous y trouverez :</p>
-                <!-- <div class="image-placeholder">Placez ici une image de la carte santé Ingenium avec des numéros pointant vers chaque élément décrit ci-dessous.</div> -->
+                <div class="row py-3">
+                    <div class="col-md-6">
+                        <img src="{{ asset('imgs/4.png') }}" class="rounded" alt="" width="500"
+                            style="box-shadow: 0 4px 20px rgba(94, 45, 23, 0.5);">
+                    </div>
+                    <div class="col-md-6">
+                        <img src="{{ asset('imgs/5.png') }}" class="rounded" alt="" width="500"
+                            style="box-shadow: 0 4px 20px rgba(94, 45, 23, 0.5);">
+                    </div>
+                </div>
                 <ol>
-                    <li><strong>Logo Ingenium Assurance (Courtier)</strong> : Représente la société de courtage Ingenium Assurance. Souvent visible en plusieurs endroits.</li>
+                    <li><strong>Logo Ingenium Assurance (Courtier)</strong> : Représente la société de courtage Ingenium
+                        Assurance. Souvent visible en plusieurs endroits.</li>
                     <li><strong>Titre de la Carte</strong> : Indication claire "CARTE SANTÉ".</li>
-                    <li><strong>Logo de l'Assureur</strong> : Indique la compagnie d'assurance qui porte le risque (ex: NSIA ASSURANCES).</li>
-                    <li><strong>Nom du Bénéficiaire</strong> : La personne autorisée à utiliser la carte pour les soins.</li>
-                    <li><strong>Entreprise Cliente / Groupe d'Appartenance</strong> : Code ou nom de l'entreprise de l'assuré principal.</li>
-                    <li><strong>Détails de la Couverture</strong> : Taux de prise en charge (ex: "100% Ambulatoires - 100% Hospitalisations").</li>
-                    <li><strong>Zone de Couverture Géographique</strong> : Lieux où la carte est valable (ex: "Afrique UE").</li>
-                    <li><strong>Numéro d'Identification Unique</strong> : Élément clé pour toute vérification (ex: "GB-A1-A125-01-0001-QDW4-5"). C'est ce numéro qui sera saisi sur la plateforme web ou envoyé par SMS.</li>
+                    <li><strong>Logo de l'Assureur</strong> : Indique la compagnie d'assurance qui porte le risque (ex:
+                        NSIA ASSURANCES).</li>
+                    <li><strong>Nom du Bénéficiaire</strong> : La personne autorisée à utiliser la carte pour les soins.
+                    </li>
+                    <li><strong>Entreprise Cliente / Groupe d'Appartenance</strong> : Code ou nom de l'entreprise de
+                        l'assuré principal.</li>
+                    <li><strong>Détails de la Couverture</strong> : Taux de prise en charge (ex: "100% Ambulatoires -
+                        100% Hospitalisations").</li>
+                    <li><strong>Zone de Couverture Géographique</strong> : Lieux où la carte est valable (ex: "Afrique
+                        UE").</li>
+                    <li><strong>Numéro d'Identification Unique</strong> : Élément clé pour toute vérification (ex:
+                        "GB-A1-A125-01-0001-QDW4-5"). C'est ce numéro qui sera saisi sur la plateforme web ou envoyé par
+                        SMS.</li>
                     <li><strong>Éléments Graphiques</strong> : Design spécifique à Ingenium Assurance.</li>
                 </ol>
             </section>
@@ -401,19 +473,23 @@
                 <h3>Accès à la plateforme</h3>
                 <ol>
                     <li>Ouvrez votre navigateur web (Chrome, Firefox, Edge recommandé).</li>
-                    <li>Saisissez l'adresse du portail Ingenium Santé (ex: <code>sante.ingenium-assurance.com</code> - l'URL exacte vous sera communiquée).</li>
+                    <li>Saisissez l'adresse du portail Ingenium Santé (ex: <code>sante.ingenium-assurance.com</code> -
+                        l'URL exacte vous sera communiquée).</li>
                     <li>Entrez votre Identifiant Centre (ou identifiant utilisateur) et votre mot de passe.</li>
                     <li>Cliquez sur "Connexion".</li>
                 </ol>
                 <!-- <div class="image-placeholder">Placez ici une capture de l'écran de connexion.</div> -->
 
                 <h3>Tableau de bord (si applicable)</h3>
-                <p>Après connexion, vous pourriez arriver sur un tableau de bord présentant des informations générales, des raccourcis vers les fonctionnalités les plus utilisées ou des notifications.</p>
+                <p>Après connexion, vous pourriez arriver sur un tableau de bord présentant des informations générales,
+                    des raccourcis vers les fonctionnalités les plus utilisées ou des notifications.</p>
 
                 <h3>Vérification d'une carte santé</h3>
                 <ol>
-                    <li>Repérez le menu ou le bouton "Vérifier Carte", "Rechercher Bénéficiaire" ou une appellation similaire.</li>
-                    <li>Un champ de saisie apparaîtra, vous invitant à entrer le "Numéro d'identification unique" de la carte.</li>
+                    <li>Repérez le menu ou le bouton "Vérifier Carte", "Rechercher Bénéficiaire" ou une appellation
+                        similaire.</li>
+                    <li>Un champ de saisie apparaîtra, vous invitant à entrer le "Numéro d'identification unique" de la
+                        carte.</li>
                     <li>Saisissez soigneusement le numéro (ex: <code>GB-A1-A125-01-0001-QDW4-5</code>).</li>
                     <li>Cliquez sur "Vérifier" ou "Rechercher".</li>
                 </ol>
@@ -426,7 +502,8 @@
                     <li><strong>Identité du bénéficiaire</strong> : Nom, prénom.</li>
                     <li><strong>Identité de l'assuré principal</strong> (si différent).</li>
                     <li><strong>Entreprise/Groupe</strong>.</li>
-                    <li><strong>Tableau des garanties</strong> : Détaillant les types de soins couverts (consultations, hospitalisation, pharmacie, optique, dentaire, etc.) et les taux/plafonds de remboursement.</li>
+                    <li><strong>Tableau des garanties</strong> : Détaillant les types de soins couverts (consultations,
+                        hospitalisation, pharmacie, optique, dentaire, etc.) et les taux/plafonds de remboursement.</li>
                     <li><strong>Date de validité</strong> de la couverture.</li>
                 </ul>
                 <!-- <div class="image-placeholder">Placez ici une capture d'écran type d'une page de résultats de vérification, avec des zones mises en évidence pour chaque information clé.</div> -->
@@ -451,7 +528,8 @@
 
                 <h3>Interprétation de la réponse SMS</h3>
                 <p>Vous recevrez un SMS en retour contenant les informations essentielles. Exemple de réponse :</p>
-                <p><code class="code-block">INGENIUM SANTE: ELANIE NDONG S.R. - EGCC. Statut: ACTIF. Couv: 100% AMBU, 100% HOSP. Zone: AFRIQUE UE. Valide jusqu'au JJ/MM/AAAA.</code></p>
+                <p><code class="code-block">INGENIUM SANTE: ELANIE NDONG S.R. - EGCC. Statut: ACTIF. Couv: 100% AMBU,
+                        100% HOSP. Zone: AFRIQUE UE. Valide jusqu'au JJ/MM/AAAA.</code></p>
                 <p>Le message sera concis mais contiendra les informations clés pour la prise de décision.</p>
                 <!-- <div class="image-placeholder">Placez ici une illustration simple de deux téléphones échangeant les SMS avec les exemples de messages.</div> -->
             </section>
@@ -484,39 +562,52 @@
                             <li>Signalez tout comportement suspect à Ingenium Assurance.</li>
                         </ul>
                     </li>
-                    <li><strong>Vigilance</strong> : Méfiez-vous des tentatives de phishing. Ingenium Assurance ne vous demandera jamais votre mot de passe par email ou téléphone.</li>
+                    <li><strong>Vigilance</strong> : Méfiez-vous des tentatives de phishing. Ingenium Assurance ne vous
+                        demandera jamais votre mot de passe par email ou téléphone.</li>
                 </ul>
             </section>
 
             <section id="faq">
                 <h2>10. Foire aux questions (FAQ)</h2>
                 <article>
-                    <h3>Q1 : Que faire si le numéro d'identification de la carte n'est pas reconnu par la plateforme ?</h3>
-                    <p>R : Vérifiez la saisie. Si le problème persiste, contactez le support Ingenium Assurance ou demandez au patient de vérifier auprès de son employeur ou d'Ingenium.</p>
+                    <h3>Q1 : Que faire si le numéro d'identification de la carte n'est pas reconnu par la plateforme ?
+                    </h3>
+                    <p>R : Vérifiez la saisie. Si le problème persiste, contactez le support Ingenium Assurance ou
+                        demandez au patient de vérifier auprès de son employeur ou d'Ingenium.</p>
                 </article>
                 <article>
                     <h3>Q2 : J'ai oublié mon mot de passe. Comment le réinitialiser ?</h3>
-                    <p>R : Utilisez le lien "Mot de passe oublié ?" sur la page de connexion. Si vous êtes un utilisateur standard, l'administrateur de votre centre peut vous aider. Si vous êtes administrateur, contactez le support Ingenium Assurance.</p>
+                    <p>R : Utilisez le lien "Mot de passe oublié ?" sur la page de connexion. Si vous êtes un
+                        utilisateur standard, l'administrateur de votre centre peut vous aider. Si vous êtes
+                        administrateur, contactez le support Ingenium Assurance.</p>
                 </article>
                 <article>
                     <h3>Q3 : Les informations affichées sur la plateforme semblent incorrectes. Que faire ?</h3>
-                    <p>R : Contactez immédiatement le support Ingenium Assurance pour signaler l'anomalie avec le plus de détails possible.</p>
+                    <p>R : Contactez immédiatement le support Ingenium Assurance pour signaler l'anomalie avec le plus
+                        de détails possible.</p>
                 </article>
                 <article>
                     <h3>Q4 : Le service SMS ne répond pas. Que puis-je faire ?</h3>
-                    <p>R : Vérifiez votre crédit et couverture réseau. Assurez-vous du bon numéro et format du SMS. Si le problème persiste, réessayez ou contactez le support.</p>
+                    <p>R : Vérifiez votre crédit et couverture réseau. Assurez-vous du bon numéro et format du SMS. Si
+                        le problème persiste, réessayez ou contactez le support.</p>
                 </article>
                 <article>
                     <h3>Q5 : Comment puis-je ajouter un nouvel utilisateur pour mon centre ?</h3>
-                    <p>R : Si vous êtes administrateur, connectez-vous et cherchez la section "Gestion des utilisateurs" (voir section 4).</p>
+                    <p>R : Si vous êtes administrateur, connectez-vous et cherchez la section "Gestion des utilisateurs"
+                        (voir section 4).</p>
                 </article>
-                 <article>
-                    <h3>Q6 : En tant que bénéficiaire, puis-je consulter mes propres informations via la plateforme ?</h3>
-                    <p>R : Ce guide s'adresse principalement aux prestataires. Si une interface dédiée aux bénéficiaires existe, Ingenium Assurance vous en aura informé. Vos informations sont sur votre carte et documents contractuels. Contactez votre RH ou Ingenium Assurance pour des détails.</p>
+                <article>
+                    <h3>Q6 : En tant que bénéficiaire, puis-je consulter mes propres informations via la plateforme ?
+                    </h3>
+                    <p>R : Ce guide s'adresse principalement aux prestataires. Si une interface dédiée aux bénéficiaires
+                        existe, Ingenium Assurance vous en aura informé. Vos informations sont sur votre carte et
+                        documents contractuels. Contactez votre RH ou Ingenium Assurance pour des détails.</p>
                 </article>
-                 <article>
+                <article>
                     <h3>Q7 : Qui contacter en cas de problème technique ou pour une assistance ?</h3>
-                    <p>R : Contactez le support Ingenium Assurance. Les coordonnées vous ont été communiquées. Consultez également <a href="http://www.ingenium-assurance.com" target="_blank">www.ingenium-assurance.com</a>.</p>
+                    <p>R : Contactez le support Ingenium Assurance. Les coordonnées vous ont été communiquées. Consultez
+                        également <a href="http://www.ingenium-assurance.com"
+                            target="_blank">www.ingenium-assurance.com</a>.</p>
                 </article>
             </section>
         </main>
@@ -524,7 +615,9 @@
 
     <footer>
         <p>&copy; 2023 Ingenium Assurance. Tous droits réservés.</p>
-        <p>Pour plus d'informations, visitez <a href="http://www.ingenium-assurance.com" target="_blank">www.ingenium-assurance.com</a></p>
+        <p>Pour plus d'informations, visitez <a href="http://www.ingenium-assurance.com"
+                target="_blank">www.ingenium-assurance.com</a></p>
     </footer>
 </body>
+
 </html>
