@@ -216,7 +216,7 @@
                 {{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->prenom }}
             </a>
             <a href="{{ route('guide_connexion') }}"
-                class="btn {{ request()->routeIs('guide_connexion') ?  'btn-light' : 'btn-outline-light' }}">
+                class="btn {{ request()->routeIs('guide_connexion') ? 'btn-light' : 'btn-outline-light' }}">
                 <i class="bi bi-journal-medical me-2"></i> Guide Santé
             </a>
         </div>
@@ -309,7 +309,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <input type="text" id="searchInput" class="input-search-style form-control"
-                                        placeholder="Tapez une recherche pour afficher un assureur...">
+                                        placeholder="Tapez une recherche pour afficher un assuré...">
                                 </div>
                             </div>
                             <div class="col-3"></div>
@@ -319,27 +319,57 @@
 
                         <!-- Tableau bénéficiaires -->
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover text-center align-middle">
-                                <thead>
-                                    <tr>
-                                        <th style="background-color: #5e2d17; color: white;">Raison sociale</th>
-                                        <th style="background-color: #5e2d17; color: white;">Type prestataire</th>
-                                        <th style="background-color: #5e2d17; color: white;">Code assurance</th>
-                                        <th style="background-color: #5e2d17; color: white;">Code Prestataire</th>
-                                        <th style="background-color: #5e2d17; color: white;">Numéro SIRET</th>
-                                        <th style="background-color: #5e2d17; color: white;">Téléphone</th>
-                                        <th style="background-color: #5e2d17; color: white;">Email</th>
-                                        <th style="background-color: #5e2d17; color: white;">N° Rue</th>
-                                        <th style="background-color: #5e2d17; color: white;">Nom Rue</th>
-                                        <th style="background-color: #5e2d17; color: white;">Pays</th>
-                                        <th style="background-color: #5e2d17; color: white;">Ville</th>
-                                        <th style="background-color: #5e2d17; color: white;">Code postal</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="d-none" id="beneficiaireTableBody">
-                                    <!-- Résultats dynamiques ici -->
-                                </tbody>
-                            </table>
+                            <div class="d-none" id="physiqueTableBodyContainer">
+                                <h3 class="textPrimary">Personne physique</h3>
+                                <table class="table table-bordered table-hover text-center align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: #5e2d17; color: white;">Nom(s)</th>
+                                            <th style="background-color: #5e2d17; color: white;">Prénom(s)</th>
+                                            <th style="background-color: #5e2d17; color: white;">Genre</th>
+                                            <th style="background-color: #5e2d17; color: white;">N° de sécurité</th>
+                                            <th style="background-color: #5e2d17; color: white;">Date de naissance</th>
+                                            <th style="background-color: #5e2d17; color: white;">Profession</th>
+                                            <th style="background-color: #5e2d17; color: white;">Téléphone</th>
+                                            <th style="background-color: #5e2d17; color: white;">Email</th>
+                                            <th style="background-color: #5e2d17; color: white;">N° Rue</th>
+                                            <th style="background-color: #5e2d17; color: white;">Nom Rue</th>
+                                            <th style="background-color: #5e2d17; color: white;">Pays</th>
+                                            <th style="background-color: #5e2d17; color: white;">Ville</th>
+                                            <th style="background-color: #5e2d17; color: white;">Code postal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="physiqueTableBody">
+                                        <!-- Résultats dynamiques ici -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="d-none" id="beneficiaireTableBodyContainer">
+                                <h3 class="textPrimary">Personne morale</h3>
+                                <table class="table table-bordered table-hover text-center align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: #5e2d17; color: white;">Raison sociale</th>
+                                            <th style="background-color: #5e2d17; color: white;">Type prestataire</th>
+                                            <th style="background-color: #5e2d17; color: white;">Code assurance</th>
+                                            <th style="background-color: #5e2d17; color: white;">Code Prestataire</th>
+                                            <th style="background-color: #5e2d17; color: white;">Numéro SIRET</th>
+                                            <th style="background-color: #5e2d17; color: white;">Téléphone</th>
+                                            <th style="background-color: #5e2d17; color: white;">Email</th>
+                                            <th style="background-color: #5e2d17; color: white;">N° Rue</th>
+                                            <th style="background-color: #5e2d17; color: white;">Nom Rue</th>
+                                            <th style="background-color: #5e2d17; color: white;">Pays</th>
+                                            <th style="background-color: #5e2d17; color: white;">Ville</th>
+                                            <th style="background-color: #5e2d17; color: white;">Code postal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="beneficiaireTableBody">
+                                        <!-- Résultats dynamiques ici -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+
                             <div id="messageAucunResultat" class="text-center text-danger py-3 d-none"
                                 style="font-size: 20px">
                                 Aucun assureur trouvé.
@@ -347,7 +377,7 @@
                         </div>
                         <!-- Message si aucune recherche -->
                         <div id="messageAucun" class="text-center textPrimary py-5" style="font-size: 20px">
-                            Tapez une recherche pour afficher un ou plusieurs assureur(s).
+                            Tapez une recherche pour afficher un ou plusieurs assuré(s).
                         </div>
                     </div>
                 </div>
@@ -357,7 +387,25 @@
 
     </div>
     <script>
-        const data = [{
+
+        const dataPhysique = [{
+                nom: 'MOULOUNGUI',
+                prenom: 'Bienvenu',
+                genre: 'Masculin',
+                numero: 'GA-A5',
+                dateNaissance: '2007B05810',
+                profession: '2007B05810',
+                tel: '011721925 /0117',
+                email: 'assinco@assinco.rg',
+                rueNum: '1935',
+                rueNom: 'Boulevard de la nation',
+                pays: 'Gabon',
+                ville: 'Libreville',
+                postal: 'BP 7812'
+            },
+            // Ajoute ici d'autres objets similaires si besoin
+        ];
+        const dataMorale = [{
                 raison: 'ASSINCO Assurances',
                 type: 'GA-A5',
                 codeAss: 'GA-A5',
@@ -375,35 +423,79 @@
         ];
 
         const input = document.getElementById('searchInput');
-        const tableBody = document.getElementById('beneficiaireTableBody');
+        const physiqueTableBody = document.getElementById('physiqueTableBody');
+        const beneficiaireTableBody = document.getElementById('beneficiaireTableBody');
+
+        const physiqueContainer = document.getElementById('physiqueTableBodyContainer');
+        const moraleContainer = document.getElementById('beneficiaireTableBodyContainer');
         const messageInitial = document.getElementById('messageAucun');
         const messageAucunResultat = document.getElementById('messageAucunResultat');
 
         input.addEventListener('input', () => {
-            const query = input.value.toLowerCase();
-            tableBody.innerHTML = '';
+            const query = input.value.toLowerCase().trim();
 
+            // Nettoyer les anciens résultats
+            physiqueTableBody.innerHTML = '';
+            beneficiaireTableBody.innerHTML = '';
+
+            // Cas vide
             if (query === '') {
+                physiqueContainer.classList.add('d-none');
+                moraleContainer.classList.add('d-none');
+                messageAucunResultat.classList.add('d-none');
                 messageInitial.classList.remove('d-none');
-                tableBody.classList.add('d-none');
                 return;
             }
 
-            const results = data.filter(item =>
+            // Résultats physique
+            const resultsPhysique = dataPhysique.filter(item =>
                 Object.values(item).some(val =>
-                    val.toLowerCase().includes(query)
+                    String(val).toLowerCase().includes(query)
                 )
             );
 
-            messageInitial.classList.add('d-none');
-            tableBody.classList.remove('d-none');
+            // Résultats morale
+            const resultsMorale = dataMorale.filter(item =>
+                Object.values(item).some(val =>
+                    String(val).toLowerCase().includes(query)
+                )
+            );
 
-            if (results.length === 0) {
-                messageAucunResultat.classList.remove('d-none');
-            } else {
-                messageAucunResultat.classList.add('d-none');
-                results.forEach(item => {
-                    const row = `
+            // Affichage ou masquage des conteneurs
+            physiqueContainer.classList.toggle('d-none', resultsPhysique.length === 0);
+            moraleContainer.classList.toggle('d-none', resultsMorale.length === 0);
+            messageInitial.classList.add('d-none');
+
+            // Affichage du message aucun résultat uniquement si les deux sont vides
+            messageAucunResultat.classList.toggle(
+                'd-none',
+                resultsPhysique.length > 0 || resultsMorale.length > 0
+            );
+
+            // Affichage des résultats physique
+            resultsPhysique.forEach(item => {
+                physiqueTableBody.insertAdjacentHTML('beforeend', `
+                    <tr>
+                        <td>${item.nom}</td>
+                        <td>${item.prenom}</td>
+                        <td>${item.genre}</td>
+                        <td>${item.numero}</td>
+                        <td>${item.dateNaissance}</td>
+                        <td>${item.profession}</td>
+                        <td>${item.tel}</td>
+                        <td>${item.email}</td>
+                        <td>${item.rueNum}</td>
+                        <td>${item.rueNom}</td>
+                        <td>${item.pays}</td>
+                        <td>${item.ville}</td>
+                        <td>${item.postal}</td>
+                    </tr>
+                `);
+            });
+
+            // Affichage des résultats morale
+            resultsMorale.forEach(item => {
+                beneficiaireTableBody.insertAdjacentHTML('beforeend', `
                     <tr>
                         <td>${item.raison}</td>
                         <td>${item.type}</td>
@@ -417,12 +509,12 @@
                         <td>${item.pays}</td>
                         <td>${item.ville}</td>
                         <td>${item.postal}</td>
-                    </tr>`;
-                    tableBody.insertAdjacentHTML('beforeend', row);
-                });
-            }
+                    </tr>
+                `);
+            });
         });
     </script>
+
 
     <!-- FontAwesome pour les icônes -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
