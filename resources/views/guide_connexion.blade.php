@@ -416,8 +416,9 @@
                 <h3 style="color: #3e1b0f">Accès à la plateforme</h3>
                 <ol>
                     <li>Ouvrez votre navigateur web (Chrome, Firefox, Edge recommandé).</li>
-                    <li>Saisissez l'adresse du portail Ingenium Santé (ex: <code><a href="https://ingenium-sante.com">https://ingenium-sante.com</a></code> - l'URL
+                    <li>Saisissez l'adresse du portail Ingenium Santé (ex: <code>sante.ingenium-assurance.com</code> - l'URL
                         exacte vous sera communiquée).</li>
+                        {{-- <li>Saisissez l'adresse du portail Ingenium Santé (ex: <code><a href="https://ingenium-sante.com">https://ingenium-sante.com</a></code>).</li> --}}
                     <li>Entrez votre Identifiant Centre (ou identifiant utilisateur) et votre mot de passe.</li>
                     <li>Cliquez sur "Connexion".</li>
                 </ol>
