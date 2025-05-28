@@ -104,7 +104,7 @@
                                     <td>{{ $police['Tarif'] ?? 0 }}</td>
                                     <td>
                                         <a href="{{ route('assureur.policeDetails', ['police' => $police['id']]) }}"
-                                            class="btn" style="background-color: #5e2d17;color: white;">Bénéficiaire</a>
+                                            class="btn" style="background-color: #5e2d17;color: white;">Détails police</a>
                                     </td>
                                 </tr>
                             @endforeach

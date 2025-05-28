@@ -7,7 +7,7 @@
         </h4>
         <h4 class="pt-2">
             <i class="bi bi-chevron-right breadcrumb-chevron"></i>
-            <a href="{{ route('assureur.contratsDetails', ['police', null]) }}" class="breadcrumb-link">Détails du
+            <a href="{{ route('assureur.contratsDetails', ['contrat' => $contrat_id]) }}" class="breadcrumb-link">Détails du
                 contrat</a>
         </h4>
         <h4 class="pt-2">
@@ -109,14 +109,14 @@
                     <table class="table table-bordered align-middle text-center">
                         <thead style="background-color: #5e2d17; color: white;">
                             <tr>
-                                <th>Matricule</th>
-                                <th>Nom</th>
-                                <th>Prénom</th>
-                                <th>Assuré principal</th>
-                                <th>Affilié à</th>
-                                <th>Lien</th>
-                                <th>Date naissance</th>
-                                <th>Genre</th>
+                                <th style="background-color: #5e2d17; color: white;">Matricule</th>
+                                <th style="background-color: #5e2d17; color: white;">Nom</th>
+                                <th style="background-color: #5e2d17; color: white;">Prénom</th>
+                                <th style="background-color: #5e2d17; color: white;">Assuré principal</th>
+                                <th style="background-color: #5e2d17; color: white;">Affilié à</th>
+                                <th style="background-color: #5e2d17; color: white;">Lien</th>
+                                <th style="background-color: #5e2d17; color: white;">Date naissance</th>
+                                <th style="background-color: #5e2d17; color: white;">Genre</th>
                             </tr>
                         </thead>
                         <tbody id="beneficiaireTable">

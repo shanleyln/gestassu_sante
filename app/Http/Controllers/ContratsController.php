@@ -76,12 +76,14 @@ class ContratsController extends Controller
             $police = $data['police'] ?? [];
             $contrat = $data['contrat'] ?? [];
             $beneficiaires = $data['beneficiaires'] ?? [];
-
+            $contrat_id= $contrat['id'] ?? null;
             return view('assureurs.detailsPolice', [
                 'police' => $police,
                 'contrat' => $contrat,
+                'contrat_id' => $contrat_id,
                 'beneficiaires' => $beneficiaires
             ]);
+
         } else {
             return back()->withErrors(['erreur' => 'Échec de récupération des détails.']);
         }

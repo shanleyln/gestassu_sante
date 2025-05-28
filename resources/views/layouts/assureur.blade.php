@@ -282,7 +282,9 @@
         </div>
         @php
             $dataPhysique = \App\Helpers\ListeAssurer::assurer_physique();
-            $dataMorale = \App\Helpers\ListeAssurer::assurer_moral();
+            $result = \App\Helpers\ListeAssurer::assurer_moral();
+            $dataMorale = $result['dataMorale'];
+            $dataFocaux = $result['dataFocaux'];
         @endphp
         <div class="modal fade" id="beneficiaireModal" tabindex="-1" aria-labelledby="beneficiaireModalLabel"
             aria-hidden="true">
@@ -399,7 +401,7 @@
                                     <table class="table table-bordered table-hover text-center align-middle">
                                         <thead>
                                             <tr>
-                                                <th style="background-color: #5e2d17; color: white;">LOgo
+                                                <th style="background-color: #5e2d17; color: white;">Logo
                                                 </th>
                                                 <th style="background-color: #5e2d17; color: white;">Raison sociale
                                                 </th>
@@ -419,6 +421,38 @@
                                             </tr>
                                         </thead>
                                         <tbody id="moralTableBody" class="d-none"></tbody>
+
+                                    </table>
+                                </div>
+                                <div id="focauxBodyContainer">
+                                    <h3 class="textPrimary">Points focaux</h3>
+                                    <table class="table table-bordered table-hover text-center align-middle">
+                                        <thead>
+                                            <thead>
+                                                <tr>
+                                                    <th style="background-color: #5e2d17; color: white;">Nom</th>
+                                                    <th style="background-color: #5e2d17; color: white;">Prénoms</th>
+                                                    <th style="background-color: #5e2d17; color: white;">Genre</th>
+                                                    <th style="background-color: #5e2d17; color: white;">N° Sécurité
+                                                        Soc.</th>
+                                                    <th style="background-color: #5e2d17; color: white;">Profession
+                                                    </th>
+                                                    <th style="background-color: #5e2d17; color: white;">Date Naiss.
+                                                    </th>
+                                                    <th style="background-color: #5e2d17; color: white;">Téléphone</th>
+                                                    <th style="background-color: #5e2d17; color: white;">Email</th>
+                                                    <th style="background-color: #5e2d17; color: white;">N° Rue</th>
+                                                    <th style="background-color: #5e2d17; color: white;">Nom rue</th>
+                                                    <th style="background-color: #5e2d17; color: white;">Code postal
+                                                    </th>
+                                                    <th style="background-color: #5e2d17; color: white;">Pays</th>
+                                                    <th style="background-color: #5e2d17; color: white;">Ville</th>
+                                                </tr>
+                                            </thead>
+                                        </thead>
+                                        <tbody id="focauxBody" class="d-none"></tbody>
+                                        <tfoot class="d-none" id="focauxTableFooter">
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -439,9 +473,10 @@
 
     </div>
     <script>
+        const dataMorale = @json($dataMorale);
+        const dataFocaux = @json($dataFocaux);
         const dataPhysique = @json($dataPhysique);
 
-        const dataMorale = @json($dataMorale);
 
         const input = document.getElementById('searchInput');
         const physiqueTableBody = document.getElementById('physiqueTableBody');
@@ -584,14 +619,58 @@
                 });
             } else {
                 moralTableBody.classList.add('d-none');
+                
             }
+            if (dataFocaux.length > 0) {
+                const focauxBody = document.getElementById('focauxBody');
+                focauxBody.classList.remove('d-none');
 
+                dataFocaux.forEach(item => {
+                    const formattedDate = formatDateNaissance(item.date_naissance);
+                    const formattedTel = formatPhoneNumber(item.telephone);
+
+                    focauxBody.insertAdjacentHTML('beforeend', `
+            <tr>
+                <td>${item.nom}</td>
+                <td>${item.prenom}</td>
+                <td>${item.genre}</td>
+                <td>${item.numero_securite}</td>
+                <td>${item.profession}</td>
+                <td>${formattedDate}</td>
+                <td>${formattedTel}</td>
+                <td>${item.email}</td>
+                <td>${item.numero_rue}</td>
+                <td>${item.nom_rue}</td>
+                <td>${item.code_postal}</td>
+                <td>${item.nom_pays}</td>
+                <td>${item.nom_ville}</td>
+            </tr>
+        `);
+                });
+            } else {
+                const focauxBody = document.getElementById('focauxBody');
+                const focauxTableFooter = document.getElementById('focauxTableFooter');
+
+                focauxBody.classList.add('d-none');
+                focauxTableFooter.classList.remove('d-none');
+                focauxTableFooter.innerHTML = `
+                <tr>
+                    <td colspan="13" class="text-center text-muted">
+                        Aucun point focal trouvé pour <strong> ${query} </strong>.
+                    </td>
+                </tr>
+            `;
+            }
             messageInitial.classList.add('d-none');
             if (messageAucunResultat) {
+                const focauxTableFooter = document.getElementById('focauxTableFooter');
+                focauxTableFooter.classList.remove('d-none');
+                
                 messageAucunResultat.classList.toggle('d-none', resultsPhysique.length > 0 || resultsMorale.length >
                     0);
                 physiqueContainer.classList.toggle('d-none', resultsPhysique.length < 1);
                 moralContainer.classList.toggle('d-none', resultsMorale.length < 1);
+                focauxTableFooter.classList.toggle('d-none', resultsMorale.length < 1);
             }
         });
     </script>
