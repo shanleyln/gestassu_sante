@@ -75,13 +75,14 @@
                     </div>
                 </form>
                 <div class="table-responsive">
-                    <table class="table table-bordered text-center align-middle">
+                    <table class="table table-bordered text-center align-middle" style="font-size: 13px;">
                         <thead>
                             <tr>
                                 <th style="background-color: #5e2d17; color: white;">N° Police</th>
                                 <th style="background-color: #5e2d17; color: white;">Nom police</th>
                                 <th style="background-color: #5e2d17; color: white;">Type personnel</th>
                                 <th style="background-color: #5e2d17; color: white;">Description</th>
+                                <th style="background-color: #5e2d17; color: white;">Condition particuliere</th>
                                 <th style="background-color: #5e2d17; color: white;">Date début</th>
                                 <th style="background-color: #5e2d17; color: white;">Date fin</th>
                                 <th style="background-color: #5e2d17; color: white;">Tarif</th>
@@ -96,6 +97,11 @@
                                     <td>{{ $police['TypePersonnel'] ?? '-' }}</td>
                                     <td>{{ $police['description'] ?? '-' }}</td>
                                     <td>
+                                        <a href="{{ $police['ConditionsParticulieres'] }}" target="_blank" class="btn" style="background-color: #5e2d17;color: white;font-size: 13px;">
+                                            <i class="bi bi-download"></i> Télécharger
+                                        </a>
+                                    </td>
+                                    <td>
                                         {{ !empty($police['date_debut']) ? \Carbon\Carbon::parse($police['date_debut'])->format('d/m/Y') : '------' }}
                                     </td>
                                     <td>
@@ -104,7 +110,7 @@
                                     <td>{{ $police['Tarif'] ?? 0 }}</td>
                                     <td>
                                         <a href="{{ route('assureur.policeDetails', ['police' => $police['id']]) }}"
-                                            class="btn" style="background-color: #5e2d17;color: white;">Détails police</a>
+                                            class="btn" style="background-color: #5e2d17;color: white;font-size: 13px;">Détails police</a>
                                     </td>
                                 </tr>
                             @endforeach

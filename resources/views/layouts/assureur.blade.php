@@ -398,7 +398,7 @@
                                 aria-labelledby="morale-tab">
                                 <div id="moralTableBodyContainer">
                                     <h3 class="textPrimary">Personne morale</h3>
-                                    <table class="table table-bordered table-hover text-center align-middle">
+                                    <table class="table table-bordered table-hover text-center align-middle" style="margin-bottom: 150px;">
                                         <thead>
                                             <tr>
                                                 <th style="background-color: #5e2d17; color: white;">Logo
@@ -424,7 +424,7 @@
 
                                     </table>
                                 </div>
-                                <div id="focauxBodyContainer">
+                                <div id="focauxBodyContainer" >
                                     <h3 class="textPrimary">Points focaux</h3>
                                     <table class="table table-bordered table-hover text-center align-middle">
                                         <thead>
@@ -664,12 +664,14 @@
             messageInitial.classList.add('d-none');
             if (messageAucunResultat) {
                 const focauxTableFooter = document.getElementById('focauxTableFooter');
+                const focauxBodyContainer = document.getElementById('focauxBodyContainer');
                 focauxTableFooter.classList.remove('d-none');
                 
                 messageAucunResultat.classList.toggle('d-none', resultsPhysique.length > 0 || resultsMorale.length >
                     0);
                 physiqueContainer.classList.toggle('d-none', resultsPhysique.length < 1);
                 moralContainer.classList.toggle('d-none', resultsMorale.length < 1);
+                focauxBodyContainer.classList.toggle('d-none', resultsMorale.length < 1);
                 focauxTableFooter.classList.toggle('d-none', resultsMorale.length < 1);
             }
         });
