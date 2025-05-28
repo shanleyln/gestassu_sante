@@ -163,9 +163,8 @@ color: #fff;">
                     </div>
                     <div class="fw-semibold text-white text-center mb-2" style="font-size:1.05rem;">Bienvenue sur votre
                         plateforme</div>
-                    <div class="text-white text-center" style="font-size:0.98rem;">Prestataires de Santé, Assureurs,
-                        Clients (entreprises & particuliers) : veuillez vous connecter pour accéder à votre espace
-                        personnel.</div>
+                    <div class="text-white text-center" style="font-size:0.98rem;">Prestataires de Santé et Assureurs @readonly(true)
+                        Veuillez vous connecter pour accéder à votre espace.</div>
                 </div>
                 <!-- Bloc droit (connexion) -->
                 <div class="right-block d-flex flex-column justify-content-center"

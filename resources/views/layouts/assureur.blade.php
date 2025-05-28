@@ -280,6 +280,10 @@
             </main>
 
         </div>
+        @php
+            $dataPhysique = \App\Helpers\ListeAssurer::assurer_physique();
+            $dataMorale = \App\Helpers\ListeAssurer::assurer_moral();
+        @endphp
         <div class="modal fade" id="beneficiaireModal" tabindex="-1" aria-labelledby="beneficiaireModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-fullscreen" style="padding: 30px">
@@ -315,69 +319,117 @@
                             <div class="col-3"></div>
                         </div>
 
+                        <!-- Nav tabs -->
+                        <style>
+                            .nav-tabs .nav-link {
+                                color: #5e2d17;
+                                border: 1px solid #5e2d17;
+                                background-color: white;
+                                font-weight: 500;
+                                transition: all 0.3s ease;
+                            }
+
+                            .nav-tabs .nav-link:hover {
+                                background-color: #f0e6e2;
+                                color: #5e2d17;
+                            }
+
+                            .nav-tabs .nav-link.active {
+                                background-color: #5e2d17;
+                                color: white;
+                                font-weight: bold;
+                                border-color: #5e2d17 #5e2d17 #fff;
+                            }
+
+                            .nav-tabs {
+                                border-bottom: 2px solid #5e2d17;
+                            }
+                        </style>
+
+                        <ul class="nav nav-tabs mb-4" id="beneficiaireTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="physique-tab" data-bs-toggle="tab"
+                                    data-bs-target="#physique-pane" type="button" role="tab"
+                                    aria-controls="physique-pane" aria-selected="true">
+                                    Personne physique
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="morale-tab" data-bs-toggle="tab"
+                                    data-bs-target="#morale-pane" type="button" role="tab"
+                                    aria-controls="morale-pane" aria-selected="false">
+                                    Personne morale
+                                </button>
+                            </li>
+                        </ul>
 
 
-                        <!-- Tableau bénéficiaires -->
-                        <div class="table-responsive">
-                            <div class="d-none" id="physiqueTableBodyContainer">
-                                <h3 class="textPrimary">Personne physique</h3>
-                                <table class="table table-bordered table-hover text-center align-middle">
-                                    <thead>
-                                        <tr>
-                                            <th style="background-color: #5e2d17; color: white;">Nom(s)</th>
-                                            <th style="background-color: #5e2d17; color: white;">Prénom(s)</th>
-                                            <th style="background-color: #5e2d17; color: white;">Genre</th>
-                                            <th style="background-color: #5e2d17; color: white;">N° de sécurité</th>
-                                            <th style="background-color: #5e2d17; color: white;">Date de naissance</th>
-                                            <th style="background-color: #5e2d17; color: white;">Profession</th>
-                                            <th style="background-color: #5e2d17; color: white;">Téléphone</th>
-                                            <th style="background-color: #5e2d17; color: white;">Email</th>
-                                            <th style="background-color: #5e2d17; color: white;">N° Rue</th>
-                                            <th style="background-color: #5e2d17; color: white;">Nom Rue</th>
-                                            <th style="background-color: #5e2d17; color: white;">Pays</th>
-                                            <th style="background-color: #5e2d17; color: white;">Ville</th>
-                                            <th style="background-color: #5e2d17; color: white;">Code postal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="physiqueTableBody">
-                                        <!-- Résultats dynamiques ici -->
-                                    </tbody>
-                                </table>
+                        <div class="tab-content mb-3">
+                            <div class="tab-pane fade show active" id="physique-pane" role="tabpanel"
+                                aria-labelledby="physique-tab">
+                                <div id="physiqueTableBodyContainer">
+                                    <h3 class="textPrimary">Personne physique</h3>
+                                    <table class="table table-bordered table-hover text-center align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #5e2d17; color: white;">Photo</th>
+                                                <th style="background-color: #5e2d17; color: white;">Nom(s)</th>
+                                                <th style="background-color: #5e2d17; color: white;">Prénom(s)</th>
+                                                <th style="background-color: #5e2d17; color: white;">Genre</th>
+                                                <th style="background-color: #5e2d17; color: white;">Date de naissance
+                                                </th>
+                                                <th style="background-color: #5e2d17; color: white;">Profession</th>
+                                                <th style="background-color: #5e2d17; color: white;">Téléphone</th>
+                                                <th style="background-color: #5e2d17; color: white;">Email</th>
+                                                <th style="background-color: #5e2d17; color: white;">N° Rue</th>
+                                                <th style="background-color: #5e2d17; color: white;">Nom Rue</th>
+                                                <th style="background-color: #5e2d17; color: white;">Pays</th>
+                                                <th style="background-color: #5e2d17; color: white;">Ville</th>
+                                                <th style="background-color: #5e2d17; color: white;">Code postal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="physiqueTableBody" class="d-none"></tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="d-none" id="beneficiaireTableBodyContainer">
-                                <h3 class="textPrimary">Personne morale</h3>
-                                <table class="table table-bordered table-hover text-center align-middle">
-                                    <thead>
-                                        <tr>
-                                            <th style="background-color: #5e2d17; color: white;">Raison sociale</th>
-                                            <th style="background-color: #5e2d17; color: white;">Type prestataire</th>
-                                            <th style="background-color: #5e2d17; color: white;">Code assurance</th>
-                                            <th style="background-color: #5e2d17; color: white;">Code Prestataire</th>
-                                            <th style="background-color: #5e2d17; color: white;">Numéro SIRET</th>
-                                            <th style="background-color: #5e2d17; color: white;">Téléphone</th>
-                                            <th style="background-color: #5e2d17; color: white;">Email</th>
-                                            <th style="background-color: #5e2d17; color: white;">N° Rue</th>
-                                            <th style="background-color: #5e2d17; color: white;">Nom Rue</th>
-                                            <th style="background-color: #5e2d17; color: white;">Pays</th>
-                                            <th style="background-color: #5e2d17; color: white;">Ville</th>
-                                            <th style="background-color: #5e2d17; color: white;">Code postal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="beneficiaireTableBody">
-                                        <!-- Résultats dynamiques ici -->
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-                            <div id="messageAucunResultat" class="text-center text-danger py-3 d-none"
-                                style="font-size: 20px">
-                                Aucun assureur trouvé.
+                            <div class="tab-pane fade" id="morale-pane" role="tabpanel"
+                                aria-labelledby="morale-tab">
+                                <div id="moralTableBodyContainer">
+                                    <h3 class="textPrimary">Personne morale</h3>
+                                    <table class="table table-bordered table-hover text-center align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #5e2d17; color: white;">LOgo
+                                                </th>
+                                                <th style="background-color: #5e2d17; color: white;">Raison sociale
+                                                </th>
+                                                <th style="background-color: #5e2d17; color: white;">Numéro SIRET</th>
+                                                <th style="background-color: #5e2d17; color: white;">Type prestataire
+                                                </th>
+                                                <th style="background-color: #5e2d17; color: white;">Email</th>
+                                                <th style="background-color: #5e2d17; color: white;">Téléphone</th>
+                                                <th style="background-color: #5e2d17; color: white;">N° Rue</th>
+                                                <th style="background-color: #5e2d17; color: white;">Nom Rue</th>
+                                                <th style="background-color: #5e2d17; color: white;">Code postal</th>
+                                                <th style="background-color: #5e2d17; color: white;">Pays</th>
+                                                <th style="background-color: #5e2d17; color: white;">Ville</th>
+                                                <th style="background-color: #5e2d17; color: white;">Code Prestataire
+                                                </th>
+                                                <th style="background-color: #5e2d17; color: white;">En convention</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="moralTableBody" class="d-none"></tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
+
                         <!-- Message si aucune recherche -->
                         <div id="messageAucun" class="text-center textPrimary py-5" style="font-size: 20px">
                             Tapez une recherche pour afficher un ou plusieurs assuré(s).
+                        </div>
+                        <div id="messageAucunResultat" class="text-center text-danger py-3 d-none">
+                            Aucun résultat trouvé pour votre recherche.
                         </div>
                     </div>
                 </div>
@@ -387,131 +439,160 @@
 
     </div>
     <script>
+        const dataPhysique = @json($dataPhysique);
 
-        const dataPhysique = [{
-                nom: 'MOULOUNGUI',
-                prenom: 'Bienvenu',
-                genre: 'Masculin',
-                numero: 'GA-A5',
-                dateNaissance: '2007B05810',
-                profession: '2007B05810',
-                tel: '011721925 /0117',
-                email: 'assinco@assinco.rg',
-                rueNum: '1935',
-                rueNom: 'Boulevard de la nation',
-                pays: 'Gabon',
-                ville: 'Libreville',
-                postal: 'BP 7812'
-            },
-            // Ajoute ici d'autres objets similaires si besoin
-        ];
-        const dataMorale = [{
-                raison: 'ASSINCO Assurances',
-                type: 'GA-A5',
-                codeAss: 'GA-A5',
-                codePres: '2007B05810',
-                siret: '2007B05810',
-                tel: '011721925 /0117',
-                email: 'assinco@assinco.rg',
-                rueNum: '1935',
-                rueNom: 'Boulevard de la nation',
-                pays: 'Gabon',
-                ville: 'Libreville',
-                postal: 'BP 7812'
-            },
-            // Ajoute ici d'autres objets similaires si besoin
-        ];
+        const dataMorale = @json($dataMorale);
 
         const input = document.getElementById('searchInput');
         const physiqueTableBody = document.getElementById('physiqueTableBody');
-        const beneficiaireTableBody = document.getElementById('beneficiaireTableBody');
-
         const physiqueContainer = document.getElementById('physiqueTableBodyContainer');
-        const moraleContainer = document.getElementById('beneficiaireTableBodyContainer');
+        const moralTableBody = document.getElementById('moralTableBody');
+        const moralContainer = document.getElementById('moralTableBodyContainer');
+        const physiqueTab = document.getElementById('physique-tab');
+        const moraleTab = document.getElementById('morale-tab');
+        const navItemPhysique = physiqueTab.parentElement;
+        const navItemMorale = moraleTab.parentElement;
         const messageInitial = document.getElementById('messageAucun');
         const messageAucunResultat = document.getElementById('messageAucunResultat');
+
+        function formatPhoneNumber(phone) {
+            let num = phone.replace(/\D/g, ''); // Supprime tous les caractères sauf chiffres
+
+            // Gérer indicatif Gabon
+            if (num.startsWith('00241')) {
+                num = num.slice(5);
+            } else if (num.startsWith('241')) {
+                num = num.slice(3);
+            }
+
+            // Formater le numéro selon sa longueur (Gabon)
+            if (num.length === 8) {
+                // Format standard Gabon: 2 2 2 2
+                return '+241 ' + num.slice(0, 2) + ' ' + num.slice(2, 4) + ' ' + num.slice(4, 6) + ' ' + num.slice(6, 8);
+            } else if (num.length === 9) {
+                // Format 3 2 2 2 (rare, mais possible)
+                return '+241 ' + num.slice(0, 3) + ' ' + num.slice(3, 5) + ' ' + num.slice(5, 7) + ' ' + num.slice(7, 9);
+            } else if (num.length === 7) {
+                // Format 2 2 3
+                return '+241 ' + num.slice(0, 2) + ' ' + num.slice(2, 4) + ' ' + num.slice(4, 7);
+            } else {
+                return phone; // Retour brut si format inconnu
+            }
+        }
+
+        function formatDateNaissance(rawDate) {
+            if (!rawDate || rawDate.length !== 8) return rawDate;
+
+            const jours = rawDate.slice(6, 8);
+            const mois = parseInt(rawDate.slice(4, 6), 10);
+            const annee = rawDate.slice(0, 4);
+
+            const moisNoms = [
+                'janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+                'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'
+            ];
+
+            if (mois < 1 || mois > 12) return rawDate;
+
+            return `${jours} ${moisNoms[mois - 1]} ${annee}`;
+        }
+
 
         input.addEventListener('input', () => {
             const query = input.value.toLowerCase().trim();
 
-            // Nettoyer les anciens résultats
             physiqueTableBody.innerHTML = '';
-            beneficiaireTableBody.innerHTML = '';
+            moralTableBody.innerHTML = '';
 
-            // Cas vide
             if (query === '') {
-                physiqueContainer.classList.add('d-none');
-                moraleContainer.classList.add('d-none');
-                messageAucunResultat.classList.add('d-none');
+                physiqueTableBody.classList.add('d-none');
+                moralTableBody.classList.add('d-none');
+                navItemPhysique.classList.remove('d-none');
+                navItemMorale.classList.remove('d-none');
                 messageInitial.classList.remove('d-none');
+                if (messageAucunResultat) messageAucunResultat.classList.add('d-none');
                 return;
             }
 
-            // Résultats physique
             const resultsPhysique = dataPhysique.filter(item =>
-                Object.values(item).some(val =>
-                    String(val).toLowerCase().includes(query)
-                )
+                Object.values(item).some(val => String(val).toLowerCase().includes(query))
             );
 
-            // Résultats morale
             const resultsMorale = dataMorale.filter(item =>
-                Object.values(item).some(val =>
-                    String(val).toLowerCase().includes(query)
-                )
+                Object.values(item).some(val => String(val).toLowerCase().includes(query))
             );
 
-            // Affichage ou masquage des conteneurs
-            physiqueContainer.classList.toggle('d-none', resultsPhysique.length === 0);
-            moraleContainer.classList.toggle('d-none', resultsMorale.length === 0);
+            navItemPhysique.classList.toggle('d-none', resultsPhysique.length === 0);
+            navItemMorale.classList.toggle('d-none', resultsMorale.length === 0);
+
+            if (resultsPhysique.length > 0) {
+                physiqueTab.click();
+            } else if (resultsMorale.length > 0) {
+                moraleTab.click();
+            }
+
+            if (resultsPhysique.length > 0) {
+                physiqueTableBody.classList.remove('d-none');
+                resultsPhysique.forEach(item => {
+                    const formattedTel = formatPhoneNumber(item.telephone);
+                    const formattedDate = formatDateNaissance(item.date_naissance);
+                    physiqueTableBody.insertAdjacentHTML('beforeend', `
+                <tr>
+                    <td>
+                        <img src="${item.photo_profil && item.photo_profil !== '' && item.photo_profil !== null 
+                            ? item.photo_profil 
+                            : 'https://img.freepik.com/vecteurs-premium/icone-profil-utilisateur-dans-style-plat-illustration-vectorielle-avatar-membre-fond-isole-concept-entreprise-signe-autorisation-humaine_157943-15752.jpg?w=740'}" 
+                            alt="Logo de ${item.nom || 'assuré'}" 
+                            style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
+                    </td>
+                    <td>${item.nom}</td>
+                    <td>${item.prenom}</td>
+                    <td>${item.genre}</td>
+                 <td>${formattedDate}</td>
+                <td>${item.profession}</td>
+                <td>${formattedTel}</td><td>${item.email}</td>
+                <td>${item.numero_rue}</td><td>${item.nom_rue}</td><td>${item.nom_pays}</td><td>${item.nom_ville}</td><td>${item.code_postal}</td></tr>
+                `);
+                });
+            } else {
+                physiqueTableBody.classList.add('d-none');
+            }
+
+            if (resultsMorale.length > 0) {
+                moralTableBody.classList.remove('d-none');
+                resultsMorale.forEach(item => {
+                    const formattedTel = formatPhoneNumber(item.telephone);
+                    moralTableBody.insertAdjacentHTML('beforeend', `
+                <tr>
+                <td>
+                    <img src="${item.logo_entreprise && item.logo_entreprise !== '' && item.logo_entreprise !== null 
+                        ? item.logo_entreprise 
+                        : 'https://img.freepik.com/vecteurs-premium/icone-profil-utilisateur-dans-style-plat-illustration-vectorielle-avatar-membre-fond-isole-concept-entreprise-signe-autorisation-humaine_157943-15752.jpg?w=740'}" 
+                        alt="Logo de ${item.raison_sociale || 'l’entreprise'}" 
+                        style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
+                </td>
+
+                    <td>${item.raison_sociale}</td>
+                    <td>${item.numero_siret}</td><td>${item.type_organisation}</td><td>${item.email}</td>
+                  <td>${formattedTel}</td> <td>${item.numero_rue}</td> 
+                  <td>${item.nom_rue}</td><td>${item.code_postal}</td>
+                  <td>${item.nom_pays}</td><td>${item.nom_ville}</td>
+                  <td>${item.code_prestataire}</td>
+                  <td>${(item.prestataire_en_convention === 1)?'Oui':'Non'}</td>
+                </tr>
+                `);
+                });
+            } else {
+                moralTableBody.classList.add('d-none');
+            }
+
             messageInitial.classList.add('d-none');
-
-            // Affichage du message aucun résultat uniquement si les deux sont vides
-            messageAucunResultat.classList.toggle(
-                'd-none',
-                resultsPhysique.length > 0 || resultsMorale.length > 0
-            );
-
-            // Affichage des résultats physique
-            resultsPhysique.forEach(item => {
-                physiqueTableBody.insertAdjacentHTML('beforeend', `
-                    <tr>
-                        <td>${item.nom}</td>
-                        <td>${item.prenom}</td>
-                        <td>${item.genre}</td>
-                        <td>${item.numero}</td>
-                        <td>${item.dateNaissance}</td>
-                        <td>${item.profession}</td>
-                        <td>${item.tel}</td>
-                        <td>${item.email}</td>
-                        <td>${item.rueNum}</td>
-                        <td>${item.rueNom}</td>
-                        <td>${item.pays}</td>
-                        <td>${item.ville}</td>
-                        <td>${item.postal}</td>
-                    </tr>
-                `);
-            });
-
-            // Affichage des résultats morale
-            resultsMorale.forEach(item => {
-                beneficiaireTableBody.insertAdjacentHTML('beforeend', `
-                    <tr>
-                        <td>${item.raison}</td>
-                        <td>${item.type}</td>
-                        <td>${item.codeAss}</td>
-                        <td>${item.codePres}</td>
-                        <td>${item.siret}</td>
-                        <td>${item.tel}</td>
-                        <td>${item.email}</td>
-                        <td>${item.rueNum}</td>
-                        <td>${item.rueNom}</td>
-                        <td>${item.pays}</td>
-                        <td>${item.ville}</td>
-                        <td>${item.postal}</td>
-                    </tr>
-                `);
-            });
+            if (messageAucunResultat) {
+                messageAucunResultat.classList.toggle('d-none', resultsPhysique.length > 0 || resultsMorale.length >
+                    0);
+                physiqueContainer.classList.toggle('d-none', resultsPhysique.length < 1);
+                moralContainer.classList.toggle('d-none', resultsMorale.length < 1);
+            }
         });
     </script>
 
