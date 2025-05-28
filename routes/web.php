@@ -46,6 +46,7 @@ Route::prefix('prestataire')->name('prestataire.')->group(function () {
 // =======================
 
 Route::middleware('auth:api_user')->group(function () {
+    Route::get('/prestataire.actualite', [App\Http\Controllers\DashboardController::class, 'actualite_prestataire'])->name('prestataire.actualite');
     Route::get('/verification', [App\Http\Controllers\VerifCarteController::class, 'index'])->name('verification');
     Route::get('/verification_affiche', [App\Http\Controllers\VerifCarteController::class, 'index_affiche'])->name('verification_affiche');
     Route::post('/identifiant', [App\Http\Controllers\VerifCarteController::class, 'identifiant'])->name('identifiantBeneficiaire');

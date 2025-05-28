@@ -29,7 +29,7 @@
 
         .sidebar {
             background: #fff !important;
-            border-radius: 18px;
+            border-radius: 9px;
             box-shadow: 0 2px 12px 0 rgba(139, 92, 45, 0.07);
             min-height: 92vh;
             margin-top: 10px;
@@ -50,7 +50,7 @@
             color: #444 !important;
             font-size: 0.98rem;
             padding: 0.50rem 0.9rem;
-            border-radius: 12px;
+            border-radius: 9px;
             margin-bottom: 6px;
             display: flex;
             align-items: center;
@@ -72,11 +72,11 @@
             font-weight: bold;
             margin-left: 7px;
             margin-right: 7px;
-            box-shadow: 0 2px 8px 0 rgba(139, 92, 45, 0.09);
+            box-shadow: 0 2px 8px 0 rgba(139, 92, 45, 0.07);
         }
 
         .sidebar .nav-link.active {
-            box-shadow: 0 4px 16px 0 rgba(139, 92, 45, 0.13);
+            box-shadow: 0 4px 16px 0 rgba(139, 92, 45, 0.07);
         }
 
         .sidebar .nav-link {
@@ -124,28 +124,84 @@
         }
 
         .sidebar::-webkit-scrollbar-thumb:hover {
-            background: #a06c3c;
+            background: #5e2d17;
         }
 
         .sidebar::-webkit-scrollbar-track {
             background: #f5f5f5;
             border-radius: 9px;
         }
+
+        .breadcrumb-link1 {
+            color: #5e2e17d7;
+            text-decoration: underline;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            text-decoration: none;
+        }
+    </style>
+    <style>
+        .breadcrumb-custom {
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .breadcrumb-link {
+            color: #5e2d17;
+            text-decoration: underline;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: transform 0.2s ease, color 0.2s ease;
+            text-decoration: none;
+        }
+
+        .breadcrumb-link1 {
+            color: #5e2e17d7;
+            text-decoration: underline;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            text-decoration: none;
+        }
+
+        .breadcrumb-link:hover {
+            transform: scale(1.08);
+            color: #3e1b0f;
+        }
+
+        .breadcrumb-chevron {
+            color: #5e2d17;
+            font-size: 1rem;
+        }
     </style>
 </head>
 
-<body
-    style="background: linear-gradient(#474341e3, #54422f),
-url('{{ asset('/imgs/login1.png') }}') no-repeat center center;
-background-size: cover;
-background-attachment: fixed;
-color: #fff;">
+<body style="background-color: #ccc;">
 
     <!-- Header -->
     <nav class="navbar navbar-dark navbar-brown px-3 flex justify-content-between">
         <a class="navbar-brand" href="#">Espace Prestataire</a>
-        <a class="navbar-brand" href="#">{{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->nom }}
-            {{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->prenom }}</a>
+        <div class="">
+            <a class="navbar-brand" href="#" style="margin-right: 20px">
+                <i class="bi bi-person-circle"></i>
+                {{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->nom }}
+                {{ \Illuminate\Support\Facades\Auth::guard('api_user')->user()->prenom }}
+            </a>
+            <a href="{{ route('guide_connexion') }}"
+                class="btn {{ request()->routeIs('guide_connexion') ? 'btn-light' : 'btn-outline-light' }}">
+                <i class="bi bi-journal-medical me-2"></i> Guide Santé
+            </a>
+        </div>
     </nav>
 
     <div class="container-fluid">
@@ -156,11 +212,15 @@ color: #fff;">
                 <div class="position-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item"><a
+                                class="nav-link{{ request()->routeIs('prestataire.actualite') ? ' active' : '' }}"
+                                href="{{ route('prestataire.actualite') }}"><strong><i
+                                        class="bi bi-house-door-fill"></i>Acceuil</strong></a></li>
+                        <li class="nav-item"><a
                                 class="nav-link{{ request()->routeIs('prestataire.dashboard') ? ' active' : '' }}"
                                 href="{{ route('prestataire.dashboard') }}"><i
-                                    class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+                                    class="bi bi-speedometer2 me-2"></i>Tableau de bord</a></li>
                         <li class="nav-item">
-                            <a class="nav-link{{ request()->routeIs('verification') ? ' active' : '' }}"
+                            <a class="nav-link{{ request()->routeIs('verification', 'verification_affiche') ? ' active' : '' }}"
                                 href="{{ route('verification') }}">
                                 <i class="bi bi-card-checklist me-2"></i>Vérification Carte
                             </a>
@@ -171,38 +231,38 @@ color: #fff;">
                                     class="bi bi-shield-check me-2"></i>Garanties</a></li> --}}
                         <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
                                     class="bi bi-clipboard-plus me-2"></i>Prises en charge
-                                <span class="badge bg-secondary" style="margin-left: 5px"
-                                    style="margin-left: 5px">Indispo...</span></a></li>
+                            </a></li>
                         <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
                                     class="bi bi-receipt me-2"></i>Factures
-                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                            </a></li>
                         <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
                                     class="bi bi-cash-stack me-2"></i>Paiements
-                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                            </a></li>
                         <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
                                     class="bi bi-people me-2"></i>Patients
-                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                            </a></li>
                         <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
                                     class="bi bi-folder2-open me-2"></i>Documents
-                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                            </a></li>
                         <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
                                     class="bi bi-chat-dots me-2"></i>Communication
-                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                            </a></li>
                         <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
                                     class="bi bi-bar-chart-line me-2"></i>Statistiques
-                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                            </a></li>
                         <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
                                     class="bi bi-gear me-2"></i>Paramètres
-                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                            </a></li>
                         <li class="nav-item"><a class="nav-link disabled text-muted d-flex " href="#"><i
                                     class="bi bi-question-circle me-2"></i>Support
-                                <span class="badge bg-secondary" style="margin-left: 5px">Indispo...</span></a></li>
+                            </a></li>
                         <li class="nav-item mt-4">
                             <a class="nav-link text-danger fw-bold d-flex " href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                style="display: none;">
                                 @csrf
                             </form>
                         </li>
@@ -212,7 +272,6 @@ color: #fff;">
 
             <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-                <h2>@yield('title')</h2>
                 @yield('content')
             </main>
         </div>

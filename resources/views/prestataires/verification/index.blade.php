@@ -1,10 +1,13 @@
 @extends('layouts.prestataire')
 
-@section('title', 'Vérification carte')
-
 @section('content')
-
-    <div class="container-fluid my-5 card-body shadow p-4 rounded">
+    <div class="breadcrumb-custom mb-3">
+        <h4 class="mt-2">
+            <i class="bi bi-chevron-right breadcrumb-chevron"></i>
+            <a href="#" class="breadcrumb-link1">Vérification carte</a>
+        </h4>
+    </div>
+    <div class="container-fluid mb-3 bg-white card-body shadow p-4 rounded">
 
         @if ($errors->any())
             <div class="row">
@@ -104,28 +107,34 @@
                             <div class="col-md-6">
                                 <p><strong>Matricule :</strong>
                                     {{ $userData['beneficiaire']['matricule'] ?? '--/--/----/--/----/----/-' }}</p>
-                                <p><strong>Nom et prénoms :</strong> {{ $userData['beneficiaire']['nom'] ?? '----------' }} {{ $userData['beneficiaire']['prenom'] ?? '----------' }}</p>
+                                <p><strong>Nom et prénoms :</strong> {{ $userData['beneficiaire']['nom'] ?? '----------' }}
+                                    {{ $userData['beneficiaire']['prenom'] ?? '----------' }}</p>
                                 <p><strong>Type Bénéficiaire :</strong> <span
                                         class="badge bg-dark">{{ $userData['beneficiaire']['lien'] ?? '----------' }}</span>
                                 </p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Numéro Sécurité Sociale :</strong> {{ $userData['beneficiaire']['numero_securite_sociale'] ?? '----------' }}</p>
+                                <p><strong>Numéro Sécurité Sociale :</strong>
+                                    {{ $userData['beneficiaire']['numero_securite_sociale'] ?? '----------' }}</p>
                                 <p><strong>Date de naissance :</strong>
                                     {{ isset($userData['beneficiaire']['date_naissance']) ? \App\Helpers\Formatage::convertirDateEnTexte(\Carbon\Carbon::createFromFormat('Ymd', $userData['beneficiaire']['date_naissance'])->format('d/m/Y')) : '---------' }}
-                                     </p>
+                                </p>
                                 <p><strong>Genre :</strong> {{ $userData['beneficiaire']['genre'] ?? '------' }}</p>
                             </div>
                             <div class="col-md-6">
                                 <p><strong>Pays :</strong> {{ $userData['beneficiaire']['nom_pays'] ?? '------' }}</p>
                                 <p><strong>Ville :</strong> {{ $userData['beneficiaire']['nom_ville'] ?? '------' }}</p>
-                                <p><strong>Code Postal :</strong> {{ $userData['beneficiaire']['code_postal'] ?? '------' }}</p>
+                                <p><strong>Code Postal :</strong>
+                                    {{ $userData['beneficiaire']['code_postal'] ?? '------' }}</p>
                                 <p><strong>Adresse :</strong> {{ $userData['beneficiaire']['nom_rue'] ?? '------' }}</p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Profession :</strong> {{ $userData['beneficiaire']['profession'] ?? '------' }}</p>
-                                <p><strong>Email :</strong> {{ $userData['beneficiaire']['email'] ?? '---------@gmail.com' }}</p>
-                                <p><strong>Téléphone :</strong> {{ $userData['beneficiaire']['telephone'] ?? '+-- --- -- -- --' }}</p>
+                                <p><strong>Profession :</strong> {{ $userData['beneficiaire']['profession'] ?? '------' }}
+                                </p>
+                                <p><strong>Email :</strong>
+                                    {{ $userData['beneficiaire']['email'] ?? '---------@gmail.com' }}</p>
+                                <p><strong>Téléphone :</strong>
+                                    {{ $userData['beneficiaire']['telephone'] ?? '+-- --- -- -- --' }}</p>
                             </div>
                         </div>
                     </div>
@@ -253,7 +262,7 @@
                                         <strong>{{ $g['nom'] ?? 'Garantie' }} :</strong>
                                         {{ isset($g['taux_remboursement']) ? round($g['taux_remboursement'] * 100) . ' %' : '---' }}
                                     </li>
-                                    <li><strong>Plafond annuel :</strong> 
+                                    <li><strong>Plafond annuel :</strong>
                                         {{ isset($g['plafond_annuel']) ? number_format($g['plafond_annuel'], 0, ',', ' ') : '--------' }}
                                     </li>
                                 @endforeach
@@ -270,9 +279,9 @@
     </div>
     <style>
         :root {
-            --main-color: #5c402b;
+            --main-color: #5e2d17;
             --secondary-color: #e7dfd7;
-            --hover-color: #7a5e44;
+            --hover-color: #5e2d17;
             --shadow-color: rgba(0, 0, 0, 0.1);
         }
 
@@ -302,6 +311,7 @@
 
         .btn-search-simple:hover {
             background: var(--hover-color);
+            /* color: #fff; */
         }
 
         .nav-tabs .nav-link {

@@ -57,7 +57,7 @@ class UserController extends Controller
             if ($user->categorie == "ASSUREUR") {
                 return redirect()->route('assureur.actualite');
             } else {
-                return redirect()->route('prestataire.dashboard');
+                return redirect()->route('prestataire.actualite');
             }
         }
 

@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Http;
 class DashboardController extends Controller
 {
     //
+     public function actualite_prestataire()
+    {
+        return  view('prestataires.actualite');
+    }
     public function index()
     {
 

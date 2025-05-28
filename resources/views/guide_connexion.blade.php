@@ -1,4 +1,8 @@
-@extends('layouts.assureur')
+@if (\Illuminate\Support\Facades\Auth::guard('api_user')->user() && \Illuminate\Support\Facades\Auth::guard('api_user')->user()->type == "ASSUREUR")
+    @extends('layouts.assureur')
+@else
+    @extends('layouts.prestataire')
+@endif
 
 @section('content')
     <style>

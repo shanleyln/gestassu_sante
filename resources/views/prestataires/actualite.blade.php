@@ -1,4 +1,6 @@
-@extends('layouts.assureur')
+@extends('layouts.prestataire')
+
+@section('title', 'Tableau de Bord')
 
 @section('content')
     <!-- STYLES -->
@@ -147,30 +149,23 @@
                 <a href="#"
                     class="list-group-item list-group-item-action d-flex justify-content-between align-items-start mb-3">
                     <div class="ms-2 me-auto">
-                        <div class="fw-bold">Nouveau partenariat avec OGAR Vie Assurances</div>
-                        Extension de la couverture santé pour les affiliés dès juin 2025.
+                        <div class="fw-bold">Formation dédiée aux prestataires de santé</div>
+                        Participez à notre webinaire du 5 juin 2025 pour découvrir toutes les nouvelles fonctionnalités
+                        GESTASSU.
                     </div>
-                    <span class="badge textPrimary rounded-pill">21 Mai</span>
+                    <span class="badge bg-warning text-dark rounded-pill">25 Mai</span>
                 </a>
+
                 <a href="#"
                     class="list-group-item list-group-item-action d-flex justify-content-between align-items-start mb-3">
                     <div class="ms-2 me-auto">
-                        <div class="fw-bold">Mise à jour de l'application GESTASSU</div>
-                        Ajout de la signature numérique dans les dossiers de prise en charge.
+                        <div class="fw-bold">Activation automatique des conventions partenaires</div>
+                        À partir du 1er juillet, les conventions seront générées via votre tableau de bord.
                     </div>
-                    <span class="badge bg-secondary rounded-pill">18 Mai</span>
+                    <span class="badge bg-primary rounded-pill">24 Mai</span>
                 </a>
-                <a href="#"
-                    class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold">Nouvelle fonctionnalité : historique des remboursements</div>
-                        Consultez les remboursements et validations directement en ligne.
-                    </div>
-                    <span class="badge bg-success rounded-pill">14 Mai</span>
-                </a>
+
             </div>
         </div>
     </div>
-
-    
 @endsection
