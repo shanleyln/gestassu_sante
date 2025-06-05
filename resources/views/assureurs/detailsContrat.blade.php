@@ -79,7 +79,6 @@
                         <thead>
                             <tr>
                                 <th style="background-color: #5e2d17; color: white;">N° Police</th>
-                                <th style="background-color: #5e2d17; color: white;">Nom police</th>
                                 <th style="background-color: #5e2d17; color: white;">Type personnel</th>
                                 <th style="background-color: #5e2d17; color: white;">Description</th>
                                 <th style="background-color: #5e2d17; color: white;">Condition particuliere</th>
@@ -93,7 +92,6 @@
                             @foreach ($polices as $police)
                                 <tr>
                                     <td>{{ $police['Numero_Police'] ?? '-' }}</td>
-                                    <td>{{ $police['NomPolice'] ?? '-' }}</td>
                                     <td>{{ $police['TypePersonnel'] ?? '-' }}</td>
                                     <td>{{ $police['description'] ?? '-' }}</td>
                                     <td>
