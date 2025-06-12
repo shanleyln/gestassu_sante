@@ -12,6 +12,18 @@ Route::get('/Guide-ingenium-sante', function () {
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
+Route::get('/Newlogin', function () {
+    return view('auth.Newlogin');
+})->name('Newlogin');
+Route::get('/identifiantCompte', function () {
+    return view('auth.validationCompte');
+})->name('identifiantCompte');
+Route::get('/verificationOTP', function () {
+    return view('auth.verificationOTP');
+})->name('verificationOTP');
+Route::get('/mot-de-passe', function () {
+    return view('auth.password');
+})->name('mot-de-passe');
 
 
 // Redirection simulée (facultatif)
