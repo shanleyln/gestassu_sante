@@ -13,7 +13,7 @@
 <link rel="icon" href="{{ asset('imgs/icon_logo.png') }}" type="image/x-icon">
 <link rel="shortcut icon" href="{{ asset('imgs/icon_logo.png') }}" type="image/x-icon">
 
-<title>Connexion</title>
+<title>OTP</title>
 
 <!-- Animation css -->
 <link rel="stylesheet" href="{{ asset('assets/vendor/animation/animate.min.css') }}">
@@ -56,7 +56,11 @@
                 <div class="row">
                     <!-- Verify OTP 1 start -->
                     <div class="col-12 p-0 ">
-                        <div class="login-form-container">
+                        <div class="login-form-container" style="background: linear-gradient(#5e2d177c, #54422f),
+url('{{ asset('/imgs/login1.png') }}') no-repeat center center;
+background-size: cover;
+background-attachment: fixed;
+color: #fff;">
                             <div class="mb-4">
                              <a class="logo"  href="#">
                                     {{-- <img alt="#" src="imgs/logo.png" width="150" height="50"> --}}
