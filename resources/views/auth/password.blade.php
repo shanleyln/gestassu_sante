@@ -10,8 +10,8 @@
     content="Ingenium Santé est une plateforme digitale innovante qui connecte les assurés, les entreprises clientes, les assureurs et les prestataires de santé. Elle permet une gestion dématérialisée et instantanée des informations relatives aux couvertures santé."
     name="keywords">
 
-<link rel="icon" href="{{ asset('imgs/icon_logo.PNG') }}" type="image/x-icon">
-<link rel="shortcut icon" href="{{ asset('imgs/icon_logo.PNG') }}" type="image/x-icon">
+<link rel="icon" href="{{ asset('imgs/icon_logo.png') }}" type="image/x-icon">
+<link rel="shortcut icon" href="{{ asset('imgs/icon_logo.png') }}" type="image/x-icon">
 
 <title>Connexion</title>
 
