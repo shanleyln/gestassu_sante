@@ -67,8 +67,8 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="mb-5 text-center">
-                                                <h2 class="text-primary">Validation du compte</h2>
-                                                <p>Bonjour, entrez votre identifiant pour la validation de votre compte</p>
+                                                <h2 class="text-primary">Activation du compte</h2>
+                                                <p>Bonjour, entrez votre identifiant pour l'activation de votre compte</p>
                                             </div>
                                         </div>
                                         <div class="col-12">

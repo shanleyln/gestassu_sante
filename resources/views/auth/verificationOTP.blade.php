@@ -68,39 +68,45 @@
                                         <div class="col-12">
                                             <div class="mb-5 text-center">
                                                 <h2 class="text-primary">Vérifier l'OTP</h2>
-                                                <p>Saisissez le code à 5 chiffres envoyé à l'adresse e-mail enregistrée ou SMS</p>
+                                                <p>Saisissez le code à 6 chiffres envoyé à l'adresse e-mail enregistrée ou SMS</p>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="verification-box">
                                                 <div>
-                                                    <input class="form-control h-60 w-60 text-center" id="one"
+                                                    <input class="form-control h-50 w-50 text-center" id="one"
                                                            maxlength="1"
                                                            oninput='digitValidate(this)' onkeyup='tabChange(1)'
                                                            type="text" style="font-size: 30px;">
                                                 </div>
                                                 <div>
-                                                    <input class="form-control h-60 w-60 text-center" id="two"
+                                                    <input class="form-control h-50 w-50 text-center" id="two"
                                                            maxlength="1"
                                                            oninput='digitValidate(this)' onkeyup='tabChange(2)'
                                                            type="text" style="font-size: 30px;">
                                                 </div>
                                                 <div>
-                                                    <input class="form-control h-60 w-60 text-center" id="three"
+                                                    <input class="form-control h-50 w-50 text-center" id="three"
                                                            maxlength="1"
                                                            oninput='digitValidate(this)' onkeyup='tabChange(3)'
                                                            type="text" style="font-size: 30px;">
                                                 </div>
                                                 <div>
-                                                    <input class="form-control h-60 w-60 text-center" id="four"
+                                                    <input class="form-control h-50 w-50 text-center" id="four"
                                                            maxlength="1"
                                                            oninput='digitValidate(this)' onkeyup='tabChange(4)'
                                                            type="text" style="font-size: 30px;">
                                                 </div>
                                                 <div>
-                                                    <input class="form-control h-60 w-60 text-center" id="five"
+                                                    <input class="form-control h-50 w-50 text-center" id="five"
                                                            maxlength="1"
                                                            oninput='digitValidate(this)' onkeyup='tabChange(5)'
+                                                           type="text" style="font-size: 30px;">
+                                                </div>
+                                                <div>
+                                                    <input class="form-control h-50 w-50 text-center" id="six"
+                                                           maxlength="1"
+                                                           oninput='digitValidate(this)' onkeyup='tabChange(6)'
                                                            type="text" style="font-size: 30px;">
                                                 </div>
                                             </div>

@@ -346,7 +346,7 @@ color: #fff;">
                                     </div>
 
                                     <div class="text-center mt-4 d-flex justify-content-between">
-                                        <a href="{{route('identifiantCompte')}}" class="text-decoration-none" style="color:#5e2d17;font-size:0.98rem;">Validation du compte</a>
+                                        <a href="{{route('identifiantCompte')}}" class="text-decoration-none" style="color:#5e2d17;font-size:0.98rem;">Activation du compte</a>
                                         <a href="{{route('identifiantCompte')}}" class="text-decoration-none" style="color:#5e2d17;font-size:0.98rem;">Mot de passe oublié ?</a>
                                     </div>
                                 </form>
