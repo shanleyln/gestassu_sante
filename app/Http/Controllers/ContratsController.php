@@ -88,4 +88,8 @@ class ContratsController extends Controller
             return back()->withErrors(['erreur' => 'Échec de récupération des détails.']);
         }
     }
+
+    public function envoiMail(){
+        
+    }
 }

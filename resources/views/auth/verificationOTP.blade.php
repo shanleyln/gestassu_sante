@@ -45,98 +45,286 @@
 <link rel="stylesheet" href="{{ asset('build/assets/style-Cuxwy5N_.css') }}" /><!-- phosphor-icon css-->
 <link href="{{ asset('assets/vendor/phosphor/phosphor-bold.css') }}" rel="stylesheet">
 <style>
-    
+
 </style>
+
 <body>
-  <div class="app-wrapper d-block" >
-    <div class="">
-        <!-- Body main section starts -->
-        <main class="w-100 p-0">
-            <div class="container-fluid">
-                <div class="row">
-                    <!-- Verify OTP 1 start -->
-                    <div class="col-12 p-0 ">
-                        <div class="login-form-container" style="background: linear-gradient(#5e2d177c, #54422f),
-url('{{ asset('/imgs/login1.png') }}') no-repeat center center;
-background-size: cover;
-background-attachment: fixed;
-color: #fff;">
-                            <div class="mb-4">
-                             <a class="logo"  href="#">
-                                    {{-- <img alt="#" src="imgs/logo.png" width="150" height="50"> --}}
-                                </a>
-                            </div>
-                            <div class="form_container">
-                                <form class="app-form">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="mb-5 text-center">
-                                                <h2 class="text-primary">Vérifier l'OTP</h2>
-                                                <p>Saisissez le code à 6 chiffres envoyé à l'adresse e-mail enregistrée ou SMS</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="verification-box">
-                                                <div>
-                                                    <input class="form-control h-50 w-50 text-center" id="one"
-                                                           maxlength="1"
-                                                           oninput='digitValidate(this)' onkeyup='tabChange(1)'
-                                                           type="text" style="font-size: 30px;">
-                                                </div>
-                                                <div>
-                                                    <input class="form-control h-50 w-50 text-center" id="two"
-                                                           maxlength="1"
-                                                           oninput='digitValidate(this)' onkeyup='tabChange(2)'
-                                                           type="text" style="font-size: 30px;">
-                                                </div>
-                                                <div>
-                                                    <input class="form-control h-50 w-50 text-center" id="three"
-                                                           maxlength="1"
-                                                           oninput='digitValidate(this)' onkeyup='tabChange(3)'
-                                                           type="text" style="font-size: 30px;">
-                                                </div>
-                                                <div>
-                                                    <input class="form-control h-50 w-50 text-center" id="four"
-                                                           maxlength="1"
-                                                           oninput='digitValidate(this)' onkeyup='tabChange(4)'
-                                                           type="text" style="font-size: 30px;">
-                                                </div>
-                                                <div>
-                                                    <input class="form-control h-50 w-50 text-center" id="five"
-                                                           maxlength="1"
-                                                           oninput='digitValidate(this)' onkeyup='tabChange(5)'
-                                                           type="text" style="font-size: 30px;">
-                                                </div>
-                                                <div>
-                                                    <input class="form-control h-50 w-50 text-center" id="six"
-                                                           maxlength="1"
-                                                           oninput='digitValidate(this)' onkeyup='tabChange(6)'
-                                                           type="text" style="font-size: 30px;">
+    <div class="app-wrapper d-block">
+        <div class="">
+            <!-- Body main section starts -->
+            <main class="w-100 p-0">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Verify OTP 1 start -->
+                        <div class="col-12 p-0 ">
+                            <div class="login-form-container"
+                                style="background: linear-gradient(#5e2d177c, #54422f),
+                        url('{{ asset('/imgs/login1.png') }}') no-repeat center center;
+                        background-size: cover;
+                        background-attachment: fixed;
+                        color: #fff;">
+                                <div class="mb-4">
+                                    <a class="logo" href="#">
+                                        {{-- <img alt="#" src="imgs/logo.png" width="150" height="50"> --}}
+                                    </a>
+                                </div>
+                                <div class="form_container">
+                                    <form class="app-form needs-validation" method="POST"
+                                        action="{{ route('verificationOTP.check') }}" id="otpForm" novalidate
+                                        onsubmit="return validateForm(event)">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="mb-5 text-center">
+                                                    <h2 class="text-primary">Vérifier l'OTP</h2>
+                                                    <p>Saisissez le code à 6 chiffres envoyé à l'adresse e-mail
+                                                        enregistrée ou SMS</p>
+                                                    <div id="timer" class="mt-2 fw-bold fs-5 text-secondary"></div>
+                                                    <div id="resend-message" class="mt-2 text-success"
+                                                        style="display: none;"></div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <p>Je n'ai pas reçu de code <a class="link-primary text-decoration-underline" href="#">Renvoyer !</a>
-                                            </p>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                <a href="{{route('mot-de-passe')}}" class="btn btn-primary w-100">Vérifier</a>
+                                            <div class="col-12">
+                                                @if ($errors->has('otp_code'))
+                                                    <div
+                                                        class="alert alert-light-border-danger d-flex align-items-center justify-content-between">
+                                                        <p class="mb-0 text-danger">
+                                                            <i class="ti ti-alert-circle f-s-18 me-2"></i>
+                                                            {{ $errors->first('otp_code') }}
+                                                        </p>
+                                                        <i class="ti ti-x" data-bs-dismiss="alert"></i>
+                                                    </div>
+                                                @endif
+                                                @if (session('success'))
+                                                    <div
+                                                        class="alert alert-light-border-success d-flex align-items-center justify-content-between">
+                                                        <p class="mb-0 text-success">
+                                                            <i class="ti ti-circle-check f-s-18 me-2"></i>
+                                                            {{ session('message') ?? session('success') }}
+                                                            @if (session('expires_at'))
+                                                                <br>
+                                                                <small>Expire à :
+                                                                    {{ \Carbon\Carbon::parse(session('expires_at'))->format('H:i:s') }}</small>
+                                                            @endif
+                                                        </p>
+                                                        <i class="ti ti-x" data-bs-dismiss="alert"></i>
+                                                    </div>
+                                                @endif
+                                                <div class="verification-box">
+                                                    <div>
+                                                        <input class="otp-input form-control h-50 w-50 text-center" id="one"
+                                                            maxlength="1" name="otp_digits[]" required
+                                                             onkeyup='tabChange(1)'
+                                                            type="text" style="font-size: 30px;">
+                                                    </div>
+                                                    <div>
+                                                        <input class="otp-input form-control h-50 w-50 text-center" id="two"
+                                                            maxlength="1" name="otp_digits[]" required
+                                                             onkeyup='tabChange(2)'
+                                                            type="text" style="font-size: 30px;">
+                                                    </div>
+                                                    <div>
+                                                        <input class="otp-input form-control h-50 w-50 text-center"
+                                                            id="three" maxlength="1" name="otp_digits[]"
+                                                            required 
+                                                            onkeyup='tabChange(3)' type="text"
+                                                            style="font-size: 30px;">
+                                                    </div>
+                                                    <div>
+                                                        <input class="otp-input form-control h-50 w-50 text-center"
+                                                            id="four" maxlength="1" name="otp_digits[]"
+                                                            required 
+                                                            onkeyup='tabChange(4)' type="text"
+                                                            style="font-size: 30px;">
+                                                    </div>
+                                                    <div>
+                                                        <input class="otp-input form-control h-50 w-50 text-center"
+                                                            id="five" maxlength="1" name="otp_digits[]"
+                                                            required 
+                                                            onkeyup='tabChange(5)' type="text"
+                                                            style="font-size: 30px;">
+                                                    </div>
+                                                    <div>
+                                                        <input class="otp-input form-control h-50 w-50 text-center"
+                                                            id="six" maxlength="1" name="otp_digits[]"
+                                                            required 
+                                                            onkeyup='tabChange(6)' type="text"
+                                                            style="font-size: 30px;">
+                                                    </div>
+                                                </div>
+                                                <!-- Champ caché qui contiendra le code complet -->
+                                                <input type="hidden" name="otp_code" id="otp_code">
+
+                                            </div>
+                                            <div class="col-12">
+                                                <p>Je n'ai pas reçu de code ?
+                                                    <a class="link-primary text-decoration-underline" href="#"
+                                                        id="resend-link">Renvoyer</a>
+                                                </p>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                         <button type="submit" id="verify-button" class="btn w-100" style="background-color: #5e2d17; color: white;">Vérifier</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                    
+                                </div>
                             </div>
                         </div>
+                        <!-- Verify OTP 1 end -->
                     </div>
-                    <!-- Verify OTP 1 end -->
                 </div>
-            </div>
-        </main>
-        <!-- Body main section ends -->
+            </main>
+            <!-- Body main section ends -->
+        </div>
     </div>
-</div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sélection des éléments du DOM
+            const otpInputs = document.querySelectorAll('.otp-input');
+            const otpForm = document.getElementById('otpForm');
+            const hiddenOtpInput = document.getElementById('otp_code');
+            const timerElement = document.getElementById('timer');
+            const resendLink = document.getElementById('resend-link');
+            const verifyButton = document.getElementById('verify-button');
+            const resendMessage = document.getElementById('resend-message');
+
+            let timerInterval;
+
+            // --- Fonction pour démarrer et gérer le minuteur ---
+            function startTimer(duration) {
+                let timer = duration;
+
+                // (Ré)activer le bouton de vérification et cacher le message de renvoi
+                verifyButton.disabled = false;
+                resendMessage.style.display = 'none';
+
+                // Désactiver le lien de renvoi pendant que le minuteur tourne
+                resendLink.style.pointerEvents = 'none';
+                resendLink.classList.add('text-muted');
+
+                clearInterval(timerInterval); // Nettoyer tout minuteur précédent
+
+                timerInterval = setInterval(function() {
+                    const minutes = String(Math.floor(timer / 60)).padStart(2, '0');
+                    const seconds = String(timer % 60).padStart(2, '0');
+
+                    timerElement.textContent = `Le code expire dans : ${minutes}:${seconds}`;
+
+                    if (--timer < 0) {
+                        clearInterval(timerInterval);
+                        timerElement.textContent = "Le code a expiré.";
+                        verifyButton.disabled = true; // Désactiver la vérification
+                        resendLink.style.pointerEvents = 'auto'; // Activer le lien de renvoi
+                        resendLink.classList.remove('text-muted');
+                    }
+                }, 1000);
+            }
+
+            // --- Logique pour la saisie dans les champs OTP ---
+            otpInputs.forEach((input, index) => {
+                // Gérer la saisie
+                input.addEventListener('input', () => {
+                    input.value = input.value.replace(/[^0-9]/g,
+                        ''); // N'autoriser que les chiffres
+                    if (input.value.length === 1 && index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus(); // Passer au champ suivant
+                    }
+                });
+
+                // Gérer la touche "Retour Arrière"
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && input.value.length === 0 && index > 0) {
+                        otpInputs[index - 1].focus(); // Revenir au champ précédent
+                    }
+                });
+
+                // Gérer le collage d'un code
+                input.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const pasteData = (e.clipboardData || window.clipboardData).getData('text')
+                        .trim();
+                    if (/^\d{6}$/.test(pasteData)) {
+                        pasteData.split('').forEach((char, i) => {
+                            if (otpInputs[i]) {
+                                otpInputs[i].value = char;
+                            }
+                        });
+                        otpInputs[5].focus();
+                    }
+                });
+            });
+
+            // --- Action avant la soumission du formulaire ---
+            otpForm.addEventListener('submit', function(e) {
+                // Concaténer les chiffres des 6 champs dans le champ caché
+                hiddenOtpInput.value = Array.from(otpInputs).map(input => input.value).join('');
+
+                // Si le code n'est pas complet, on arrête la soumission
+                if (hiddenOtpInput.value.length !== 6) {
+                    e.preventDefault();
+                    alert('Veuillez saisir les 6 chiffres du code.');
+                }
+            });
+
+            // --- Logique pour renvoyer le code via AJAX ---
+            resendLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                resendLink.textContent = 'Envoi en cours...';
+                resendLink.style.pointerEvents = 'none';
+
+                fetch("{{ route('verificationOTP.resend') }}", {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        resendLink.textContent = 'Renvoyer';
+                        if (data.success) {
+                            resendMessage.textContent = data.message;
+                            resendMessage.style.display = 'block';
+
+                            // Redémarrer le minuteur avec la nouvelle date d'expiration
+                            const expiresAt = new Date(data.expires_at);
+                            const duration = Math.floor((expiresAt.getTime() - Date.now()) / 1000);
+                            startTimer(duration);
+                        } else {
+                            alert(data.message || 'Une erreur est survenue.');
+                            resendLink.style.pointerEvents = 'auto';
+                        }
+                    })
+                    .catch(() => {
+                        alert('Erreur de communication avec le serveur.');
+                        resendLink.textContent = 'Renvoyer';
+                        resendLink.style.pointerEvents = 'auto';
+                    });
+            });
+
+            // --- DÉMARRAGE INITIAL DU MINUTEUR ---
+            const initialExpiresAtString =
+                "{{ session('verification_code_expires_at') ? session('verification_code_expires_at')->toIso8601String() : '' }}";
+            if (initialExpiresAtString) {
+                const initialExpiresAt = new Date(initialExpiresAtString);
+                const duration = Math.floor((initialExpiresAt.getTime() - Date.now()) / 1000);
+
+                if (duration > 0) {
+                    startTimer(duration);
+                } else {
+                    // Le code était déjà expiré au chargement de la page
+                    timerElement.textContent = "Le code a expiré.";
+                    verifyButton.disabled = true;
+                    resendLink.style.pointerEvents = 'auto';
+                    resendLink.classList.remove('text-muted');
+                }
+            }
+        });
+    </script>
     <!--js-->
     <script src="{{ asset('assets/js/coming_soon.js') }}"></script>
 

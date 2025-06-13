@@ -25,7 +25,12 @@ Route::get('/mot-de-passe', function () {
     return view('auth.password');
 })->name('mot-de-passe');
 
+Route::post('/sendMail', [App\Http\Controllers\sendMailController::class, 'sendVerificationCode'])->name('sendMail');
+// Traite la soumission du formulaire de vérification
+Route::post('/verification-otp', [App\Http\Controllers\sendMailController::class, 'verifyCode'])->name('verificationOTP.check');
 
+// Gère la demande de renvoi du code (via AJAX)
+Route::post('/verification-otp/resend', [App\Http\Controllers\sendMailController::class, 'resendCode'])->name('verificationOTP.resend');
 // Redirection simulée (facultatif)
 Route::get('/redirect', function () {
     return redirect()->route('prestataire.dashboard'); // temporairement fixe

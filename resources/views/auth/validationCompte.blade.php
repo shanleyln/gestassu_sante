@@ -45,61 +45,120 @@
 <link rel="stylesheet" href="{{ asset('build/assets/style-Cuxwy5N_.css') }}" /><!-- phosphor-icon css-->
 <link href="{{ asset('assets/vendor/phosphor/phosphor-bold.css') }}" rel="stylesheet">
 <style>
-    
+
 </style>
+
 <body>
-  <div class="app-wrapper d-block" >
-    <div class="">
-        <!-- Body main section starts -->
-        <main class="w-100 p-0">
-            <div class="container-fluid">
-                <div class="row">
-                    <!-- Verify OTP 1 start -->
-                    <div class="col-12 p-0 ">
-                        <div class="login-form-container" style="background: linear-gradient(#5e2d177c, #54422f),
+    <div class="app-wrapper d-block">
+        <div class="">
+            <!-- Body main section starts -->
+            <main class="w-100 p-0">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Verify OTP 1 start -->
+                        <div class="col-12 p-0 ">
+                            <div class="login-form-container"
+                                style="background: linear-gradient(#5e2d177c, #54422f),
 url('{{ asset('/imgs/login1.png') }}') no-repeat center center;
 background-size: cover;
 background-attachment: fixed;
 color: #fff;">
-                            <div class="mb-4">
-                                <a class="logo"  href="#">
-                                    {{-- <img alt="#" src="imgs/logo.png" width="150" height="50"> --}}
-                                </a>
-                            </div>
-                            <div class="form_container">
-                                <form class="app-form">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="mb-5 text-center">
-                                                <h2 class="text-primary">Activation du compte</h2>
-                                                <p>Bonjour, entrez votre identifiant pour l'activation de votre compte</p>
+                                <div class="mb-4">
+                                    <a class="logo" href="#">
+                                        {{-- <img alt="#" src="imgs/logo.png" width="150" height="50"> --}}
+                                    </a>
+                                </div>
+                                <div class="form_container">
+                                    <form method="POST" class="app-form" action="{{ url('/sendMail') }}"
+                                        class="needs-validation" novalidate onsubmit="return validateForm(event)">
+                                        @csrf
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="mb-5 text-center">
+                                                    <h2 class="text-primary">Activation du compte</h2>
+                                                    <p>Bonjour, entrez votre identifiant pour l'activation de votre
+                                                        compte</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                @if ($errors->any())
+                                                    <div class="alert alert-light-border-danger d-flex align-items-center justify-content-between"
+                                                        role="alert">
+                                                        <p class="mb-0 text-white">
+                                                            <i class="ti ti-alert-circle f-s-18 me-2"></i>
+                                                            {{ $errors->first() }}
+                                                        </p>
+                                                        <i class="ti ti-x" data-bs-dismiss="alert"></i>
+                                                    </div>
+                                                @endif
+                                                @if ($errors->has('mail'))
+                                                    <div class="alert alert-light-border-danger d-flex align-items-center justify-content-between"
+                                                        role="alert">
+                                                        <p class="mb-0 text-white">
+                                                            <i
+                                                                class="ti ti-alert-circle f-s-18 me-2"></i>{{ $errors->first('mail') }}
+                                                        </p>
+                                                        <i class="ti ti-x" data-bs-dismiss="alert"></i>
+                                                    </div>
+                                                @endif
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="identifiant">Identifiant
+                                                        client</label>
+                                                    <input class="form-control" id="identifiant" name="identifiant"
+                                                        placeholder="Votre identifiant" required type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <button id="btnSubmit" class="btn btn-primary w-100"
+                                                        type="button" onclick="handleSubmit(event)">Valider</button>
+                                                    <!-- Bouton de chargement (masqué au début) -->
+                                                    <button type="button" id="btnLoading"
+                                                        class="btn btn-dark w-100 fw-bold d-none" disabled>
+                                                        <span class="spinner-border spinner-border-sm me-2"
+                                                            role="status" aria-hidden="true"></span>
+                                                        validation en cours...
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                <label class="form-label" for="identifiant">Identifiant client</label>
-                                                <input class="form-control" id="identifiant" name="identifiant"
-                                                       placeholder="Votre identifiant" required="" type="identifiant">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                <a href="{{route('verificationOTP')}}" class="btn btn-primary w-100">Valider</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
+                        <!-- Verify OTP 1 end -->
                     </div>
-                    <!-- Verify OTP 1 end -->
                 </div>
-            </div>
-        </main>
-        <!-- Body main section ends -->
+            </main>
+            <!-- Body main section ends -->
+        </div>
     </div>
-</div>
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
 
+            const form = event.target.closest('form');
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return false;
+            }
+
+            const btnSubmit = document.getElementById('btnSubmit');
+            const btnLoading = document.getElementById('btnLoading');
+
+            // Masquer le bouton principal, afficher le bouton loading
+            btnSubmit.classList.add('d-none');
+            btnLoading.classList.remove('d-none');
+
+            // Soumettre après une courte pause
+            setTimeout(() => {
+                form.submit();
+            }, 500);
+
+            return true;
+        }
+    </script>
     <!--js-->
     <script src="{{ asset('assets/js/coming_soon.js') }}"></script>
 
@@ -119,6 +178,8 @@ color: #fff;">
     <script src="{{ asset('assets/vendor/phosphor/phosphor.js') }}"></script>
 
     <script src="{{ asset('assets/js/project_app.js') }}"></script>
+    <!-- alert js-->
+    <script src="{{ asset('assets/js/alert.js') }}"></script>
 </body>
 
 <!-- Mirrored from phplaravel-1384472-5380003.cloudwaysapps.com/sign_up by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 12 Jun 2025 02:03:15 GMT -->
