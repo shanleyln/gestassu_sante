@@ -101,11 +101,6 @@
                                                         <p class="mb-0 text-success">
                                                             <i class="ti ti-circle-check f-s-18 me-2"></i>
                                                             {{ session('message') ?? session('success') }}
-                                                            @if (session('expires_at'))
-                                                                <br>
-                                                                <small>Expire à :
-                                                                    {{ \Carbon\Carbon::parse(session('expires_at'))->format('H:i:s') }}</small>
-                                                            @endif
                                                         </p>
                                                         <i class="ti ti-x" data-bs-dismiss="alert"></i>
                                                     </div>

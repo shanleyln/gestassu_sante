@@ -46,7 +46,7 @@ class sendMailController extends Controller
             // Rediriger vers la page de saisie du code (OTP)
             return redirect()->route('verificationOTP')->with([
                 'success' => 'Un code a été envoyé.',
-                'expires_at' => $expiresAt->format('Y-m-d\TH:i:s')
+                'expires_at' => $expiresAt
             ]);
         } catch (\Exception $e) {
             // En cas d'échec de l'envoi
