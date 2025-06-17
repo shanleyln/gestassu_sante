@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="{{ asset('imgs/icon_logo.png') }}" type="image/x-icon">
-<link rel="shortcut icon" href="{{ asset('imgs/icon_logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('imgs/icon_logo.png') }}" type="image/x-icon">
 
     <style>
         body,
@@ -140,7 +140,7 @@
             outline: none !important;
         }
     </style>
-     <!-- Nav tabs -->
+    <!-- Nav tabs -->
     <style>
         .nav-tabs .nav-link {
             color: #5e2d17;
@@ -192,171 +192,206 @@ color: #fff;">
                     </div>
                     <div class="fw-semibold text-white text-center mb-2" style="font-size:1.05rem;">Bienvenue sur votre
                         plateforme</div>
-                    <div class="text-white text-center" style="font-size:0.98rem;">Assureurs,Prestataires de Santé et Clients
+                    <div class="text-white text-center" style="font-size:0.98rem;">Assureurs,Prestataires de Santé et
+                        Clients
                         Veuillez vous connecter pour accéder à votre espace.</div>
                 </div>
                 <!-- Bloc droit (connexion) -->
                 <div class="right-block d-flex flex-column justify-content-center"
                     style="padding:48px 40px;min-width:500px;max-width:400px;background:#fff;">
                     <h4 class="fw-bold mb-4 text-center" style="color:#5e2d17;font-size:3rem;">Connexion</h4>
-                     <ul class="nav nav-tabs mb-4" id="beneficiaireTabs" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="physique-tab" data-bs-toggle="tab"
-                                    data-bs-target="#physique-pane" type="button" role="tab"
-                                    aria-controls="physique-pane" aria-selected="true" style="font-size:15px">
-                                    Espace Prestataires et Assureurs
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation" style="margin-left: 12px;">
-                                <button class="nav-link" id="morale-tab" data-bs-toggle="tab"
-                                    data-bs-target="#morale-pane" type="button" role="tab"
-                                    aria-controls="morale-pane" aria-selected="false" style="font-size:15px">
-                                    Espace client
-                                </button>
-                            </li>
-                        </ul>
-
-
-                        <div class="tab-content mb-3">
-                            <div class="tab-pane fade show active" id="physique-pane" role="tabpanel" aria-labelledby="physique-tab">
-                                <form method="POST" action="{{ url('/connexion') }}" class="needs-validation" novalidate
-                                    onsubmit="return validateForm(event)">
-                                    @csrf
-                                    @if (session('api_error'))
-                                        <div class="alert alert-danger">
-                                            {{ session('api_error') }}
-                                        </div>
-                                    @endif
-                                    <div class="mb-3">
-                                        @if ($errors->has('code_structure'))
-                                            <div class="text-danger mt-1">{{ $errors->first('code_structure') }}</div>
-                                        @endif
-                                        <div class="input-group input-group-lg">
-                                            <span class="input-group-text bg-white border-end-0">X</span>
-                                            <input type="text" id="code_structure" name="code_structure"
-                                                value="{{ old('code_structure') }}" class="form-control shadowInput"
-                                                placeholder="Code structure" required>
-                                            <div class="invalid-feedback">
-                                                Ce champ est requis.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        @if ($errors->has('email'))
-                                            <div class="text-danger mt-1">{{ $errors->first('email') }}</div>
-                                        @endif
-                                        <div class="input-group input-group-lg">
-                                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-person"></i></span>
-                                            <input type="text" id="email" name="email" value="{{ old('email') }}"
-                                                class="form-control shadowInput" placeholder="Identifiant" required>
-                                            <div class="invalid-feedback">
-                                                Ce champ est requis.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        @if ($errors->has('password'))
-                                            <div class="text-danger mt-1">{{ $errors->first('password') }}</div>
-                                        @endif
-                                        <div class="input-group input-group-lg">
-                                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-lock"></i></span>
-                                            <input type="password" id="password" name="password" class="form-control shadowInput"
-                                                placeholder="Mot de passe" required>
-                                            <span class="input-group-text bg-white" style="cursor:pointer"
-                                                onclick="togglePassword()"><i class="bi bi-eye" id="togglePwd"></i></span>
-                                            <div class="invalid-feedback">
-                                                Veuillez saisir votre identifiant.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-grid mb-2 mt-4">
-                                        <!-- Bouton principal -->
-                                        <button type="submit" id="btnSubmit" class="btn btn-brown btn-lg fw-bold"
-                                            onclick="handleSubmit(event)">
-                                            <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter
-                                        </button>
-
-                                        <!-- Bouton de chargement (masqué au début) -->
-                                        <button type="button" id="btnLoading" class="btn btn-secondary btn-lg fw-bold d-none"
-                                            disabled>
-                                            <span class="spinner-border spinner-border-sm me-2" role="status"
-                                                aria-hidden="true"></span>
-                                            Connexion en cours...
-                                        </button>
-                                    </div>
-
-                                    <div class="text-center mt-4">
-                                        <a href="#" class="text-decoration-none" style="color:#5e2d17;font-size:0.98rem;">Mot
-                                            de
-                                            passe oublié ?</a>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="tab-pane fade" id="morale-pane" role="tabpanel" aria-labelledby="morale-tab">
-<form method="POST" action="{{ url('/connexion') }}" class="needs-validation" novalidate
-                                    onsubmit="return validateForm(event)">
-                                    @csrf
-                                    @if (session('api_error'))
-                                        <div class="alert alert-danger">
-                                            {{ session('api_error') }}
-                                        </div>
-                                    @endif
-                                    <div class="mb-3">
-                                        @if ($errors->has('email'))
-                                            <div class="text-danger mt-1">{{ $errors->first('email') }}</div>
-                                        @endif
-                                        <div class="input-group input-group-lg">
-                                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-person"></i></span>
-                                            <input type="text" id="email" name="email" value="{{ old('email') }}"
-                                                class="form-control shadowInput" placeholder="Identifiant" required>
-                                            <div class="invalid-feedback">
-                                                Ce champ est requis.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        @if ($errors->has('password'))
-                                            <div class="text-danger mt-1">{{ $errors->first('password') }}</div>
-                                        @endif
-                                        <div class="input-group input-group-lg">
-                                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-lock"></i></span>
-                                            <input type="password" id="password" name="password" class="form-control shadowInput"
-                                                placeholder="Mot de passe" required>
-                                            <span class="input-group-text bg-white" style="cursor:pointer"
-                                                onclick="togglePassword()"><i class="bi bi-eye" id="togglePwd"></i></span>
-                                            <div class="invalid-feedback">
-                                                Veuillez saisir votre identifiant.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-grid mb-2 mt-4">
-                                        <!-- Bouton principal -->
-                                        <button type="submit" id="btnSubmit" class="btn btn-brown btn-lg fw-bold"
-                                            onclick="handleSubmit(event)">
-                                            <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter
-                                        </button>
-
-                                        <!-- Bouton de chargement (masqué au début) -->
-                                        <button type="button" id="btnLoading" class="btn btn-secondary btn-lg fw-bold d-none"
-                                            disabled>
-                                            <span class="spinner-border spinner-border-sm me-2" role="status"
-                                                aria-hidden="true"></span>
-                                            Connexion en cours...
-                                        </button>
-                                    </div>
-
-                                    <div class="text-center mt-4 d-flex justify-content-between">
-                                        <a href="{{route('identifiantCompte')}}" class="text-decoration-none" style="color:#5e2d17;font-size:0.98rem;">Activation du compte</a>
-                                        <a href="{{route('identifiantCompte')}}" class="text-decoration-none" style="color:#5e2d17;font-size:0.98rem;">Mot de passe oublié ?</a>
-                                    </div>
-                                </form>
-                            </div>
+                    @if (session('api_error'))
+                        <div class="alert alert-danger alert-dismissible fade show my-2" role="alert">
+                            {{ session('api_error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer">
+                            </button>
                         </div>
-                    
+                    @endif
+                    <ul class="nav nav-tabs mb-4" id="beneficiaireTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="physique-tab" data-bs-toggle="tab"
+                                data-bs-target="#physique-pane" type="button" role="tab"
+                                aria-controls="physique-pane" aria-selected="true" style="font-size:15px">
+                                Espace Prestataires et Assureurs
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation" style="margin-left: 12px;">
+                            <button class="nav-link" id="morale-tab" data-bs-toggle="tab" data-bs-target="#morale-pane"
+                                type="button" role="tab" aria-controls="morale-pane" aria-selected="false"
+                                style="font-size:15px">
+                                Espace client
+                            </button>
+                        </li>
+                    </ul>
+
+
+                    <div class="tab-content mb-3">
+                        <div class="tab-pane fade show active" id="physique-pane" role="tabpanel"
+                            aria-labelledby="physique-tab">
+                            <form method="POST" action="{{ url('/connexion') }}" class="needs-validation" novalidate
+                                onsubmit="return validateForm(event)">
+                                @csrf
+                                <div class="mb-3">
+                                    @if ($errors->has('code_structure'))
+                                        <div class="text-danger mt-1">{{ $errors->first('code_structure') }}</div>
+                                    @endif
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-white border-end-0">X</span>
+                                        <input type="text" id="code_structure" name="code_structure"
+                                            value="{{ old('code_structure') }}" class="form-control shadowInput"
+                                            placeholder="Code structure" required autocomplete="false">
+                                        <div class="invalid-feedback">
+                                            Ce champ est requis.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    @if ($errors->has('email'))
+                                        <div class="text-danger mt-1">{{ $errors->first('email') }}</div>
+                                    @endif
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-white border-end-0"><i
+                                                class="bi bi-person"></i></span>
+                                        <input type="text" id="email" name="email" value="{{ old('email') }}"
+                                            class="form-control shadowInput" placeholder="Identifiant" required autocomplete="false">
+                                        <div class="invalid-feedback">
+                                            Ce champ est requis.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    @if ($errors->has('password'))
+                                        <div class="text-danger mt-1">{{ $errors->first('password') }}</div>
+                                    @endif
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-white border-end-0"><i
+                                                class="bi bi-lock"></i></span>
+                                        <input type="password" id="password" name="password"
+                                            class="form-control shadowInput" placeholder="Mot de passe" required autocomplete="false">
+                                        <span class="input-group-text bg-white" style="cursor:pointer"
+                                            onclick="togglePassword()"><i class="bi bi-eye"
+                                                id="togglePwd"></i></span>
+                                        <div class="invalid-feedback">
+                                            Veuillez saisir votre identifiant.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-grid mb-2 mt-4">
+                                    <!-- Bouton principal -->
+                                    <button type="submit" id="btnSubmit" class="btn btn-brown btn-lg fw-bold"
+                                        onclick="handleSubmit(event)">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter
+                                    </button>
+
+                                    <!-- Bouton de chargement (masqué au début) -->
+                                    <button type="button" id="btnLoading"
+                                        class="btn btn-secondary btn-lg fw-bold d-none" disabled>
+                                        <span class="spinner-border spinner-border-sm me-2" role="status"
+                                            aria-hidden="true"></span>
+                                        Connexion en cours...
+                                    </button>
+                                </div>
+
+                                <div class="text-center mt-4">
+                                    <a href="#" class="text-decoration-none"
+                                        style="color:#5e2d17;font-size:0.98rem;">Mot
+                                        de
+                                        passe oublié ?</a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="morale-pane" role="tabpanel" aria-labelledby="morale-tab">
+                            <form method="POST" action="{{ url('/connexionClient') }}" class="needs-validation"
+                                novalidate onsubmit="return validateForm(event)">
+                                @csrf
+                               
+                                <div class="mb-3">
+                                    @if ($errors->has('identifiant'))
+                                        <div class="text-danger mt-1">{{ $errors->first('identifiant') }}</div>
+                                    @endif
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-white border-end-0"><i
+                                                class="bi bi-person"></i></span>
+                                        <input type="text" id="identifiant" name="identifiant"
+                                            value="{{ old('identifiant') }}" class="form-control shadowInput"
+                                            placeholder="Identifiant" required autocomplete="false">
+                                        <div class="invalid-feedback">
+                                            Ce champ est requis.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    @if ($errors->has('mot_de_passe'))
+                                        <div class="text-danger mt-1">{{ $errors->first('mot_de_passe') }}</div>
+                                    @endif
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-white border-end-0"><i
+                                                class="bi bi-lock"></i></span>
+                                        <input type="mot_de_passe" id="mot_de_passe" name="mot_de_passe"
+                                            class="form-control shadowInput" placeholder="Mot de passe" required autocomplete="false">
+                                        <span class="input-group-text bg-white" style="cursor:pointer"
+                                            onclick="togglePassword()"><i class="bi bi-eye"
+                                                id="togglePwd"></i></span>
+                                        <div class="invalid-feedback">
+                                            Veuillez saisir votre identifiant.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-grid mb-2 mt-4">
+                                    <!-- Bouton principal -->
+                                    <button type="submit" id="btnSubmit2" class="btn btn-brown btn-lg fw-bold"
+                                        onclick="handleSubmit2(event)">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter
+                                    </button>
+
+                                    <!-- Bouton de chargement (masqué au début) -->
+                                    <button type="button" id="btnLoading2"
+                                        class="btn btn-secondary btn-lg fw-bold d-none" disabled>
+                                        <span class="spinner-border spinner-border-sm me-2" role="status"
+                                            aria-hidden="true"></span>
+                                        Connexion en cours...
+                                    </button>
+                                </div>
+
+                                <div class="text-center mt-4 d-flex justify-content-between">
+                                    <a href="{{ route('identifiantCompte') }}" class="text-decoration-none"
+                                        style="color:#5e2d17;font-size:0.98rem;">Activation du compte</a>
+                                    <a href="{{ route('identifiantCompte') }}" class="text-decoration-none"
+                                        style="color:#5e2d17;font-size:0.98rem;">Mot de passe oublié ?</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function handleSubmit2(event) {
+            event.preventDefault();
+
+            const form = event.target.closest('form');
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return false;
+            }
+
+            const btnSubmit = document.getElementById('btnSubmit2');
+            const btnLoading = document.getElementById('btnLoading2');
+
+            // Masquer le bouton principal, afficher le bouton loading
+            btnSubmit.classList.add('d-none');
+            btnLoading.classList.remove('d-none');
+
+            // Soumettre après une courte pause
+            setTimeout(() => {
+                form.submit();
+            }, 500);
+
+            return true;
+        }
+    </script>
     <script>
         function handleSubmit(event) {
             event.preventDefault();

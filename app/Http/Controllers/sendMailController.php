@@ -7,51 +7,84 @@ namespace App\Http\Controllers;
 use App\Mail\EnvoiCode;
 use App\Models\User; // <-- Important : Importer le modèle User
 use Illuminate\Http\Request;
+use App\Auth\ApiUser;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session; // Session est déjà importé par défaut, mais c'est une bonne pratique de le garder si vous l'utilisez explicitement.
-
+use Illuminate\Support\Facades\Http;
 // Note : Les imports de PHPMailer ne sont pas nécessaires
 // car vous utilisez la façade `Mail` de Laravel, ce qui est la bonne approche.
 
 class sendMailController extends Controller
 {
+    private function sendLoginRequestOPT(Request $request): \Illuminate\Http\Client\Response
+    {
+        return Http::withHeaders([
+            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json'
+        ])->post('http://45.155.249.99/gestassusante/api/espace_client/generer_otp', [
+            'identifiant' => ""
+        ]);
+    }
+    private function sendLoginRequestClient(Request $request): \Illuminate\Http\Client\Response
+    {
+        return Http::withHeaders([
+            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json'
+        ])->post('http://45.155.249.99/gestassusante/api/espace_client/connexion', [
+            'identifiant' => $request->input('identifiant')
+        ]);
+    }
+
     public function sendVerificationCode(Request $request)
     {
-        // // Il est crucial de valider l'entrée et de trouver l'utilisateur
-        // $request->validate([
-        //     'identifier' => 'required|email', // Valider comme un email est plus sûr
-        // ]);
+        // ✅ 2. Envoie de la requête vers l’API
+        $response = $this->sendLoginRequestClient($request);
+        // ✅ 3. Gestion du succès
+        if ($response->successful()) {
+            $userData = $response->json();
+            if (isset($userData['status']) && $userData['status'] === 'error') {
+                return back()->withErrors(['identifier' => 'Aucun compte n\'est associé à cet identifiant.']);
+            }
+            $user = new ApiUser($userData['user']);
 
-        // // Recherche de l'utilisateur par son email
-        // $user = User::where('email', $request->identifier)->first();
 
-        // // Si l'utilisateur n'existe pas, on retourne une erreur
-        // if (!$user) {
-        //     return back()->withErrors(['identifier' => 'Aucun compte n\'est associé à cette adresse email.']);
-        // }
+            // // Recherche de l'utilisateur par son email
+            // $user = User::where('email', $request->identifier)->first();
 
-        // Génération d'un code sécurisé
-        $code = random_int(100000, 999999);
-        $expiresAt = now()->addMinutes(3);
-        // Stocker les infos en session pour la page suivante
-        Session::put('verification_code', $code);
-        Session::put('verification_code_expires_at', $expiresAt);
-        Session::put('verification_user_id', 'jmofhg-momo-565-lgkg');
+            // // Si l'utilisateur n'existe pas, on retourne une erreur
+            // if (!$user) {
+            //     return back()->withErrors(['identifier' => 'Aucun compte n\'est associé à cette adresse email.']);
+            // }
+            $responseotp = $this->sendLoginRequestOPT($request);
+            if ($responseotp->successful()) {
+                $userDataOTP = $responseotp->json();
+                if (isset($userDataOTP['status']) && $userDataOTP['status'] === 'error') {
+                    return back()->withErrors(['identifier' => 'Une erreur est survenue, veuillez réessayer.']);
+                }
+                // Génération d'un code sécurisé
+                $code = random_int(100000, 999999);
+            }
+            $expiresAt = now()->addMinutes(3);
+            // Stocker les infos en session pour la page suivante
+            Session::put('verification_code', $code);
+            Session::put('verification_code_expires_at', $expiresAt);
+            Session::put('verification_user_id', 'jmofhg-momo-565-lgkg');
 
-        try {
-            // On envoie l'e-mail à l'utilisateur trouvé.
-            // On passe UNIQUEMENT le code au Mailable.
-            Mail::to('yodingenierieia@gmail.com')->send(new EnvoiCode($code));
+            try {
+                // On envoie l'e-mail à l'utilisateur trouvé.
+                // On passe UNIQUEMENT le code au Mailable.
+                Mail::to('yodingenierieia@gmail.com')->send(new EnvoiCode($code));
 
-            // Rediriger vers la page de saisie du code (OTP)
-            return redirect()->route('verificationOTP')->with([
-                'success' => 'Un code a été envoyé.',
-                'expires_at' => $expiresAt
-            ]);
-        } catch (\Exception $e) {
-            // En cas d'échec de l'envoi
-            // Log::error("Mail sending failed: " . $e->getMessage()); // Pensez à logger l'erreur pour le débogage
-            return back()->withInput()->withErrors(['mail' => "L'envoi de l'e-mail de vérification a échoué. Veuillez réessayer."]);
+                // Rediriger vers la page de saisie du code (OTP)
+                return redirect()->route('verificationOTP')->with([
+                    'success' => 'Un code a été envoyé.',
+                    'expires_at' => $expiresAt
+                ]);
+            } catch (\Exception $e) {
+                // En cas d'échec de l'envoi
+                // Log::error("Mail sending failed: " . $e->getMessage()); // Pensez à logger l'erreur pour le débogage
+                return back()->withInput()->withErrors(['mail' => "L'envoi de l'e-mail de vérification a échoué. Veuillez réessayer."]);
+            }
         }
     }
 

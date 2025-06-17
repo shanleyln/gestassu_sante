@@ -65,7 +65,7 @@ background-attachment: fixed;
 color: #fff;">
                                 <div class="mb-4">
                                     <a class="logo" href="#">
-                                        {{-- <img alt="#" src="imgs/logo.png" width="150" height="50"> --}}
+                                        <i class="ti ti-lock text-white" style="font-size: 40px;"></i>
                                     </a>
                                 </div>
                                 <div class="form_container">

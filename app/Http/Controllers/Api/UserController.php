@@ -25,7 +25,7 @@ class UserController extends Controller
             'email.email' => 'L\'adresse e-mail doit être valide.',
             'password.required' => 'Le mot de passe est obligatoire.',
             'password.string' => 'Le mot de passe doit être une chaîne de caractères.',
-            'password.min' => 'Le mot de passe doit contenir au moins 6 caractères.',
+            'password.min' => 'Le mot de passe doit contenir au moins 5 caractères.',
         ]);
 
         // ✅ 2. Envoie de la requête vers l’API
@@ -33,11 +33,10 @@ class UserController extends Controller
         // ✅ 3. Gestion du succès
         if ($response->successful()) {
             $userData = $response->json();
-
             if (isset($userData['status']) && $userData['status'] === 'error') {
                 return redirect()->back()
                     ->withInput()
-                    ->with('api_error', $userData['message'] ?? 'Erreur de connexion à l’API.');
+                    ->with('api_error', 'Informations de connexion incorrect' ?? 'Erreur de connexion à l’API.');
             }
             session()->forget('userData');
             // Stocker les informations utilisateur dans la session
@@ -66,8 +65,7 @@ class UserController extends Controller
             ->withInput()
             ->with('api_error', 'Identifiants incorrects ou erreur de connexion à l’API.');
     }
-
-    private function sendLoginRequest(Request $request): \Illuminate\Http\Client\Response
+      private function sendLoginRequest(Request $request): \Illuminate\Http\Client\Response
     {
         return Http::withHeaders([
             'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
@@ -76,6 +74,78 @@ class UserController extends Controller
             'login' => $request->input('email'),
             'mdp' => $request->input('password'),
             'code_structure' => $request->input('code_structure')
+        ]);
+    }
+    public function loginToExternalApiClient(Request $request)
+    {
+        // ✅ 1. Validation sécurisée
+        $request->validate([
+            'identifiant' => 'required',
+            'mot_de_passe' => 'required|string|min:5',
+        ], [
+            'identifiant.required' => 'L\'identifiant est obligatoire.',
+            'mot_de_passe.required' => 'Le mot de passe est obligatoire.',
+            'mot_de_passe.string' => 'Le mot de passe doit être une chaîne de caractères.',
+            'mot_de_passe.min' => 'Le mot de passe doit contenir au moins 5 caractères.',
+        ]);
+
+        // ✅ 2. Envoie de la requête vers l’API
+        $response = $this->sendLoginRequestClient($request);
+        // ✅ 3. Gestion du succès
+        if ($response->successful()) {
+            $userData = $response->json();
+
+            if (isset($userData['status']) && $userData['status'] === 'error') {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('api_error', 'Informations de connexion incorrect' ?? 'Erreur de connexion à l’API.');
+            }
+            session()->forget('userData');
+            // Stocker les informations utilisateur dans la session
+            // Stocker dans la session pour le provider personnalisé
+
+            $user = new ApiUser($userData['user']);
+            // Stocke l'utilisateur dans la session
+            session()->put('api_user_' . $user->getAuthIdentifier(), $userData['user']);
+
+            // Login
+            Auth::guard('api_user')->login($user);
+        //     dd($user);
+        //     $client= Http::withHeaders([
+        //     'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+        //     'Content-Type' => 'application/json'
+        // ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/assurer_physique', [
+        //     'identifiant' => $request->input('identifiant'),
+        //     'mot_de_passe' => $request->input('mot_de_passe')
+        // ]);
+
+        // if ($client->successful()) {
+
+        // }
+
+
+            // dd(); 
+            // Auth::guard('api_user')->check(); // doit retourner true
+            // Auth::guard('api_user')->user(); // doit retourner un ApiUser
+                return redirect()->route('client.dashboard');
+           
+        }
+
+        // ✅ 4. Gestion de l’erreur
+        return redirect()->back()
+            ->withInput()
+            ->with('api_error', 'Identifiants incorrects ou erreur de connexion à l’API.');
+    }
+
+  
+    private function sendLoginRequestClient(Request $request): \Illuminate\Http\Client\Response
+    {
+        return Http::withHeaders([
+            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json'
+        ])->post('http://45.155.249.99/gestassusante/api/espace_client/connexion', [
+            'identifiant' => $request->input('identifiant'),
+            'mot_de_passe' => $request->input('mot_de_passe')
         ]);
     }
 

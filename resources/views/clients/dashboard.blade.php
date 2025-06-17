@@ -9,33 +9,66 @@
             </div>
             <div class="col-md-10 ms-sm-auto">
                 <div class="row">
-                    <div class="col-4 col-md-3 col-lg-4">
+                    {{-- Carte 1 : Nombre de Bénéficiaires --}}
+                    <div class="col-3 col-md-3 col-lg-3 col-sm-12">
                         <div class="card">
-                            <span class="bg-primary h-50 w-50 d-flex-center rounded-circle m-auto eshop-icon-box">
-                                <i class="ph  ph-currency-circle-dollar f-s-24"></i>
+                            <span class="bg-primary h-90 w-90 d-flex-center rounded-circle m-auto eshop-icon-box">
+                                <i class="ti ti-users text-white" style="font-size: 40px;"></i>
                             </span>
-
-
                             <div class="card-body eshop-cards">
                                 <span class="ripple-effect"></span>
-                                <div class="overflow-hidden">
-                                    <h3 class="text-primary mb-0">1.2M</h3>
-                                    <p class="mg-b-35 f-w-600 text-dark-800 txt-ellipsis-1">Total Sales</p>
-                                    <span class="badge bg-light-primary">View Report</span>
+                                <div class="overflow-hidden mt-5">
+                                     <h5 class="mb-1">{{-- $nombreBeneficiaires ?? 5 --}} 5</h5>
+                                    <h6 class="text-muted mb-0">Personnes Couvertes</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 col-md-3 col-lg-4">
+
+                    {{-- Carte 2 : Contrats Actifs --}}
+                    <div class="col-3 col-md-3 col-lg-3 col-sm-12">
                         <div class="card">
-                            <span class="bg-danger h-50 w-50 d-flex-center rounded-circle m-auto eshop-icon-box">
-                                <i class="ph ph-x-circle f-s-24"></i>
+                            <span class="bg-primary h-90 w-90 d-flex-center rounded-circle m-auto eshop-icon-box">
+                                <i class="ti ti-file-description text-white" style="font-size: 40px;"></i>
                             </span>
                             <div class="card-body eshop-cards">
                                 <span class="ripple-effect"></span>
-                                <h3 class="text-danger mb-0">125</h3>
-                                <p class="mg-b-35 f-w-600 text-dark-800 txt-ellipsis-1">Canceled Orders</p>
-                                <span class="badge bg-light-danger">Refunded</span>
+                                <div class="overflow-hidden mt-5">
+                                    <h5 class="mb-1">{{-- $nombreContrats ?? 2 --}} 2</h5>
+                                    <h6 class="text-muted mb-0">Contrats Actifs</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Carte 3 : Remboursements sur 30 jours --}}
+                    <div class="col-3 col-md-3 col-lg-3 col-sm-12">
+                        <div class="card">
+                            <span class="bg-primary h-90 w-90 d-flex-center rounded-circle m-auto eshop-icon-box">
+                                <i class="ti ti-receipt-2 text-white" style="font-size: 40px;"></i>
+                            </span>
+                            <div class="card-body eshop-cards">
+                                <span class="ripple-effect"></span>
+                                <div class="overflow-hidden mt-5">
+                                    <h5 class="mb-1">{{-- $remboursements30j ?? '350€' --}} 350 000 000 FCFA</h5>
+                                    <h6 class="text-muted mb-0">Remboursements (30j)</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Carte 4 : Prochaine Cotisation --}}
+                    <div class="col-3 col-md-3 col-lg-3 col-sm-12">
+                        <div class="card">
+                            <span class="bg-primary h-90 w-90 d-flex-center rounded-circle m-auto eshop-icon-box">
+                                <i class="ti ti-calendar-event text-white" style="font-size: 40px;"></i>
+                            </span>
+                            <div class="card-body eshop-cards">
+                                <span class="ripple-effect"></span>
+                                <div class="overflow-hidden mt-5">
+                                    <h5 class="mb-1">{{-- $prochaineCotisationDate ?? '15/08/24' --}} 15/08/24</h5>
+                                    <h6 class="text-muted mb-0">Prochaine Cotisation</h6>
+                                </div>
                             </div>
                         </div>
                     </div>
