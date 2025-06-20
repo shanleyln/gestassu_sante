@@ -107,43 +107,39 @@
                                                 @endif
                                                 <div class="verification-box">
                                                     <div>
-                                                        <input class="otp-input form-control h-50 w-50 text-center" id="one"
-                                                            maxlength="1" name="otp_digits[]" required
-                                                             onkeyup='tabChange(1)'
-                                                            type="text" style="font-size: 30px;">
+                                                        <input class="otp-input form-control h-50 w-50 text-center"
+                                                            id="one" maxlength="1" name="otp_digits[]" required
+                                                            onkeyup='tabChange(1)' type="text"
+                                                            style="font-size: 30px;">
                                                     </div>
                                                     <div>
-                                                        <input class="otp-input form-control h-50 w-50 text-center" id="two"
-                                                            maxlength="1" name="otp_digits[]" required
-                                                             onkeyup='tabChange(2)'
-                                                            type="text" style="font-size: 30px;">
+                                                        <input class="otp-input form-control h-50 w-50 text-center"
+                                                            id="two" maxlength="1" name="otp_digits[]" required
+                                                            onkeyup='tabChange(2)' type="text"
+                                                            style="font-size: 30px;">
                                                     </div>
                                                     <div>
                                                         <input class="otp-input form-control h-50 w-50 text-center"
                                                             id="three" maxlength="1" name="otp_digits[]"
-                                                            required 
-                                                            onkeyup='tabChange(3)' type="text"
+                                                            required onkeyup='tabChange(3)' type="text"
                                                             style="font-size: 30px;">
                                                     </div>
                                                     <div>
                                                         <input class="otp-input form-control h-50 w-50 text-center"
                                                             id="four" maxlength="1" name="otp_digits[]"
-                                                            required 
-                                                            onkeyup='tabChange(4)' type="text"
+                                                            required onkeyup='tabChange(4)' type="text"
                                                             style="font-size: 30px;">
                                                     </div>
                                                     <div>
                                                         <input class="otp-input form-control h-50 w-50 text-center"
                                                             id="five" maxlength="1" name="otp_digits[]"
-                                                            required 
-                                                            onkeyup='tabChange(5)' type="text"
+                                                            required onkeyup='tabChange(5)' type="text"
                                                             style="font-size: 30px;">
                                                     </div>
                                                     <div>
                                                         <input class="otp-input form-control h-50 w-50 text-center"
                                                             id="six" maxlength="1" name="otp_digits[]"
-                                                            required 
-                                                            onkeyup='tabChange(6)' type="text"
+                                                            required onkeyup='tabChange(6)' type="text"
                                                             style="font-size: 30px;">
                                                     </div>
                                                 </div>
@@ -159,12 +155,22 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="mb-3">
-                                                         <button type="submit" id="verify-button" class="btn w-100" style="background-color: #5e2d17; color: white;">Vérifier</button>
-                                                </div>
+                                                    <button type="submit" id="verify-button" class="btn w-100"
+                                                        style="background-color: #5e2d17; color: white;">Vérifier</button>
+                                                <button type="button" id="btnLoading"
+                                                        class="btn btn-dark w-100 fw-bold d-none" disabled>
+                                                        <span class="spinner-border spinner-border-sm me-2"
+                                                            role="status" aria-hidden="true"></span>
+                                                        Vérification en cours...
+                                                    </button>
+                                                    </div>
                                             </div>
                                         </div>
+                                        <a href="{{ route('login') }}" class="btn btn-link text-danger px-0">
+                                            <i class="ti ti-arrow-left me-1"></i>Annuler la vérification
+                                        </a>
                                     </form>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -175,7 +181,31 @@
             <!-- Body main section ends -->
         </div>
     </div>
+<script>
+        function handleSubmit(event) {
+            event.preventDefault();
 
+            const form = event.target.closest('form');
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return false;
+            }
+
+            const btnSubmit = document.getElementById('verify-button');
+            const btnLoading = document.getElementById('btnLoading');
+
+            // Masquer le bouton principal, afficher le bouton loading
+            btnSubmit.classList.add('d-none');
+            btnLoading.classList.remove('d-none');
+
+            // Soumettre après une courte pause
+            setTimeout(() => {
+                form.submit();
+            }, 500);
+
+            return true;
+        }
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Sélection des éléments du DOM

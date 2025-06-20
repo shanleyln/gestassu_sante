@@ -31,6 +31,7 @@ Route::post('/verification-otp', [App\Http\Controllers\sendMailController::class
 
 // Gère la demande de renvoi du code (via AJAX)
 Route::post('/verification-otp/resend', [App\Http\Controllers\sendMailController::class, 'resendCode'])->name('verificationOTP.resend');
+Route::post('/sendPassword', [App\Http\Controllers\sendMailController::class, 'CompteActive'])->name('sendPassword');
 // Redirection simulée (facultatif)
 Route::get('/redirect', function () {
     return redirect()->route('prestataire.dashboard'); // temporairement fixe

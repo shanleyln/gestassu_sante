@@ -207,6 +207,13 @@ color: #fff;">
                             </button>
                         </div>
                     @endif
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show my-2" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer">
+                            </button>
+                        </div>
+                    @endif
                     <ul class="nav nav-tabs mb-4" id="beneficiaireTabs" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="physique-tab" data-bs-toggle="tab"

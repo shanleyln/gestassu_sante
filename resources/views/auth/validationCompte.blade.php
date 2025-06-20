@@ -85,7 +85,7 @@ color: #fff;">
                                                 @if ($errors->any())
                                                     <div class="alert alert-light-border-danger d-flex align-items-center justify-content-between"
                                                         role="alert">
-                                                        <p class="mb-0 text-white">
+                                                        <p class="mb-0 text-danger">
                                                             <i class="ti ti-alert-circle f-s-18 me-2"></i>
                                                             {{ $errors->first() }}
                                                         </p>
@@ -95,7 +95,7 @@ color: #fff;">
                                                 @if ($errors->has('mail'))
                                                     <div class="alert alert-light-border-danger d-flex align-items-center justify-content-between"
                                                         role="alert">
-                                                        <p class="mb-0 text-white">
+                                                        <p class="mb-0 text-danger ">
                                                             <i
                                                                 class="ti ti-alert-circle f-s-18 me-2"></i>{{ $errors->first('mail') }}
                                                         </p>
@@ -110,9 +110,9 @@ color: #fff;">
                                                 </div>
                                             </div>
                                             <div class="col-12">
-                                                <div class="mb-3">
+                                                <div class="mb-2">
                                                     <button id="btnSubmit" class="btn btn-primary w-100"
-                                                        type="button" onclick="handleSubmit(event)">Valider</button>
+                                                        type="button" onclick="handleSubmit(event)">Activer</button>
                                                     <!-- Bouton de chargement (masqué au début) -->
                                                     <button type="button" id="btnLoading"
                                                         class="btn btn-dark w-100 fw-bold d-none" disabled>
@@ -121,6 +121,9 @@ color: #fff;">
                                                         validation en cours...
                                                     </button>
                                                 </div>
+                                                <a href="{{ route('login')}}" class="btn btn-link text-danger px-0">
+                                                    <i class="ti ti-arrow-left me-1"></i>Annuler la validation
+                                                </a>
                                             </div>
                                         </div>
                                     </form>
