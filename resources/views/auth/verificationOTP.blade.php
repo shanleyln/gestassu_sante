@@ -65,6 +65,7 @@
                         color: #fff;">
                                 <div class="mb-4">
                                     <a class="logo" href="#">
+                                        <i class="ti ti-circle-check text-white" style="font-size: 40px;"></i>
                                         {{-- <img alt="#" src="imgs/logo.png" width="150" height="50"> --}}
                                     </a>
                                 </div>
@@ -156,14 +157,15 @@
                                             <div class="col-12">
                                                 <div class="mb-3">
                                                     <button type="submit" id="verify-button" class="btn w-100"
-                                                        style="background-color: #5e2d17; color: white;">Vérifier</button>
-                                                <button type="button" id="btnLoading"
+                                                        style="background-color: #5e2d17; color: white;"
+                                                        onclick="handleSubmit(event)">Vérifier</button>
+                                                    <button type="button" id="btnLoading"
                                                         class="btn btn-dark w-100 fw-bold d-none" disabled>
                                                         <span class="spinner-border spinner-border-sm me-2"
                                                             role="status" aria-hidden="true"></span>
                                                         Vérification en cours...
                                                     </button>
-                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <a href="{{ route('login') }}" class="btn btn-link text-danger px-0">
@@ -181,7 +183,7 @@
             <!-- Body main section ends -->
         </div>
     </div>
-<script>
+    <script>
         function handleSubmit(event) {
             event.preventDefault();
 
