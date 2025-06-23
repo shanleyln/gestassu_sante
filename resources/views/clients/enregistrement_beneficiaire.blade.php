@@ -172,12 +172,12 @@
                                             <div class="col-md-4">
                                                 <label for="email_0" class="form-label">Email</label>
                                                 <input type="email" class="form-control" name="beneficiaires[0][email]"
-                                                    id="email_0">
+                                                    id="email_0" data-ignore-validation>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="telephone_0" class="form-label">Téléphone</label>
                                                 <input type="text" class="form-control"
-                                                    name="beneficiaires[0][telephone]" id="telephone_0">
+                                                    name="beneficiaires[0][telephone]" id="telephone_0" data-ignore-validation>
                                             </div>
                                         </div>
                                         <hr class="my-4">
@@ -268,13 +268,13 @@
                                                 <div class="col-md-4">
                                                     <label for="email___INDEX__" class="form-label">Email</label>
                                                     <input type="email" class="form-control"
-                                                        name="beneficiaires[__INDEX__][email]" id="email___INDEX__">
+                                                        name="beneficiaires[__INDEX__][email]" id="email___INDEX__" data-ignore-validation>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="telephone___INDEX__" class="form-label">Téléphone</label>
                                                     <input type="text" class="form-control"
                                                         name="beneficiaires[__INDEX__][telephone]"
-                                                        id="telephone___INDEX__">
+                                                        id="telephone___INDEX__" data-ignore-validation>
                                                 </div>
                                             </div>
                                         </div>
@@ -288,8 +288,13 @@
                                             <button class="btn btn-dark shadow" type="button"
                                                 id="add-beneficiaire-btn">Nouveau
                                                 bénéficiaire affilié</button>
-                                            <button class="btn btn-primary shadow" type="submit">Enregistrer tous les
+                                            <button class="btn-action btn btn-primary shadow" data-loader-target="envoibeneficiaire" type="submit" style="background-color:#5e2d17">Enregistrer tous les
                                                 bénéficiaires</button>
+                                                <button class="btn btn-light-primary d-inline-flex-center" id="envoibeneficiaire" type="button"  style="display: none;" disabled>
+                                                    <span class="spinner-border spinner-border-sm me-2" role="status"
+                                                        aria-hidden="true"></span>
+                                                   Enregistrement en cours ...
+                                                </button>
                                         </div>
                                     </div>
                                 </div>
@@ -303,6 +308,47 @@
             </div>
         </div>
     </div>
+   <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form.needs-validation');
+    const submitBtn = form.querySelector('.btn-action');
+
+    function validateFormFields() {
+        const beneficiaireBlocks = form.querySelectorAll('.beneficiaire-block');
+        let allBlocksValid = true;
+
+        beneficiaireBlocks.forEach(block => {
+            // ✅ Ne sélectionne que les champs avec l'attribut "required"
+            const requiredFields = block.querySelectorAll('input[required], select[required], textarea[required]');
+            
+            for (let field of requiredFields) {
+                if (!field.offsetParent) continue; // Ignore les champs cachés
+                if (!field.value || (field.tagName === 'SELECT' && field.value === '')) {
+                    allBlocksValid = false;
+                    break;
+                }
+            }
+        });
+
+        submitBtn.disabled = !allBlocksValid;
+    }
+
+    // Vérification initiale
+    validateFormFields();
+
+    // Observer les ajouts dynamiques
+    const observer = new MutationObserver(validateFormFields);
+    observer.observe(document.getElementById('beneficiaires-container'), {
+        childList: true,
+        subtree: true
+    });
+
+    // Réagir aux changements
+    form.addEventListener('input', validateFormFields);
+    form.addEventListener('change', validateFormFields);
+});
+</script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
