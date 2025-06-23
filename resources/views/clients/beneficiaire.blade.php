@@ -1,6 +1,6 @@
 @extends('layouts.client')
 
-@section('title', 'Mon Tableau de bord')
+@section('title', 'Bénéficiaires')
 
 @section('content')
     <div class="container-fluid">
@@ -14,10 +14,7 @@
                         <ul class="simple-breadcrumbs">
                             <li><a href="#" style="font-size:20px">Liste des bénéficiaires</a></li>
                         </ul>
-                        <a href="{{ route('clients.ajout') }}" type="button" class="btn btn-primary"> <i
-                                class="ti ti-plus"></i> Enregistrer</a>
                     </div>
-
                 </div>
                 <div class="card">
                     <div class="card-body ps-0 pe-0">

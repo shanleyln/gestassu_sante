@@ -35,6 +35,33 @@ class ContratsController extends Controller
             return back()->withErrors(['erreur' => 'Échec de récupération des contrats.']);
         }
     }
+    public function contrat_client()
+    {
+        // Récupérer l'ID
+        $id_souscripteur_pp = Auth::guard('api_user')->user()->id_souscripteur_pp;
+
+        // Appel API
+        $response = Http::withHeaders([
+            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json'
+        ])->post('http://45.155.249.99/gestassusante/api/espace_client/liste_contrat', [
+            "Personne_Morale_ID" => "",
+            "Personne_Physique_ID" => $id_souscripteur_pp,
+            "numero_contrat" => "",
+            "type_contrat" => "",
+            "statut" => "",
+            "nom_assureur" => ""
+        ]);
+
+        // Vérifie si l'appel est un succès
+        if ($response->successful()) {
+            $reponseContrats = $response->json();
+            $contrats = $reponseContrats['contrats'];
+            return view('clients.contrats', ['contrats' => $contrats]);
+        } else {
+            return back()->withErrors(['erreur' => 'Échec de récupération des contrats.']);
+        }
+    }
     public function contrat_assureurDetails($contrat)
     {
         $response = Http::withHeaders([
@@ -60,6 +87,31 @@ class ContratsController extends Controller
             return back()->withErrors(['erreur' => 'Échec de récupération des détails.']);
         }
     }
+    public function contrat_clientDetails($contrat)
+    {
+        $response = Http::withHeaders([
+            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json'
+        ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/detail_contrat', [
+            'contrat_id' => $contrat,
+        ]);
+
+        if ($response->successful()) {
+            $detailsContrats = $response->json();
+
+            $contrat = $detailsContrats['contrat'] ?? [];
+            $polices = $detailsContrats['polices'] ?? [];
+            $statistiques = $detailsContrats['statistiques'] ?? [];
+
+            return view('clients.detailsContrat', [
+                'contrat' => $contrat,
+                'polices' => $polices,
+                'statistiques' => $statistiques
+            ]);
+        } else {
+            return back()->withErrors(['erreur' => 'Échec de récupération des détails.']);
+        }
+    }
     // Controller
     public function police_assureurDetails($police)
     {
@@ -76,20 +128,43 @@ class ContratsController extends Controller
             $police = $data['police'] ?? [];
             $contrat = $data['contrat'] ?? [];
             $beneficiaires = $data['beneficiaires'] ?? [];
-            $contrat_id= $contrat['id'] ?? null;
+            $contrat_id = $contrat['id'] ?? null;
             return view('assureurs.detailsPolice', [
                 'police' => $police,
                 'contrat' => $contrat,
                 'contrat_id' => $contrat_id,
                 'beneficiaires' => $beneficiaires
             ]);
+        } else {
+            return back()->withErrors(['erreur' => 'Échec de récupération des détails.']);
+        }
+    }
+    public function police_clientDetails($police)
+    {
+        $response = Http::withHeaders([
+            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json'
+        ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/detail_police', [
+            'police_id' => $police,
+        ]);
 
+        if ($response->successful()) {
+            $data = $response->json();
+
+            $police = $data['police'] ?? [];
+            $contrat = $data['contrat'] ?? [];
+            $beneficiaires = $data['beneficiaires'] ?? [];
+            $contrat_id = $contrat['id'] ?? null;
+            return view('clients.detailsPolice', [
+                'police' => $police,
+                'contrat' => $contrat,
+                'contrat_id' => $contrat_id,
+                'beneficiaires' => $beneficiaires
+            ]);
         } else {
             return back()->withErrors(['erreur' => 'Échec de récupération des détails.']);
         }
     }
 
-    public function envoiMail(){
-        
-    }
+    
 }

@@ -9,6 +9,7 @@
 <meta
     content="Ingenium Santé est une plateforme digitale innovante qui connecte les assurés, les entreprises clientes, les assureurs et les prestataires de santé. Elle permet une gestion dématérialisée et instantanée des informations relatives aux couvertures santé."
     name="keywords">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="icon" href="{{ asset('imgs/icon_logo.png') }}" type="image/x-icon">
 <link rel="shortcut icon" href="{{ asset('imgs/icon_logo.png') }}" type="image/x-icon">
 
@@ -87,23 +88,18 @@
             <div class="loader_24"></div>
         </div>
         <script>
-            // On sélectionne le loader
-            const loader = document.querySelector('.loader-wrapper');
-
-            // On écoute l'événement "load" sur la fenêtre.
-            // "load" se déclenche quand TOUTE la page (images, CSS, etc.) est chargée.
+            // Attend que toutes les ressources (icônes, images, CSS, scripts, etc.) soient chargées
             window.addEventListener('load', () => {
-                // On ajoute la classe qui déclenche la transition de disparition
+            const loader = document.querySelector('.loader-wrapper');
+            if (loader) {
                 loader.classList.add('loader--hidden');
-
-                // (Optionnel) Pour supprimer complètement le loader du DOM après la transition
-                // Cela évite de laisser un élément vide et invisible sur la page.
                 loader.addEventListener('transitionend', () => {
-                    // La méthode .remove() est propre et simple
-                    loader.remove();
+                loader.remove();
                 });
+            }
             });
         </script>
+    
         <!-- Loader end-->
         <!-- Menu Navigation start -->
         <!-- Menu Navigation starts -->
@@ -133,17 +129,17 @@
             <div class="app-nav" id="app-simple-bar">
                 <ul class="main-nav p-0 mt-2">
                     <li class="nav-item no-sub"><a
-                        class="nav-link{{ request()->routeIs('client.dashboard') ? ' active' : '' }}"
-                        href="{{ route('client.dashboard') }}"><i class="ti ti-dashboard me-2" style="font-size: 25px"></i>Tableau de
+                        class="nav-link{{ request()->routeIs('clients.dashboard') ? ' active' : '' }}"
+                        href="{{ route('clients.dashboard') }}"><i class="ti ti-dashboard me-2" style="font-size: 25px"></i>Tableau de
                         bord</a></li>
 
                     <li class="nav-item no-sub"><a
-                        class="nav-link{{ request()->routeIs('clients.beneficiaires','clients.ajout') ? ' active' : '' }}"
-                        href="{{ route('clients.beneficiaires','clients.ajout') }}"><i
+                        class="nav-link{{ request()->routeIs('clients.beneficiaires') ? ' active' : '' }}"
+                        href="{{ route('clients.beneficiaires') }}"><i
                             class="ti ti-users me-2" style="font-size: 25px"></i>Bénéficiaires</a></li>
                     <li class="nav-item no-sub"><a
-                        class="nav-link{{ request()->routeIs('client.contrats') ? ' active' : '' }}"
-                        href="#"><i class="ti ti-file-description me-2" style="font-size: 25px"></i>Mes
+                        class="nav-link{{ request()->routeIs('client.contrats','client.contratsDetails','client.policeDetails','clients.ajout') ? ' active' : '' }}"
+                        href="{{route('client.contrats')}}"><i class="ti ti-file-description me-2" style="font-size: 25px"></i>Mes
                         Contrats
                         </a></li>
                     <li class="nav-item no-sub"><a
@@ -303,6 +299,22 @@
     <!--customizer-->
     <div id="customizer"></div>
     <!-- jQuery -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Cible tous les boutons ayant l'attribut data-loader-target
+        document.querySelectorAll('.btn-action[data-loader-target]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const targetId = btn.getAttribute('data-loader-target');
+                const loaderBtn = document.getElementById(targetId);
+
+                if (loaderBtn) {
+                    btn.style.display = 'none';
+                    loaderBtn.style.display = 'inline-block';
+                }
+            });
+        });
+    });
+</script>
     <script src="{{ asset('assets/js/jquery-3.6.3.min.js') }}"></script>
 
     <!-- Bootstrap js-->

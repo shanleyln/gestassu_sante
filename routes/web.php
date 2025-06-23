@@ -74,43 +74,27 @@ Route::middleware('auth:api_user')->group(function () {
     Route::get('/assureur.contrats', [App\Http\Controllers\ContratsController::class, 'contrat_assureur'])->name('assureur.contrats');
     Route::get('/assureur.contratsDetails/{contrat}', [App\Http\Controllers\ContratsController::class, 'contrat_assureurDetails'])->name('assureur.contratsDetails');
     Route::get('/assureur.policeDetails/{police}', [App\Http\Controllers\ContratsController::class, 'police_assureurDetails'])->name('assureur.policeDetails');
-    
-    
     // =======================
     // SECTION CLIENT
     // =======================
-    Route::get('/Dashboard', [App\Http\Controllers\ClientController::class, 'index'])->name('client.dashboard');
-    Route::get('/Enregistrement', [App\Http\Controllers\BeneficiaireController::class, 'create'])->name('clients.ajout');
+    Route::get('/Dashboard-client', [App\Http\Controllers\ClientController::class, 'index'])->name('clients.dashboard');
+    Route::get('/Enregistrement/{police_id}', [App\Http\Controllers\BeneficiaireController::class, 'create'])->name('clients.ajout');
     Route::get('/beneficiaires', [App\Http\Controllers\BeneficiaireController::class, 'index'])->name('clients.beneficiaires');
-
-
+    Route::get('/clients.contrats', [App\Http\Controllers\ContratsController::class, 'contrat_client'])->name('client.contrats');
+    Route::get('/client.contratsDetails/{contrat}', [App\Http\Controllers\ContratsController::class, 'contrat_clientDetails'])->name('client.contratsDetails');
+    Route::get('/client.policeDetails/{police}', [App\Http\Controllers\ContratsController::class, 'police_clientDetails'])->name('client.policeDetails');
+    Route::post('/saveBeneficiare', [App\Http\Controllers\BeneficiaireController::class, 'save_beneficiaire'])->name('client.beneficiare.save');
+    
 
 
     Route::get('/Guide-ingenium', function () {
-    return view('guide_connexion');
-})->name('guide_connexion');
+        return view('guide_connexion');
+    })->name('guide_connexion');
 });
 
 
 // =======================
 // SECTION CLIENTS
 // =======================
-Route::prefix('client')->name('client.')->group(function () {
-    Route::view('/dashboard', 'clients.dashboard')->name('dashboard');
-    Route::view('/contrats', 'clients.contrats.index')->name('contrats');
-    Route::view('/beneficiaires', 'clients.beneficiaires.index')->name('beneficiaires');
-    Route::view('/cartes', 'clients.cartes.index')->name('cartes');
-    Route::view('/garanties', 'clients.garanties.index')->name('garanties');
-    Route::view('/prestations', 'clients.prestations.index')->name('prestations');
-    Route::view('/declarations', 'clients.declarations.sinistre')->name('declarations');
-    Route::view('/paiements', 'clients.paiements.index')->name('paiements');
-    Route::view('/documents', 'clients.documents.index')->name('documents');
-    Route::view('/demarches', 'clients.demarches.index')->name('demarches');
-    Route::view('/communication', 'clients.communication.messagerie')->name('communication');
-    Route::view('/parametres', 'clients.parametres.profil')->name('parametres');
-    Route::view('/support', 'clients.support.faq')->name('support');
-    Route::view('/analyse', 'clients.analyse.tableau-de-bord')->name('analyse');
-    Route::view('/mobile', 'clients.mobile.version-mobile')->name('mobile');
-});
-Route::post('/logout', [UserController::class, 'destroy'])->name('logout');
 
+Route::post('/logout', [UserController::class, 'destroy'])->name('logout');

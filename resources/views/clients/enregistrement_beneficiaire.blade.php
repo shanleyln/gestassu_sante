@@ -11,28 +11,107 @@
                 <div class="card px-4 py-2">
                     <div class="d-flex justify-content-between align-items-center">
                         <ul class="simple-breadcrumbs">
+                            <li><a href="{{ route('client.contrats') }}" style="font-size:20px">Liste des contrats</a></li>
+                            <li><a href="{{ route('client.contratsDetails', ['contrat' => $contrat_id]) }}" class="active"
+                                    style="font-size:20px">Détails du contrats</a></li>
+                            <li><a href="{{ route('client.policeDetails', ['police' => $police['id']]) }}" class="active"
+                                    style="font-size:20px">Détails de police</a></li>
                             <li><a href="#" style="font-size:20px">Enregistrement des bénéficiaires</a></li>
                         </ul>
-                        <a href="{{ route('clients.beneficiaires') }}" type="button" class="btn btn-primary shadow"> <i
-                                class="ti ti-list"></i> Liste de bénéficiaires</a>
                     </div>
 
                 </div>
                 <div class="row">
-                    <div class="col"></div>
-                    <div class="col-md-8">
+                    <div class="col-md-3">
+                        <!-- Infos contrat -->
+                        <div class="bg-light border rounded p-3 mb-3">
+                            <h6 class="bgPrimary py-2 px-2 rounded">Informations du contrat</h6>
+                            <p class="textPrimary"><strong>N° Contrat :</strong>
+                                {{ $contrat['numero_contrat'] ?? '------' }}</p>
+                            <p class="textPrimary"><strong>Souscripteur :</strong>
+                                {{ $contrat['nom_souscripteur'] ?? '------' }}
+                            </p>
+                            <p class="textPrimary"><strong>Date échéance :</strong>
+                                {{ !empty($contrat['date_echeance']) ? \Carbon\Carbon::parse($contrat['date_echeance'])->format('d/m/Y') : '------' }}
+                            </p>
+
+                        </div>
+
+                        <!-- Infos police -->
+                        <div class="bg-light border rounded p-3 mb-3">
+                            <h6 class="bgPrimary  py-2 px-2 rounded">Informations de la police</h6>
+                            <p class="textPrimary"><strong>Nom Police :</strong> {{ $police['nom_police'] ?? '------' }}</p>
+                            <p class="textPrimary"><strong>Type personnel :</strong>
+                                {{ $police['type_personnel'] ?? '------' }}</p>
+                            <p class="textPrimary"><strong>Date effet :</strong>
+                                {{ !empty($police['date_debut']) ? \Carbon\Carbon::parse($police['date_debut'])->format('d/m/Y') : '------' }}
+                            </p>
+                            <p class="textPrimary"><strong>Date échéance :</strong>
+                                {{ !empty($police['date_fin']) ? \Carbon\Carbon::parse($police['date_fin'])->format('d/m/Y') : '------' }}
+                            </p>
+                            <p class="textPrimary"><strong>Tarif :</strong> {{ $police['tarif'] ?? 0 }}</p>
+                        </div>
+
+                        <!-- Statistiques -->
+                        <div class="bg-light border rounded p-3">
+                            <h6 class="bgPrimary text-white py-2 px-2 rounded">Statistiques</h6>
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="border rounded textPrimary py-2">
+                                        <small>Total Bénéf.</small><br>
+                                        <strong>{{ $police['total_beneficiaires'] ?? 0 }}</strong>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="border rounded textPrimary py-2">
+                                        <small>Principaux</small><br>
+                                        <strong>{{ $police['total_assures_principaux'] ?? 0 }}</strong>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="border rounded textPrimary py-2">
+                                        <small>Affilié</small><br>
+                                        <strong>{{ $police['total_affilies'] ?? 0 }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8" style="">
                         <div class="mb-2">
                             <h4 class="mb-3">Formulaire des bénéficiaires</h4>
                             <!-- Le formulaire principal -->
-                            <form class="app-form row g-3 needs-validation" novalidate>
-
+                            <form class="app-form row g-3 needs-validation" novalidate method="POST"
+                                action="{{ route('client.beneficiare.save') }}">
+                                @csrf
+                                <input type="hidden" name="police_id" value="{{ $police['id'] }}">
                                 <!-- Conteneur pour tous les bénéficiaires -->
-                                <div id="beneficiaires-container">
+                                <div id="beneficiaires-container" style="max-height: 550px; overflow-y: auto;">
 
                                     <!-- ===== Bénéficiaire Principal (Index 0) ===== -->
                                     <div class="beneficiaire-block card p-4 shadow" data-index="0">
                                         <div class="card p-3 shadow">
                                             <h5>Bénéficiaire Principal</h5>
+                                            @if ($errors->any())
+                                                <div class="alert alert-light-border-danger d-flex align-items-center justify-content-between"
+                                                    role="alert">
+                                                    <p class="mb-0 text-danger">
+                                                        <i class="ti ti-alert-circle f-s-18 me-2"></i>
+                                                        {{ $errors->first() }}
+                                                    </p>
+                                                    <i class="ti ti-x" data-bs-dismiss="alert"></i>
+                                                </div>
+                                            @endif
+                                            @if (session('success'))
+                                                    <div
+                                                        class="alert alert-light-border-success d-flex align-items-center justify-content-between">
+                                                        <p class="mb-0 text-success">
+                                                            <i class="ti ti-circle-check f-s-18 me-2"></i>
+                                                            {{ session('message') ?? session('success') }}
+                                                        </p>
+                                                        <i class="ti ti-x" data-bs-dismiss="alert"></i>
+                                                    </div>
+                                                @endif
                                         </div>
                                         <div class="row g-3">
                                             <div class="col-md-4">
@@ -68,29 +147,38 @@
                                                 <div class="invalid-feedback">Le genre est obligatoire.</div>
                                             </div>
                                             <div class="col-md-4">
+                                                <label for="validationCustom05_0" class="form-label">Lien avec
+                                                    l'assuré</label>
+                                                <select class="form-select" id="validationCustom05_0"
+                                                    name="beneficiaires[0][lien_avec_assure]" required>
+                                                    <option selected value="Principal">Principal
+                                                    </option>
+                                                </select>
+                                                <div class="invalid-feedback">Le genre est obligatoire.</div>
+                                            </div>
+                                            <div class="col-md-4">
                                                 <label for="validationCustom03_0" class="form-label">Adresse</label>
-                                                <input type="text" class="form-control" name="beneficiaires[0][adresse]"
-                                                    id="validationCustom03_0" required>
+                                                <input type="text" class="form-control"
+                                                    name="beneficiaires[0][nom_rue]" id="validationCustom03_0" required>
                                                 <div class="invalid-feedback">L'adresse est obligatoire.</div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="validationCustom05_0" class="form-label">Profession</label>
+                                                <label for="validationCustom06_0" class="form-label">Profession</label>
                                                 <input type="text" class="form-control"
-                                                    name="beneficiaires[0][profession]" id="validationCustom05_0" required>
+                                                    name="beneficiaires[0][profession]" id="validationCustom06_0"
+                                                    required>
                                                 <div class="invalid-feedback">La profession est obligatoire.</div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <label for="email_0" class="form-label">Email</label>
                                                 <input type="email" class="form-control" name="beneficiaires[0][email]"
                                                     id="email_0">
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <label for="telephone_0" class="form-label">Téléphone</label>
                                                 <input type="text" class="form-control"
                                                     name="beneficiaires[0][telephone]" id="telephone_0">
                                             </div>
-                                            <!-- Indique que c'est le principal -->
-                                            <input type="hidden" name="beneficiaires[0][type]" value="principal">
                                         </div>
                                         <hr class="my-4">
                                     </div>
@@ -149,35 +237,45 @@
                                                     <div class="invalid-feedback">Le genre est obligatoire.</div>
                                                 </div>
                                                 <div class="col-md-4">
+                                                    <label for="validationCustom05___INDEX__" class="form-label">Lien avec
+                                                        l'assuré</label>
+                                                    <select class="form-select" id="validationCustom05___INDEX__"
+                                                        name="beneficiaires[__INDEX__][lien_avec_assure]" required>
+                                                        <option selected disabled value="">Sélectionnez le lien...
+                                                        </option>
+                                                        <option value="Conjoint">Conjoint</option>
+                                                        <option value="Enfant">Enfant</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">Le Lien avec l'assuré est obligatoire.
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
                                                     <label for="validationCustom03___INDEX__"
                                                         class="form-label">Adresse</label>
                                                     <input type="text" class="form-control"
-                                                        name="beneficiaires[__INDEX__][adresse]"
+                                                        name="beneficiaires[__INDEX__][nom_rue]"
                                                         id="validationCustom03___INDEX__" required>
                                                     <div class="invalid-feedback">L'adresse est obligatoire.</div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label for="validationCustom05___INDEX__"
+                                                    <label for="validationCustom06___INDEX__"
                                                         class="form-label">Profession</label>
                                                     <input type="text" class="form-control"
                                                         name="beneficiaires[__INDEX__][profession]"
-                                                        id="validationCustom05___INDEX__" required>
+                                                        id="validationCustom06___INDEX__" required>
                                                     <div class="invalid-feedback">La profession est obligatoire.</div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="email___INDEX__" class="form-label">Email</label>
                                                     <input type="email" class="form-control"
                                                         name="beneficiaires[__INDEX__][email]" id="email___INDEX__">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="telephone___INDEX__" class="form-label">Téléphone</label>
                                                     <input type="text" class="form-control"
                                                         name="beneficiaires[__INDEX__][telephone]"
                                                         id="telephone___INDEX__">
                                                 </div>
-                                                <!-- Indique que c'est un affilié -->
-                                                <input type="hidden" name="beneficiaires[__INDEX__][type]"
-                                                    value="affilie">
                                             </div>
                                         </div>
                                     </template>

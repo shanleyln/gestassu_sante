@@ -289,7 +289,6 @@
             otpForm.addEventListener('submit', function(e) {
                 // Concaténer les chiffres des 6 champs dans le champ caché
                 hiddenOtpInput.value = Array.from(otpInputs).map(input => input.value).join('');
-
                 // Si le code n'est pas complet, on arrête la soumission
                 if (hiddenOtpInput.value.length !== 6) {
                     e.preventDefault();

@@ -48,7 +48,7 @@ class UserController extends Controller
 
             // Login
             Auth::guard('api_user')->login($user);
-            
+
             // dd(); 
             // Auth::guard('api_user')->check(); // doit retourner true
             // Auth::guard('api_user')->user(); // doit retourner un ApiUser
@@ -65,7 +65,7 @@ class UserController extends Controller
             ->withInput()
             ->with('api_error', 'Identifiants incorrects ou erreur de connexion à l’API.');
     }
-      private function sendLoginRequest(Request $request): \Illuminate\Http\Client\Response
+    private function sendLoginRequest(Request $request): \Illuminate\Http\Client\Response
     {
         return Http::withHeaders([
             'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
@@ -94,7 +94,6 @@ class UserController extends Controller
         // ✅ 3. Gestion du succès
         if ($response->successful()) {
             $userData = $response->json();
-
             if (isset($userData['status']) && $userData['status'] === 'error') {
                 return redirect()->back()
                     ->withInput()
@@ -110,25 +109,24 @@ class UserController extends Controller
 
             // Login
             Auth::guard('api_user')->login($user);
-        //     dd($user);
-        //     $client= Http::withHeaders([
-        //     'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-        //     'Content-Type' => 'application/json'
-        // ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/assurer_physique', [
-        //     'identifiant' => $request->input('identifiant'),
-        //     'mot_de_passe' => $request->input('mot_de_passe')
-        // ]);
+            //     dd($user);
+            //     $client= Http::withHeaders([
+            //     'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            //     'Content-Type' => 'application/json'
+            // ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/assurer_physique', [
+            //     'identifiant' => $request->input('identifiant'),
+            //     'mot_de_passe' => $request->input('mot_de_passe')
+            // ]);
 
-        // if ($client->successful()) {
+            // if ($client->successful()) {
 
-        // }
+            // }
 
 
             // dd(); 
             // Auth::guard('api_user')->check(); // doit retourner true
             // Auth::guard('api_user')->user(); // doit retourner un ApiUser
-                return redirect()->route('client.dashboard');
-           
+            return redirect()->route('clients.dashboard');
         }
 
         // ✅ 4. Gestion de l’erreur
@@ -137,7 +135,7 @@ class UserController extends Controller
             ->with('api_error', 'Identifiants incorrects ou erreur de connexion à l’API.');
     }
 
-  
+
     private function sendLoginRequestClient(Request $request): \Illuminate\Http\Client\Response
     {
         return Http::withHeaders([
