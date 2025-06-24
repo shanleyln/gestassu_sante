@@ -49,7 +49,7 @@ class sendMailController extends Controller
                 // dd($OTP);
                 // Génération d'un code sécurisé
                 // $code = random_int(100000, 999999);
-                $expiresAt = now()->addMinutes(3);
+                $expiresAt = now()->addMinutes(10);
                 // Stocker les infos en session pour la page suivante
                 // Session::put('verification_code', $code);
                 Session::put('verification_code_expires_at', $expiresAt);
@@ -91,13 +91,27 @@ class sendMailController extends Controller
      */
     private function verifyCodeRequest(Request $request): \Illuminate\Http\Client\Response
     {
-        return Http::withHeaders([
-            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-            'Content-Type' => 'application/json'
-        ])->post('http://45.155.249.99/gestassusante/api/espace_client/verifie_otp', [
-            'identifiant' => $request->input('identifiant', Session::get('verification_user_id')), // ou passe 'identifiant' en session si besoin
-            'receive_otp' => $request->input('otp_code'), // ou passe 'identifiant' en session si besoin
-        ]);
+        $otpDigits = $request->input('otp_digits');
+
+        // 2. Vérifier que les données sont bien un tableau (sécurité)
+        // if (is_array($otpDigits)) {
+
+            // 3. Joindre les éléments du tableau pour former une chaîne de caractères
+            // $otpCode contiendra : "123456"
+            $otpCode = implode('', $otpDigits);
+
+            // 4. (Optionnel) Si vous avez besoin de le manipuler comme un nombre
+            $otpNumber = (int)$otpCode; // $otpNumber contiendra l'entier 123456
+
+            // Le code est correct
+            return Http::withHeaders([
+                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+                'Content-Type' => 'application/json'
+            ])->post('http://45.155.249.99/gestassusante/api/espace_client/verifie_otp', [
+                'identifiant' => $request->input('identifiant', Session::get('verification_user_id')), // ou passe 'identifiant' en session si besoin
+                'receive_otp' => $otpNumber, // ou passe 'identifiant' en session si besoin
+            ]);
+        // }
     }
     public function verifyCode(Request $request)
     {
@@ -155,7 +169,7 @@ class sendMailController extends Controller
                     return response()->json(['success' => false, 'message' => $userDataOTP['message']]);
                 }
 
-                $expiresAt = now()->addMinutes(3);
+                $expiresAt = now()->addMinutes(10);
                 Session::put('verification_code_expires_at', $expiresAt);
                 Session::put('verification_user_id', Session::get('verification_user_id'));
 
@@ -190,7 +204,7 @@ class sendMailController extends Controller
         ]);
     }
 
-      public function CompteActive(Request $request)
+    public function CompteActive(Request $request)
     {
         $response = $this->ActiveRequestCompte($request);
         try {
