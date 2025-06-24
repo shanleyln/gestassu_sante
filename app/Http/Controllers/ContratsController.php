@@ -39,13 +39,14 @@ class ContratsController extends Controller
     {
         // Récupérer l'ID
         $id_souscripteur_pp = Auth::guard('api_user')->user()->id_souscripteur_pp;
+        $id_souscripteur_pm = Auth::guard('api_user')->user()->id_souscripteur_pm;
 
         // Appel API
         $response = Http::withHeaders([
             'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
             'Content-Type' => 'application/json'
         ])->post('http://45.155.249.99/gestassusante/api/espace_client/liste_contrat', [
-            "Personne_Morale_ID" => "",
+            "Personne_Morale_ID" => $id_souscripteur_pm,
             "Personne_Physique_ID" => $id_souscripteur_pp,
             "numero_contrat" => "",
             "type_contrat" => "",
