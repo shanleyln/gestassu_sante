@@ -77,7 +77,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="mb-5 text-center">
-                                                    <h2 class="text-primary">Vérifier l'OTP {{Session::get('verification_user_id')}}</h2>
+                                                    <h2 class="text-primary">Vérifier l'OTP</h2>
                                                     <p>Saisissez le code à 6 chiffres envoyé à l'adresse e-mail
                                                         enregistrée ou SMS</p>
                                                     <div id="timer" class="mt-2 fw-bold fs-5 text-secondary"></div>
