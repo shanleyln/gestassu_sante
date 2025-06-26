@@ -334,11 +334,11 @@ color: #fff;">
                                     <div class="input-group input-group-lg">
                                         <span class="input-group-text bg-white border-end-0"><i
                                                 class="bi bi-lock"></i></span>
-                                        <input type="password" id="mot_de_passe" name="mot_de_passe"
+                                        <input type="password" id="password1" name="mot_de_passe"
                                             class="form-control shadowInput" placeholder="Mot de passe" required autocomplete="false">
                                         <span class="input-group-text bg-white" style="cursor:pointer"
-                                            onclick="togglePassword()"><i class="bi bi-eye"
-                                                id="togglePwd"></i></span>
+                                            onclick="togglePassword1()"><i class="bi bi-eye"
+                                                id="togglePwd1"></i></span>
                                         <div class="invalid-feedback">
                                             Veuillez saisir votre identifiant.
                                         </div>
@@ -432,6 +432,19 @@ color: #fff;">
         function togglePassword() {
             const pwd = document.getElementById('password');
             const icon = document.getElementById('togglePwd');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                pwd.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+        function togglePassword1() {
+            const pwd = document.getElementById('password1');
+            const icon = document.getElementById('togglePwd1');
             if (pwd.type === 'password') {
                 pwd.type = 'text';
                 icon.classList.remove('bi-eye');
