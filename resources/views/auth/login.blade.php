@@ -334,7 +334,7 @@ color: #fff;">
                                     <div class="input-group input-group-lg">
                                         <span class="input-group-text bg-white border-end-0"><i
                                                 class="bi bi-lock"></i></span>
-                                        <input type="mot_de_passe" id="mot_de_passe" name="mot_de_passe"
+                                        <input type="password" id="mot_de_passe" name="mot_de_passe"
                                             class="form-control shadowInput" placeholder="Mot de passe" required autocomplete="false">
                                         <span class="input-group-text bg-white" style="cursor:pointer"
                                             onclick="togglePassword()"><i class="bi bi-eye"
