@@ -10,9 +10,40 @@ class BeneficiaireController extends Controller
 {
 
     //
-    public function index()
+    public function index($police_id)
     {
-        return view('clients.beneficiaire');
+        $responsebeneficiaire = Http::withHeaders([
+            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json'
+        ])->get('http://45.155.249.99/gestassusante/api/espace_client/liste_famille_temp/' . $police_id);
+
+        $response = Http::withHeaders([
+            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json'
+        ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/detail_police', [
+            'police_id' => $police_id,
+        ]);
+
+        if ($response->successful() && $responsebeneficiaire->successful()) {
+            $data = $response->json();
+            $dataBeneficiaire = $responsebeneficiaire->json();
+
+            $police = $data['police'] ?? [];
+            $contrat = $data['contrat'] ?? [];
+            $contrat_id = $contrat['id'] ?? null;
+            return view('clients.beneficiaire', [
+                'police' => $police,
+                'contrat' => $contrat,
+                'contrat_id' => $contrat_id,
+                'beneficiaires_temp' => $dataBeneficiaire['familles'] ?? []
+            ]);
+        } elseif ($responsebeneficiaire->failed()) {
+            // Gérer l'erreur de récupération des bénéficiaires
+            return back()->withErrors(['erreur' => 'Échec de récupération des bénéficiaires.']);
+        } else {
+            // Gérer l'erreur de récupération des bénéficiaires
+            return back()->withErrors(['erreur' => 'Échec de récupération des bénéficiaires.']);
+        }
     }
 
     public function create($police_id)

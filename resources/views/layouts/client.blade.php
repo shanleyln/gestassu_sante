@@ -138,7 +138,7 @@
                         href="{{ route('clients.beneficiaires') }}"><i
                             class="ti ti-users me-2" style="font-size: 25px"></i>Bénéficiaires</a></li> --}}
                     <li class="nav-item no-sub"><a
-                        class="nav-link{{ request()->routeIs('client.contrats','client.contratsDetails','client.policeDetails','clients.ajout') ? ' active' : '' }}"
+                        class="nav-link{{ request()->routeIs('client.contrats','client.contratsDetails','client.policeDetails','clients.ajout','clients.beneficiaires') ? ' active' : '' }}"
                         href="{{route('client.contrats')}}"><i class="ti ti-file-description me-2" style="font-size: 25px"></i>Mes
                         Contrats
                         </a></li>

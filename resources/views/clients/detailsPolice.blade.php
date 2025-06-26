@@ -27,7 +27,9 @@
                                     style="font-size:20px">Détails du contrats</a></li>
                             <li><a href="#" class="active" style="font-size:20px">Détails de police</a></li>
                         </ul>
-
+                        <a href="{{ route('clients.beneficiaires', ['police_id' => $police['id']]) }}" type="button"
+                            class="btn btn-primary text-right"> <i class="ti ti-list"></i>
+                            Liste les bénéficiaires</a>
                     </div>
 
                 </div>
@@ -161,7 +163,8 @@
                                         <div class="col-md-4">
                                             <div style="text-align: right">
                                                 <a href="{{ route('clients.ajout', ['police_id' => $police['id']]) }}"
-                                                    type="button" class="btn btn-primary text-right"> <i class="ti ti-plus"></i>
+                                                    type="button" class="btn btn-primary text-right"> <i
+                                                        class="ti ti-plus"></i>
                                                     Enregistrer les bénéficiaires</a>
                                             </div>
                                         </div>

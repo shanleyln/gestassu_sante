@@ -79,14 +79,12 @@ Route::middleware('auth:api_user')->group(function () {
     // =======================
     Route::get('/Dashboard-client', [App\Http\Controllers\ClientController::class, 'index'])->name('clients.dashboard');
     Route::get('/Enregistrement/{police_id}', [App\Http\Controllers\BeneficiaireController::class, 'create'])->name('clients.ajout');
-    Route::get('/beneficiaires', [App\Http\Controllers\BeneficiaireController::class, 'index'])->name('clients.beneficiaires');
+    Route::get('/beneficiaires/{police_id}', [App\Http\Controllers\BeneficiaireController::class, 'index'])->name('clients.beneficiaires');
     Route::get('/clients.contrats', [App\Http\Controllers\ContratsController::class, 'contrat_client'])->name('client.contrats');
     Route::get('/client.contratsDetails/{contrat}', [App\Http\Controllers\ContratsController::class, 'contrat_clientDetails'])->name('client.contratsDetails');
     Route::get('/client.policeDetails/{police}', [App\Http\Controllers\ContratsController::class, 'police_clientDetails'])->name('client.policeDetails');
     Route::post('/saveBeneficiare', [App\Http\Controllers\BeneficiaireController::class, 'save_beneficiaire'])->name('client.beneficiare.save');
     
-
-
     Route::get('/Guide-ingenium', function () {
         return view('guide_connexion');
     })->name('guide_connexion');
