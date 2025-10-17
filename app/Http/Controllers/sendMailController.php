@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session; // Session est déjà importé par défaut, mais c'est une bonne pratique de le garder si vous l'utilisez explicitement.
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-// Note : Les imports de PHPMailer ne sont pas nécessaires
 // car vous utilisez la façade `Mail` de Laravel, ce qui est la bonne approche.
 
 class sendMailController extends Controller
