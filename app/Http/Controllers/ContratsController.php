@@ -29,7 +29,8 @@ class ContratsController extends Controller
         // Vérifie si l'appel est un succès
         if ($response->successful()) {
             $reponseContrats = $response->json();
-            $contrats = $reponseContrats['contrats'];
+            // dd($reponseContrats);
+            $contrats = $reponseContrats['contrats'] ?? null;
             return view('assureurs.contrats', ['contrats' => $contrats]);
         } else {
             return back()->withErrors(['erreur' => 'Échec de récupération des contrats.']);

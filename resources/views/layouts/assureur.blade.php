@@ -259,14 +259,6 @@
                                     class="bi bi-bar-chart-line me-2"></i>Reporting</a></li>
                         <li class="nav-item"><a class="nav-link disabled" href="#"><i
                                     class="bi bi-folder2-open me-2"></i>Documents</a></li>
-                        <li class="nav-item"><a class="nav-link disabled" href="#"><i
-                                    class="bi bi-chat-dots me-2"></i>Communication</a></li>
-                        <li class="nav-item"><a class="nav-link disabled" href="#"><i
-                                    class="bi bi-patch-check me-2"></i>Conformité</a></li>
-                        <li class="nav-item"><a class="nav-link disabled" href="#"><i
-                                    class="bi bi-gear me-2"></i>Administration</a></li>
-                        <li class="nav-item"><a class="nav-link disabled" href="#"><i
-                                    class="bi bi-plug me-2"></i>Intégration</a></li>
                         <li class="nav-item mt-4">
                             <a class="nav-link text-danger fw-bold d-flex align-items-center"
                                 href="{{ route('login') }}">

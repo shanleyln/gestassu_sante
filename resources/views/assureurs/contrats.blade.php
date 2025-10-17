@@ -17,18 +17,23 @@
                 <label class="form-label">Type Contrat :</label>
                 <select class="form-select shadowInput" id="filterType">
                     <option value="">Tous</option>
+                    @if (isset($contrats))
                     @foreach (array_unique(array_column($contrats, 'type_contrat')) as $type)
                         <option value="{{ $type }}">{{ $type }}</option>
                     @endforeach
+                    @endif
                 </select>
             </div>
             <div class="col-md-3">
                 <label class="form-label">Statut :</label>
                 <select class="form-select shadowInput" id="filterStatut">
                     <option value="">Tous</option>
+                    @if (isset($contrats))
+                        
                     @foreach (array_unique(array_column($contrats, 'statut')) as $statut)
                         <option value="{{ $statut }}">{{ $statut }}</option>
                     @endforeach
+                    @endif
                 </select>
             </div>
             <div class="col-md-6">
@@ -54,6 +59,7 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody">
+                    @if (isset($contrats))
                     @foreach ($contrats as $contrat)
                         <tr>
                             <td class="textPrimary fw-semibold">
@@ -104,6 +110,7 @@
                             </td>
                         </tr>
                     @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>
