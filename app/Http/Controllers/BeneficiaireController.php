@@ -12,17 +12,33 @@ class BeneficiaireController extends Controller
     //
     public function index($police_id)
     {
-        $responsebeneficiaire = Http::withHeaders([
-            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-            'Content-Type' => 'application/json'
-        ])->get('http://45.155.249.99/gestassusante/api/espace_client/liste_famille_temp/' . $police_id);
 
-        $response = Http::withHeaders([
-            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-            'Content-Type' => 'application/json'
-        ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/detail_police', [
-            'police_id' => $police_id,
-        ]);
+        if (session()->has('version_test')) {
+            $responsebeneficiaire = Http::withHeaders([
+                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+                'Content-Type' => 'application/json'
+            ])->get('http://45.155.249.99/gestassusante/api_test/espace_client/liste_famille_temp/' . $police_id);
+    
+            $response = Http::withHeaders([
+                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+                'Content-Type' => 'application/json'
+            ])->post('http://45.155.249.99/gestassusante/api_test/espace_partenaire/detail_police', [
+                'police_id' => $police_id,
+            ]);
+        }else{
+            $responsebeneficiaire = Http::withHeaders([
+                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+                'Content-Type' => 'application/json'
+            ])->get('http://45.155.249.99/gestassusante/api/espace_client/liste_famille_temp/' . $police_id);
+    
+            $response = Http::withHeaders([
+                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+                'Content-Type' => 'application/json'
+            ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/detail_police', [
+                'police_id' => $police_id,
+            ]);
+        }
+       
 
         if ($response->successful() && $responsebeneficiaire->successful()) {
             $data = $response->json();
@@ -49,12 +65,22 @@ class BeneficiaireController extends Controller
     public function create($police_id)
     {
 
-        $response = Http::withHeaders([
-            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-            'Content-Type' => 'application/json'
-        ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/detail_police', [
-            'police_id' => $police_id,
-        ]);
+        if (session()->has('version_test')) {
+            $response = Http::withHeaders([
+                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+                'Content-Type' => 'application/json'
+            ])->post('http://45.155.249.99/gestassusante/api_test/espace_partenaire/detail_police', [
+                'police_id' => $police_id,
+            ]);
+        }else{
+            $response = Http::withHeaders([
+                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+                'Content-Type' => 'application/json'
+            ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/detail_police', [
+                'police_id' => $police_id,
+            ]);
+        }
+       
 
         if ($response->successful()) {
             $data = $response->json();
@@ -129,11 +155,19 @@ class BeneficiaireController extends Controller
                 'lien_avec_assure' => $beneficiaire['lien_avec_assure'],
             ];
         }
-        $response = Http::withHeaders([
-            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-            'Content-Type' => 'application/json'
-        ])->post('http://45.155.249.99/gestassusante/api/espace_client/save_famille', $data);
-
+        if (session()->has('version_test')) {
+            $response = Http::withHeaders([
+                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+                'Content-Type' => 'application/json'
+            ])->post('http://45.155.249.99/gestassusante/api_test/espace_client/save_famille', $data);
+    
+        }else{
+            $response = Http::withHeaders([
+                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+                'Content-Type' => 'application/json'
+            ])->post('http://45.155.249.99/gestassusante/api/espace_client/save_famille', $data);
+        }
+        
         if ($response->successful()) {
             // Étape 3 : Rediriger en arrière avec un message de succès
             return back()->with('success', 'Les bénéficiaires ont été enregistrés avec succès.');

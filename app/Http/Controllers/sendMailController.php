@@ -37,17 +37,7 @@ class sendMailController extends Controller
                 if (isset($userDataOTP['status']) && $userDataOTP['status'] === 'error') {
                     return back()->withErrors(['identifier' => 'Aucun compte n\'est associé à cet identifiant.']);
                 }
-                // // Recherche de l'utilisateur par son email
-                // $user = User::where('email', $request->identifier)->first();
-
-                // // Si l'utilisateur n'existe pas, on retourne une erreur
-                // if (!$user) {
-                //     return back()->withErrors(['identifier' => 'Aucun compte n\'est associé à cette adresse email.']);
-                // }
-                // $OTP = new ApiUser($userDataOTP['message']);
-                // dd($OTP);
-                // Génération d'un code sécurisé
-                // $code = random_int(100000, 999999);
+            
                 $expiresAt = now()->addMinutes(10);
                 // Stocker les infos en session pour la page suivante
                 // Session::put('verification_code', $code);

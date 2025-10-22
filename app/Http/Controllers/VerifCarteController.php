@@ -40,8 +40,14 @@ class VerifCarteController extends Controller
             ->withErrors($errors);
         }
         // ✅ 2. Envoie de la requête vers l’API
-       
-        $response = $this->sendLoginRequest($request);
+        if (isset($request->version_test)) {
+            session()->put('version_test', $request->version_test);
+            $response = $this->sendLoginRequestTest($request);
+        }else{
+            // dd('Version Production');
+            // ✅ 2. Envoie de la requête vers l’API
+            $response = $this->sendLoginRequest($request);
+        }
         // ✅ 3. Gestion du succès
         if ($response->successful()) {
             $userData = $response->json();
@@ -66,6 +72,15 @@ class VerifCarteController extends Controller
             'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
             'Content-Type' => 'application/json'
         ])->post('http://45.155.249.99/gestassusante/api/beneficiaire/info', [
+            'matricule' => $request->input('matricule')
+        ]);
+    }
+    private function sendLoginRequestTest(Request $request): \Illuminate\Http\Client\Response
+    {
+        return Http::withHeaders([
+            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json'
+        ])->post('http://45.155.249.99/gestassusante/api_test/beneficiaire/info', [
             'matricule' => $request->input('matricule')
         ]);
     }

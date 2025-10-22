@@ -25,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        View::composer('*', function ($view) {
+            $view->with('version_test', Session::get('version_test'));
+        });
+
         $this->app['auth']->provider('api-user', function ($app, array $config) {
             return new ApiUserProvider();
         });
