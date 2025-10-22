@@ -27,7 +27,7 @@ class ContratsController extends Controller
             ])->post('http://45.155.249.99/gestassusante/api_test/espace_partenaire/liste_contrat', [
                 'assureur_id' => $idAssureur,
             ]);
-            dd('ok test');
+            dd(session('version_test'));
         } else {
             // Appel API
             $response = Http::withHeaders([
