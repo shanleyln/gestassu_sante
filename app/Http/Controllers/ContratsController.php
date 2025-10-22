@@ -18,26 +18,32 @@ class ContratsController extends Controller
         // Récupérer l'ID
         $idAssureur = Auth::guard('api_user')->user()->id_assureur;
 
+        $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
 
-        if (session()->has('version_test')) {
-            // Appel API
-            $response = Http::withHeaders([
-                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                'Content-Type' => 'application/json'
-            ])->post('http://45.155.249.99/gestassusante/api_test/espace_partenaire/liste_contrat', [
+        // Détermine la base URL selon le mode
+        $baseUrl = $useTest
+            ? 'http://45.155.249.99/gestassusante/api_test'
+            : 'http://45.155.249.99/gestassusante/api';
+
+        // En-têtes communs
+        $headers = [
+            'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json',
+        ];
+
+        // Appel API
+        $response = Http::withHeaders($headers)
+            ->post("$baseUrl/espace_partenaire/liste_contrat", [
                 'assureur_id' => $idAssureur,
             ]);
-            dd(session('version_test'));
+
+        // Debug (temporaire)
+        if ($useTest) {
+            dd('Version test activée', session('version_test'));
         } else {
-            // Appel API
-            $response = Http::withHeaders([
-                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                'Content-Type' => 'application/json'
-            ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/liste_contrat', [
-                'assureur_id' => $idAssureur,
-            ]);
-            dd('ok production');
+            dd('Version production');
         }
+
         // Vérifie si l'appel est un succès
         if ($response->successful()) {
             $reponseContrats = $response->json();
@@ -55,33 +61,33 @@ class ContratsController extends Controller
         $id_souscripteur_pm = Auth::guard('api_user')->user()->id_souscripteur_pm;
 
 
-        if (session()->has('version_test')) {
-            // Appel API
-            $response = Http::withHeaders([
-                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                'Content-Type' => 'application/json'
-            ])->post('http://45.155.249.99/gestassusante/api_test/espace_client/liste_contrat', [
-                "Personne_Morale_ID" => $id_souscripteur_pm,
-                "Personne_Physique_ID" => $id_souscripteur_pp,
-                "numero_contrat" => "",
-                "type_contrat" => "",
-                "statut" => "",
-                "nom_assureur" => ""
-            ]);
-        } else {
-            // Appel API
-            $response = Http::withHeaders([
-                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                'Content-Type' => 'application/json'
-            ])->post('http://45.155.249.99/gestassusante/api/espace_client/liste_contrat', [
-                "Personne_Morale_ID" => $id_souscripteur_pm,
-                "Personne_Physique_ID" => $id_souscripteur_pp,
-                "numero_contrat" => "",
-                "type_contrat" => "",
-                "statut" => "",
-                "nom_assureur" => ""
-            ]);
-        }
+        // Booléen fiable depuis la session (gère "1", "true", "on", etc.)
+        $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
+
+        // Détermine la base URL selon le mode
+        $baseUrl = $useTest
+            ? 'http://45.155.249.99/gestassusante/api_test'
+            : 'http://45.155.249.99/gestassusante/api';
+
+        // En-têtes communs
+        $headers = [
+            'X-API-KEY'   => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json',
+        ];
+
+        // Corps de la requête
+        $payload = [
+            "Personne_Morale_ID"   => $id_souscripteur_pm,
+            "Personne_Physique_ID" => $id_souscripteur_pp,
+            "numero_contrat"       => "",
+            "type_contrat"         => "",
+            "statut"               => "",
+            "nom_assureur"         => "",
+        ];
+
+        // Appel API (endpoint client)
+        $response = Http::withHeaders($headers)
+            ->post("$baseUrl/espace_client/liste_contrat", $payload);
 
         // Vérifie si l'appel est un succès
         if ($response->successful()) {
@@ -94,22 +100,25 @@ class ContratsController extends Controller
     }
     public function contrat_assureurDetails($contrat)
     {
-       
-        if (session()->has('version_test')) {
-            $response = Http::withHeaders([
-                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                'Content-Type' => 'application/json'
-            ])->post('http://45.155.249.99/gestassusante/api_test/espace_partenaire/detail_contrat', [
-                'contrat_id' => $contrat,
-            ]);
-        } else {
-            $response = Http::withHeaders([
-                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                'Content-Type' => 'application/json'
-            ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/detail_contrat', [
-                'contrat_id' => $contrat,
-            ]);
-        }
+
+        $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
+
+        $baseUrl = $useTest
+            ? 'http://45.155.249.99/gestassusante/api_test'
+            : 'http://45.155.249.99/gestassusante/api';
+
+        $headers = [
+            'X-API-KEY'    => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json',
+        ];
+
+        $payload = [
+            'contrat_id' => $contrat,
+        ];
+
+        $response = Http::withHeaders($headers)
+            // ->timeout(15)->retry(3, 200) // (optionnel) robustesse réseau
+            ->post("$baseUrl/espace_partenaire/detail_contrat", $payload);
         if ($response->successful()) {
             $detailsContrats = $response->json();
 
@@ -128,22 +137,25 @@ class ContratsController extends Controller
     }
     public function contrat_clientDetails($contrat)
     {
-        
-        if (session()->has('version_test')) {
-            $response = Http::withHeaders([
-                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                'Content-Type' => 'application/json'
-            ])->post('http://45.155.249.99/gestassusante/api_test/espace_partenaire/detail_contrat', [
-                'contrat_id' => $contrat,
-            ]);
-        } else {
-            $response = Http::withHeaders([
-                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                'Content-Type' => 'application/json'
-            ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/detail_contrat', [
-                'contrat_id' => $contrat,
-            ]);
-        }
+
+        $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
+
+        $baseUrl = $useTest
+            ? 'http://45.155.249.99/gestassusante/api_test'
+            : 'http://45.155.249.99/gestassusante/api';
+
+        $headers = [
+            'X-API-KEY'    => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json',
+        ];
+
+        $payload = [
+            'contrat_id' => $contrat,
+        ];
+
+        $response = Http::withHeaders($headers)
+            // ->timeout(15)->retry(3, 200) // optionnel
+            ->post("$baseUrl/espace_partenaire/detail_contrat", $payload);
         if ($response->successful()) {
             $detailsContrats = $response->json();
 
@@ -163,22 +175,25 @@ class ContratsController extends Controller
     // Controller
     public function police_assureurDetails($police)
     {
-        
-        if (session()->has('version_test')) {
-            $response = Http::withHeaders([
-                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                'Content-Type' => 'application/json'
-            ])->post('http://45.155.249.99/gestassusante/api_test/espace_partenaire/detail_police', [
-                'police_id' => $police,
-            ]);
-        } else {
-            $response = Http::withHeaders([
-                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                'Content-Type' => 'application/json'
-            ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/detail_police', [
-                'police_id' => $police,
-            ]);
-        }
+
+        $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
+
+        $baseUrl = $useTest
+            ? 'http://45.155.249.99/gestassusante/api_test'
+            : 'http://45.155.249.99/gestassusante/api';
+
+        $headers = [
+            'X-API-KEY'    => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json',
+        ];
+
+        $payload = [
+            'police_id' => $police,
+        ];
+
+        $response = Http::withHeaders($headers)
+            // ->timeout(15)->retry(3, 200) // (optionnel) robustesse
+            ->post("$baseUrl/espace_partenaire/detail_police", $payload);
         if ($response->successful()) {
             $data = $response->json();
 
@@ -198,22 +213,25 @@ class ContratsController extends Controller
     }
     public function police_clientDetails($police)
     {
-        if (session()->has('version_test')) {
-            $response = Http::withHeaders([
-                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                'Content-Type' => 'application/json'
-            ])->post('http://45.155.249.99/gestassusante/api_test/espace_partenaire/detail_police', [
-                'police_id' => $police,
-            ]);
-        } else {
-            $response = Http::withHeaders([
-                'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                'Content-Type' => 'application/json'
-            ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/detail_police', [
-                'police_id' => $police,
-            ]);
-        }
-        
+        $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
+
+        $baseUrl = $useTest
+            ? 'http://45.155.249.99/gestassusante/api_test'
+            : 'http://45.155.249.99/gestassusante/api';
+
+        $headers = [
+            'X-API-KEY'    => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+            'Content-Type' => 'application/json',
+        ];
+
+        $payload = [
+            'police_id' => $police,
+        ];
+
+        $response = Http::withHeaders($headers)
+            // ->timeout(15)->retry(3, 200)->throw() // optionnel
+            ->post("$baseUrl/espace_partenaire/detail_police", $payload);
+
 
         if ($response->successful()) {
             $data = $response->json();

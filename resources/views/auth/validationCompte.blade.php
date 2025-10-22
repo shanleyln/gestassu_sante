@@ -109,8 +109,13 @@ color: #fff;">
                                                         placeholder="Votre identifiant" required type="text">
                                                 </div>
                                                 <div class="form-check mb-3" style="color:#5e2d17;font-size:0.98rem;">
-                                                    <input class="form-check-input shadow" type="checkbox" name="version_test" id="version_test">
-                                                    <label class="form-check-label fw-semibold" for="version_test" >
+                                                    <!-- Champ caché pour forcer la valeur à 0 si décoché -->
+                                                    <input type="hidden" name="version_test" value="0">
+
+                                                    <!-- Checkbox (valeur 1 si coché) -->
+                                                    <input class="form-check-input shadow" type="checkbox"
+                                                        name="version_test" id="version_test" value="1">
+                                                    <label class="form-check-label fw-semibold" for="version_test">
                                                         Se connecter en version test.
                                                     </label>
                                                 </div>
@@ -127,7 +132,7 @@ color: #fff;">
                                                         validation en cours...
                                                     </button>
                                                 </div>
-                                                <a href="{{ route('login')}}" class="btn btn-link text-danger px-0">
+                                                <a href="{{ route('login') }}" class="btn btn-link text-danger px-0">
                                                     <i class="ti ti-arrow-left me-1"></i>Annuler la validation
                                                 </a>
                                             </div>

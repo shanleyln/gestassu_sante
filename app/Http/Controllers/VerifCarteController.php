@@ -40,12 +40,11 @@ class VerifCarteController extends Controller
             ->withErrors($errors);
         }
         // ✅ 2. Envoie de la requête vers l’API
-        if (isset($request->version_test)) {
-            session()->put('version_test', $request->version_test);
+       
+        if ($request->boolean('version_test')) {
+            session()->put('version_test', true);
             $response = $this->sendLoginRequestTest($request);
-        }else{
-            // dd('Version Production');
-            // ✅ 2. Envoie de la requête vers l’API
+        } else {
             $response = $this->sendLoginRequest($request);
         }
         // ✅ 3. Gestion du succès

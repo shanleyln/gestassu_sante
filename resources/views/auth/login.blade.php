@@ -255,43 +255,48 @@ color: #fff;">
                                 <div class="mb-3">
                                     <div class="input-group input-group-lg">
                                         <span class="input-group-text bg-white border-end-0"><i
-                                            class="bi bi-person"></i></span>
-                                            <input type="text" id="email" name="email"
+                                                class="bi bi-person"></i></span>
+                                        <input type="text" id="email" name="email"
                                             value="{{ old('email') }}" class="form-control shadowInput"
                                             placeholder="Identifiant" required autocomplete="false">
-                                            <div class="invalid-feedback">
-                                                Ce champ est requis.
-                                            </div>
+                                        <div class="invalid-feedback">
+                                            Ce champ est requis.
                                         </div>
-                                        @if ($errors->has('email'))
-                                            <div class="text-danger mt-1">{{ $errors->first('email') }}</div>
-                                        @endif
+                                    </div>
+                                    @if ($errors->has('email'))
+                                        <div class="text-danger mt-1">{{ $errors->first('email') }}</div>
+                                    @endif
                                 </div>
                                 <div class="mb-3">
                                     <div class="input-group input-group-lg">
                                         <span class="input-group-text bg-white border-end-0"><i
-                                            class="bi bi-lock"></i></span>
-                                            <input type="password" id="password" name="password"
+                                                class="bi bi-lock"></i></span>
+                                        <input type="password" id="password" name="password"
                                             class="form-control shadowInput" placeholder="Mot de passe" required
                                             autocomplete="false">
-                                            <span class="input-group-text bg-white" style="cursor:pointer"
+                                        <span class="input-group-text bg-white" style="cursor:pointer"
                                             onclick="togglePassword()"><i class="bi bi-eye"
-                                            id="togglePwd"></i></span>
-                                            <div class="invalid-feedback">
-                                                Veuillez saisir votre identifiant.
-                                            </div>
+                                                id="togglePwd"></i></span>
+                                        <div class="invalid-feedback">
+                                            Veuillez saisir votre identifiant.
                                         </div>
-                                        @if ($errors->has('password'))
-                                            <div class="text-danger mt-1">{{ $errors->first('password') }}</div>
-                                        @endif
+                                    </div>
+                                    @if ($errors->has('password'))
+                                        <div class="text-danger mt-1">{{ $errors->first('password') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-check mb-3" style="color:#5e2d17;font-size:0.98rem;">
-                                    <input class="form-check-input shadow" type="checkbox" name="version_test" id="version_test1">
-                                    <label class="form-check-label fw-semibold" for="version_test1" >
+                                    <!-- Champ caché pour forcer la valeur à 0 si décoché -->
+                                    <input type="hidden" name="version_test" value="0">
+
+                                    <!-- Checkbox (valeur 1 si coché) -->
+                                    <input class="form-check-input shadow" type="checkbox" name="version_test"
+                                        id="version_test1" value="1">
+                                    <label class="form-check-label fw-semibold" for="version_test1">
                                         Se connecter en version test.
                                     </label>
                                 </div>
-                                
+
                                 <div class="d-grid mb-2 mt-4">
                                     <!-- Bouton principal -->
                                     <button type="submit" id="btnSubmit" class="btn btn-brown btn-lg fw-bold"
@@ -355,8 +360,13 @@ color: #fff;">
                                     </div>
                                 </div>
                                 <div class="form-check mb-3" style="color:#5e2d17;font-size:0.98rem;">
-                                    <input class="form-check-input shadow" type="checkbox" name="version_test" value="version_test" id="version_test">
-                                    <label class="form-check-label fw-semibold" for="version_test" >
+                                    <!-- Champ caché pour forcer la valeur à 0 si décoché -->
+                                    <input type="hidden" name="version_test" value="0">
+
+                                    <!-- Checkbox (valeur 1 si coché) -->
+                                    <input class="form-check-input shadow" type="checkbox" name="version_test"
+                                        id="version_test" value="1">
+                                    <label class="form-check-label fw-semibold" for="version_test">
                                         Se connecter en version test.
                                     </label>
                                 </div>

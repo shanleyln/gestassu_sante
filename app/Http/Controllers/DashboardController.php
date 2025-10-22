@@ -38,19 +38,21 @@ class DashboardController extends Controller
 
         try {
 
-            if (session()->has('version_test')) {
-                // On récupère les contrats
-                $responseContrats = Http::withHeaders([
-                    'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                    'Content-Type' => 'application/json'
-                ])->post('http://45.155.249.99/gestassusante/api_test/espace_partenaire/liste_contrat', []);
-            } else {
-                // On récupère les contrats
-                $responseContrats = Http::withHeaders([
-                    'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
-                    'Content-Type' => 'application/json'
-                ])->post('http://45.155.249.99/gestassusante/api/espace_partenaire/liste_contrat', []);
-            }
+            $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
+
+            $baseUrl = $useTest
+                ? 'http://45.155.249.99/gestassusante/api_test'
+                : 'http://45.155.249.99/gestassusante/api';
+
+            $headers = [
+                'X-API-KEY'    => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
+                'Content-Type' => 'application/json',
+            ];
+
+            // On récupère les contrats
+            $responseContrats = Http::withHeaders($headers)
+                // ->timeout(15)->retry(3, 200) // optionnel
+                ->post("$baseUrl/espace_partenaire/liste_contrat", []);
             if ($responseContrats->successful()) {
                 $data = $responseContrats->json();
                 $contrats = count($data);

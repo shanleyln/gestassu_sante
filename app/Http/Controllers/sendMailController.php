@@ -208,9 +208,7 @@ class sendMailController extends Controller
                 // On nettoie la session pour ne pas pouvoir réutiliser le code.
                 $this->clearSession();
                 Session::forget('user_id_verified');
-                if (session()->has('version_test')) {
-                    session()->forget('version_test');
-                }
+                session()->flush();
                 return redirect()->route('login')->with('success', 'Mot de passe réenitialisé avec succès !');
             }
         } catch (\Exception $e) {
