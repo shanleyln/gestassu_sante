@@ -37,13 +37,6 @@ class ContratsController extends Controller
                 'assureur_id' => $idAssureur,
             ]);
 
-        // Debug (temporaire)
-        if ($useTest) {
-            dd('Version test activée', session('version_test'));
-        } else {
-            dd('Version production');
-        }
-
         // Vérifie si l'appel est un succès
         if ($response->successful()) {
             $reponseContrats = $response->json();
