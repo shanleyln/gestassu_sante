@@ -286,8 +286,8 @@ color: #fff;">
                                         @endif
                                 </div>
                                 <div class="form-check mb-3" style="color:#5e2d17;font-size:0.98rem;">
-                                    <input class="form-check-input shadow" type="checkbox" name="version_test" id="version_test">
-                                    <label class="form-check-label fw-semibold" for="version_test" >
+                                    <input class="form-check-input shadow" type="checkbox" name="version_test" id="version_test1">
+                                    <label class="form-check-label fw-semibold" for="version_test1" >
                                         Se connecter en version test.
                                     </label>
                                 </div>
