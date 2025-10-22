@@ -108,6 +108,12 @@ color: #fff;">
                                                     <input class="form-control" id="identifiant" name="identifiant"
                                                         placeholder="Votre identifiant" required type="text">
                                                 </div>
+                                                <div class="form-check mb-3" style="color:#5e2d17;font-size:0.98rem;">
+                                                    <input class="form-check-input shadow" type="checkbox" name="version_test" id="version_test">
+                                                    <label class="form-check-label fw-semibold" for="version_test" >
+                                                        Se connecter en version test.
+                                                    </label>
+                                                </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="mb-2">

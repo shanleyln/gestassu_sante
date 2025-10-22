@@ -68,7 +68,7 @@
     <div class="email-container bg-light shadow">
         <div class="header">
             {{-- Assurez-vous que le lien de l'image est absolu --}}
-            <img src="https://nehemie-international.com/images/logo2.png" alt="Logo INGENIUM-SANTE" class="logo">
+            <img src="https://ingenium-assurance.com/images/logo-ingenium-assu.png" alt="Logo INGENIUM-SANTE" class="logo">
         </div>
 
         <div class="title">Votre code de vérification</div>
