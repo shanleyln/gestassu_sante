@@ -10,6 +10,7 @@ Route::get('/Guide-ingenium-sante', function () {
 })->name('guide');
 
 Route::get('/login', function () {
+    session()->flush();
     return view('auth.login');
 })->name('login');
 Route::get('/Newlogin', function () {
