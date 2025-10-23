@@ -17,7 +17,7 @@ class BeneficiaireController extends Controller
 
         // Définition automatique de la base URL
         $baseUrl = $useTest
-            ? 'http://45.155.249.99/gestassusante/api_test'
+            ? 'http://45.155.249.99/gestassusante_test/api_test'
             : 'http://45.155.249.99/gestassusante/api';
 
         // En-têtes communs
@@ -64,7 +64,7 @@ class BeneficiaireController extends Controller
         $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
         // Vérifie la session et choisit automatiquement l’URL
         $baseUrl = $useTest
-            ? 'http://45.155.249.99/gestassusante/api_test'
+            ? 'http://45.155.249.99/gestassusante_test/api_test'
             : 'http://45.155.249.99/gestassusante/api';
 
         $response = Http::withHeaders([
@@ -152,7 +152,7 @@ class BeneficiaireController extends Controller
         $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
         // Détermine la base URL selon la session
         $baseUrl = $useTest
-            ? 'http://45.155.249.99/gestassusante/api_test'
+            ? 'http://45.155.249.99/gestassusante_test/api_test'
             : 'http://45.155.249.99/gestassusante/api';
 
         // Appel API

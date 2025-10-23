@@ -31,7 +31,7 @@ class sendMailController extends Controller
         return Http::withHeaders([
             'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
             'Content-Type' => 'application/json'
-        ])->post('http://45.155.249.99/gestassusante/api_test/espace_client/generer_otp', [
+        ])->post('http://45.155.249.99/gestassusante_test/api_test/espace_client/generer_otp', [
             'identifiant' => $request->input('identifiant'),
         ]);
     }
@@ -47,32 +47,32 @@ class sendMailController extends Controller
         }
         // dd($responseotp);
         // try {
-            // ✅ 3. Gestion du succès
-            if ($responseotp->successful()) {
-                $userDataOTP = $responseotp->json();
-                if (isset($userDataOTP['status']) && $userDataOTP['status'] === 'error') {
-                    return back()->withErrors(['identifier' => 'Aucun compte n\'est associé à cet identifiant.']);
-                }
-
-                $expiresAt = now()->addMinutes(10);
-                // Stocker les infos en session pour la page suivante
-                // Session::put('verification_code', $code);
-                Session::put('verification_code_expires_at', $expiresAt);
-                Session::put('verification_user_id', $request->input('identifiant'));
-
-
-                // On envoie l'e-mail à l'utilisateur trouvé.
-                // On passe UNIQUEMENT le code au Mailable.
-                // Mail::to('yodingenierieia@gmail.com')->send(new EnvoiCode($code));
-
-                // Rediriger vers la page de saisie du code (OTP)
-                return redirect()->route('verificationOTP')->with([
-                    'success' => 'Un code a été envoyé.',
-                    'expires_at' => $expiresAt
-                ]);
-            }else{
-                return back()->withErrors(['identifier' => 'Un souci est survenu,merci de réesayer plus tard.']);
+        // ✅ 3. Gestion du succès
+        if ($responseotp->successful()) {
+            $userDataOTP = $responseotp->json();
+            if (isset($userDataOTP['status']) && $userDataOTP['status'] === 'error') {
+                return back()->withErrors(['identifier' => 'Aucun compte n\'est associé à cet identifiant.']);
             }
+
+            $expiresAt = now()->addMinutes(10);
+            // Stocker les infos en session pour la page suivante
+            // Session::put('verification_code', $code);
+            Session::put('verification_code_expires_at', $expiresAt);
+            Session::put('verification_user_id', $request->input('identifiant'));
+
+
+            // On envoie l'e-mail à l'utilisateur trouvé.
+            // On passe UNIQUEMENT le code au Mailable.
+            // Mail::to('yodingenierieia@gmail.com')->send(new EnvoiCode($code));
+
+            // Rediriger vers la page de saisie du code (OTP)
+            return redirect()->route('verificationOTP')->with([
+                'success' => 'Un code a été envoyé.',
+                'expires_at' => $expiresAt
+            ]);
+        } else {
+            return back()->withErrors(['identifier' => 'Un souci est survenu,merci de réesayer plus tard.']);
+        }
         // } catch (\Exception $e) {
         //     // En cas d'échec de l'envoi
         //     // Log::error("Mail sending failed: " . $e->getMessage()); // Pensez à logger l'erreur pour le débogage
@@ -138,7 +138,7 @@ class sendMailController extends Controller
         return Http::withHeaders([
             'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
             'Content-Type' => 'application/json'
-        ])->post('http://45.155.249.99/gestassusante/api_test/espace_client/verifie_otp', [
+        ])->post('http://45.155.249.99/gestassusante_test/api_test/espace_client/verifie_otp', [
             'identifiant' => $request->input('identifiant', Session::get('verification_user_id')), // ou passe 'identifiant' en session si besoin
             'receive_otp' => $otpNumber, // ou passe 'identifiant' en session si besoin
         ]);
@@ -146,7 +146,7 @@ class sendMailController extends Controller
     }
     public function verifyCode(Request $request)
     {
-        
+
         $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
 
         // Définition automatique de la base URL
@@ -170,7 +170,7 @@ class sendMailController extends Controller
                 Session::forget('verification_user_id');
 
                 return redirect()->route('mot-de-passe')->with('success', 'Vérification réussie ! Vous pouvez maintenant réinitialiser votre mot de passe.');
-            }else{
+            } else {
                 return back()->withErrors(['identifier' => 'Un souci est survenu,merci de réesayer plus tard.']);
             }
         } catch (\Exception $e) {
@@ -187,7 +187,7 @@ class sendMailController extends Controller
         return Http::withHeaders([
             'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
             'Content-Type' => 'application/json'
-        ])->post('http://45.155.249.99/gestassusante/api_test/espace_client/generer_otp', [
+        ])->post('http://45.155.249.99/gestassusante_test/api_test/espace_client/generer_otp', [
             'identifiant' => $request->input('identifiant', Session::get('verification_user_id')), // ou passe 'identifiant' en session si besoin
         ]);
     }
@@ -210,11 +210,11 @@ class sendMailController extends Controller
         try {
 
             $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
-        // Définition automatique de la base URL
+            // Définition automatique de la base URL
 
-        $responseotp = $useTest
-            ? $this->resendRequestOTPTest($request)
-            : $this->resendRequestOTP($request);
+            $responseotp = $useTest
+                ? $this->resendRequestOTPTest($request)
+                : $this->resendRequestOTP($request);
 
             if ($responseotp->successful()) {
                 $userDataOTP = $responseotp->json();
@@ -262,7 +262,7 @@ class sendMailController extends Controller
         return Http::withHeaders([
             'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
             'Content-Type' => 'application/json'
-        ])->post('http://45.155.249.99/gestassusante/api_test/espace_client/active_compte', [
+        ])->post('http://45.155.249.99/gestassusante_test/api_test/espace_client/active_compte', [
             'identifiant' => $request->input('identifiant', Session::get('user_id_verified')), // ou passe 'identifiant' en session si besoin
             'mot_de_passe' => $request->input('mot_de_passe') // ou passe 'identifiant' en session si besoin
         ]);

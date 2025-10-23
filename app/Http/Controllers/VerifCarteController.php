@@ -23,24 +23,24 @@ class VerifCarteController extends Controller
 
     public function identifiant(Request $request)
     {
-        
+
         // ✅ 1. Validation sécurisée
         session()->forget('userData');
         $matricule = strtoupper($request->input('matricule'));
 
         if (!preg_match('/^[A-Z]{4}-[0-9]{1,}$/', $matricule)) {
             return redirect()->back()
-            ->withInput()
-            ->withErrors(['matricule' => 'Le format du code est invalide. Utilisez le format ABCD-1.']);
+                ->withInput()
+                ->withErrors(['matricule' => 'Le format du code est invalide. Utilisez le format ABCD-1.']);
         }
         // ✅ 1.1. Gestion des messages d'erreur de validation
         if ($errors = $request->get('errors')) {
             return redirect()->back()
-            ->withInput()
-            ->withErrors($errors);
+                ->withInput()
+                ->withErrors($errors);
         }
         // ✅ 2. Envoie de la requête vers l’API
-       
+
         if ($request->boolean('version_test')) {
             session()->put('version_test', true);
             $response = $this->sendLoginRequestTest($request);
@@ -51,7 +51,7 @@ class VerifCarteController extends Controller
         if ($response->successful()) {
             $userData = $response->json();
             // Écraser la session si elle existe déjà
-        //    dd($userData);
+            //    dd($userData);
             // Vérifier si l'utilisateur existe
             if (isset($userData['status']) && $userData['status'] === 'error') {
                 return redirect()->back()
@@ -79,7 +79,7 @@ class VerifCarteController extends Controller
         return Http::withHeaders([
             'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
             'Content-Type' => 'application/json'
-        ])->post('http://45.155.249.99/gestassusante/api_test/beneficiaire/info', [
+        ])->post('http://45.155.249.99/gestassusante_test/api_test/beneficiaire/info', [
             'matricule' => $request->input('matricule')
         ]);
     }

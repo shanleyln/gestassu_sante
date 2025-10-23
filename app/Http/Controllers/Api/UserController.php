@@ -86,7 +86,7 @@ class UserController extends Controller
         return Http::withHeaders([
             'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
             'Content-Type' => 'application/json'
-        ])->post('http://45.155.249.99/gestassusante/api_test/user/login_espace_partenaire', [
+        ])->post('http://45.155.249.99/gestassusante_test/api_test/user/login_espace_partenaire', [
             'login' => $request->input('email'),
             'mdp' => $request->input('password'),
             'code_structure' => $request->input('code_structure')
@@ -172,7 +172,7 @@ class UserController extends Controller
         return Http::withHeaders([
             'X-API-KEY' => 'AOoEQWP9T5L1CAmeQxFbn8oxiC2ES9EB',
             'Content-Type' => 'application/json'
-        ])->post('http://45.155.249.99/gestassusante/api_test/espace_client/connexion', [
+        ])->post('http://45.155.249.99/gestassusante_test/api_test/espace_client/connexion', [
             'identifiant' => $request->input('identifiant'),
             'mot_de_passe' => $request->input('mot_de_passe')
         ]);

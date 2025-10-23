@@ -22,7 +22,7 @@ class ContratsController extends Controller
 
         // Détermine la base URL selon le mode
         $baseUrl = $useTest
-            ? 'http://45.155.249.99/gestassusante/api_test'
+            ? 'http://45.155.249.99/gestassusante_test/api_test'
             : 'http://45.155.249.99/gestassusante/api';
 
         // En-têtes communs
@@ -59,7 +59,7 @@ class ContratsController extends Controller
 
         // Détermine la base URL selon le mode
         $baseUrl = $useTest
-            ? 'http://45.155.249.99/gestassusante/api_test'
+            ? 'http://45.155.249.99/gestassusante_test/api_test'
             : 'http://45.155.249.99/gestassusante/api';
 
         // En-têtes communs
@@ -97,7 +97,7 @@ class ContratsController extends Controller
         $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
 
         $baseUrl = $useTest
-            ? 'http://45.155.249.99/gestassusante/api_test'
+            ? 'http://45.155.249.99/gestassusante_test/api_test'
             : 'http://45.155.249.99/gestassusante/api';
 
         $headers = [
@@ -134,7 +134,7 @@ class ContratsController extends Controller
         $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
 
         $baseUrl = $useTest
-            ? 'http://45.155.249.99/gestassusante/api_test'
+            ? 'http://45.155.249.99/gestassusante_test/api_test'
             : 'http://45.155.249.99/gestassusante/api';
 
         $headers = [
@@ -172,7 +172,7 @@ class ContratsController extends Controller
         $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
 
         $baseUrl = $useTest
-            ? 'http://45.155.249.99/gestassusante/api_test'
+            ? 'http://45.155.249.99/gestassusante_test/api_test'
             : 'http://45.155.249.99/gestassusante/api';
 
         $headers = [
@@ -209,7 +209,7 @@ class ContratsController extends Controller
         $useTest = filter_var(session('version_test'), FILTER_VALIDATE_BOOLEAN);
 
         $baseUrl = $useTest
-            ? 'http://45.155.249.99/gestassusante/api_test'
+            ? 'http://45.155.249.99/gestassusante_test/api_test'
             : 'http://45.155.249.99/gestassusante/api';
 
         $headers = [
