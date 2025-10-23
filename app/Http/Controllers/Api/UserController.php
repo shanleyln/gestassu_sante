@@ -27,14 +27,13 @@ class UserController extends Controller
             'password.string' => 'Le mot de passe doit être une chaîne de caractères.',
             'password.min' => 'Le mot de passe doit contenir au moins 5 caractères.',
         ]);
-        
         if ($request->boolean('version_test')) {
             session()->put('version_test', true);
             $response = $this->sendLoginRequestTest($request);
         } else {
             $response = $this->sendLoginRequest($request);
         }
-        
+
         // ✅ 3. Gestion du succès
         if ($response->successful()) {
             $userData = $response->json();
@@ -57,7 +56,7 @@ class UserController extends Controller
             // dd(); 
             // Auth::guard('api_user')->check(); // doit retourner true
             // Auth::guard('api_user')->user(); // doit retourner un ApiUser
-           
+
 
             if ($user->categorie == "ASSUREUR") {
                 return redirect()->route('assureur.actualite');
@@ -105,11 +104,10 @@ class UserController extends Controller
             'mot_de_passe.string' => 'Le mot de passe doit être une chaîne de caractères.',
             'mot_de_passe.min' => 'Le mot de passe doit contenir au moins 5 caractères.',
         ]);
-
         if (isset($request->version_test)) {
             session()->put('version_test', $request->version_test);
             $response = $this->sendLoginRequestClientTest($request);
-        }else{
+        } else {
             // dd('Version Production');
             // ✅ 2. Envoie de la requête vers l’API
             $response = $this->sendLoginRequestClient($request);

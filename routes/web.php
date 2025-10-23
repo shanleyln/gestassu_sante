@@ -10,7 +10,6 @@ Route::get('/Guide-ingenium-sante', function () {
 })->name('guide');
 
 Route::get('/login', function () {
-    session()->flush();
     return view('auth.login');
 })->name('login');
 Route::get('/Newlogin', function () {
@@ -85,7 +84,7 @@ Route::middleware('auth:api_user')->group(function () {
     Route::get('/client.contratsDetails/{contrat}', [App\Http\Controllers\ContratsController::class, 'contrat_clientDetails'])->name('client.contratsDetails');
     Route::get('/client.policeDetails/{police}', [App\Http\Controllers\ContratsController::class, 'police_clientDetails'])->name('client.policeDetails');
     Route::post('/saveBeneficiare', [App\Http\Controllers\BeneficiaireController::class, 'save_beneficiaire'])->name('client.beneficiare.save');
-    
+
     Route::get('/Guide-ingenium', function () {
         return view('guide_connexion');
     })->name('guide_connexion');
