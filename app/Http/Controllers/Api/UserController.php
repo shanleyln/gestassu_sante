@@ -104,7 +104,8 @@ class UserController extends Controller
             'mot_de_passe.string' => 'Le mot de passe doit être une chaîne de caractères.',
             'mot_de_passe.min' => 'Le mot de passe doit contenir au moins 5 caractères.',
         ]);
-        if (isset($request->version_test)) {
+
+        if ($request->version_test == 1) {
             session()->put('version_test', $request->version_test);
             $response = $this->sendLoginRequestClientTest($request);
         } else {
