@@ -281,6 +281,7 @@ class sendMailController extends Controller
             // ✅ 3. Gestion du succès
             if ($response->successful()) {
                 $userData = $response->json();
+                dd($userData);
                 if (isset($userData['status']) && $userData['status'] === 'error') {
                     return back()->withErrors(['password' => $userData['message']]);
                 }
